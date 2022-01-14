@@ -1,11 +1,18 @@
 // sae.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
 //
-
 #include <iostream>
+#include "struct.h"
+#include "stats.cpp"
+using namespace std;
+
+int debug_stat() {
+
+    return 0;
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    cout << debug_stat();
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

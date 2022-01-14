@@ -18,10 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\p2104367\Downloads\config_sdl.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="config_sdl.cpp">
+    <ClCompile Include="stats.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -33,6 +30,9 @@
       <Filter>Fichiers sources</Filter>
     </ClInclude>
     <ClInclude Include="config_sdl.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
   </ItemGroup>
