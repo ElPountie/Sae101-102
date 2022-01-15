@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\p2104367\Downloads\config_sdl.cpp" />
     <ClCompile Include="config_sdl.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -147,7 +146,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\p2104367\Downloads\config_sdl.h" />
     <ClInclude Include="config_sdl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

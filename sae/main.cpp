@@ -1,20 +1,80 @@
-// sae.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
+#include<SDL.h> //ne pas oublier
+#include<SDL_ttf.h> //ne pas oublier
+#include<iostream>
+#include <fstream>
+#include "config_sdl.h"
 
-#include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+const int TAILLEX = 600, TAILLEY = 600;
+
+
+int main(int argn, char* argv[]) {//entête imposée
+   //ouverture de la SDL
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        cout << "Echec à l’ouverture";
+        return 1;
+    }
+
+    //on crée la fenêtre
+    SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
+        SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
+        SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
+        TAILLEX,                         //largeur en pixels                        
+        TAILLEY,                         //hauteur en pixels
+        SDL_WINDOW_SHOWN //d’autres options (plein ecran, resizable, sans bordure...)
+    );
+
+    if (win == NULL)
+        cout << "erreur ouverture fenetre";
+
+    SDL_Renderer* rendu = SDL_CreateRenderer(
+        win,  //nom de la fenêtre
+        -1, //par défaut
+        SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
+
+    bool continuer = true;   //booléen fin de programme
+    SDL_Event event;//gestion des évènements souris/clavier, 
+                                    //SDL_Event est de type struct
+
+  
+
+
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+
+    //Clear the entire screen to our selected color.
+    SDL_RenderClear(rendu);
+
+    //Up until now everything was drawn behind the scenes.
+    //This will show the new, red contents of the window.
+
+    SDL_Surface* image = IMG_Load("panda.png");
+    if (!image)
+    {
+        printf("Erreur de chargement de l'image : %s", SDL_GetError());
+        return 1001; //erreur chargement image 
+    }
+    SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);  //La texture monImage contient maintenant l'image importée
+    SDL_FreeSurface(image);
+
+    SDL_Rect position;
+    position.x = 0;
+    position.y = 0;
+    SDL_QueryTexture(monImage, NULL, NULL, &position.w, &position.h);
+    SDL_RenderCopy(rendu, monImage, NULL, &position);
+
+    SDL_RenderPresent(rendu);
+
+    while (continuer)
+    {
+        SDL_WaitEvent(&event);//attente d’un évènement
+        switch (event.type) //test du type d’évènement
+        {
+        case SDL_QUIT: //clic sur la croix de fermeture
+                                        //on peut enlever SDL_Delay
+            continuer = false;
+            break;
+
+        }
+    }
 }
-
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
-
-// Astuces pour bien démarrer : 
-//   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
-//   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
-//   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
-//   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
