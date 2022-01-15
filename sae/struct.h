@@ -13,4 +13,7 @@ struct Panda {
 	int posy;
 };
 
+const int NBBAMBOUX = 50;
+const int NBBAMBOUY = 50;
+
 #endif
