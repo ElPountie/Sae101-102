@@ -3,16 +3,28 @@
 #include <iostream>
 #include "struct.h"
 #include "stats.cpp"
+#include "update.cpp"
 using namespace std;
 
-int debug_stat() {
+const int NBBAMBOUX = 50;
+const int NBBAMBOUY = 50;
+
+int debug_stat(Bambou* tabbambou[], int taillex, int tailley) {
+    update_bambou_size(tabbambou, taillex, tailley);
+    cout << tab_moy_column_line(tabbambou, taillex, tailley);
+    print_bambou(&tabbambou[49], taillex, tailley);
+    return 0;
+}
+
+int debug_update(Bambou* tabbambou[], int taillex, int tailley) {
 
     return 0;
 }
 
 int main()
 {
-    cout << debug_stat();
+    Bambou* tabbambou[NBBAMBOUX][NBBAMBOUY];
+    cout << debug_stat(&tabbambou[49][49], 50, 50);
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

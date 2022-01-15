@@ -6,4 +6,11 @@ struct Bambou {
 	int vitesse;
 };
 
+struct Panda {
+	int batterie;
+	int distance;
+	int posx;
+	int posy;
+};
+
 #endif
