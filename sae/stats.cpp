@@ -3,7 +3,7 @@
 using namespace std;
 const int NB_MAX_BAMBOO = 100;
 
-int tab_moy_line(int tailley, Bambou tabbambou[]) {
+int tab_moy_line(Bambou tabbambou[], int tailley) {
 	int moy = 0;
 	for (int i = 0; i < tailley; i++) {
 		moy += tabbambou[i].taille;
