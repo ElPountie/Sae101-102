@@ -1,103 +1,115 @@
-#include<SDL.h> //ne pas oublier
-#include<SDL_ttf.h> //ne pas oublier
+#include<SDL.h> 
+#include<SDL_ttf.h> 
 #include<iostream>
-#include <fstream>
 #include "config_sdl.h"
-
 using namespace std;
+const int LARGEUR = 800; 
+const int HAUTEUR = 480; 
 
-const int TAILLEX = 900, TAILLEY = 700;
+void legende(SDL_Renderer* rendu) {
+    SDL_Rect rect; 
+   
+    rect.x = LARGEUR-150;   
+    rect.y = 0;  
+    rect.w = 150;                
+    rect.h = HAUTEUR;
 
+    SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+    SDL_RenderFillRect(rendu, &rect);
+}
 
-int main(int argn, char* argv[]) {//entête imposée
-   //ouverture de la SDL
+void place_img(SDL_Texture* monImage, SDL_Rect posImg,SDL_Renderer* rendu) {
+    SDL_RenderClear(rendu);
+
+    SDL_RenderCopy(rendu, monImage, NULL, &posImg);
+
+    SDL_RenderPresent(rendu);
+}
+
+int main(int argn, char* argv[]) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cout << "Echec à l’ouverture";
         return 1;
     }
 
-    //on crée la fenêtre
     SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
         SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
         SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
-        TAILLEX,                         //largeur en pixels                        
-        TAILLEY,                         //hauteur en pixels
+        LARGEUR,                         //largeur en pixels                        
+        HAUTEUR,                         //hauteur en pixels
         SDL_WINDOW_SHOWN //d’autres options (plein ecran, resizable, sans bordure...)
     );
-
     if (win == NULL)
         cout << "erreur ouverture fenetre";
+
+    //IMPORTATION IMG PANDA 
 
     SDL_Renderer* rendu = SDL_CreateRenderer(
         win,  //nom de la fenêtre
         -1, //par défaut
         SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
 
-    bool continuer = true;   //booléen fin de programme
-    SDL_Event event;//gestion des évènements souris/clavier, 
-                                    //SDL_Event est de type struct
-
-    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
-
-    //Clear the entire screen to our selected color.
-    SDL_RenderClear(rendu);
-
-    //Up until now everything was drawn behind the scenes.
-    //This will show the new, red contents of the window.
-
     SDL_Surface* image = IMG_Load("panda.png");
     if (!image)
     {
         printf("Erreur de chargement de l'image : %s", SDL_GetError());
-        return 1001; //erreur chargement image 
+        return -1;
     }
-    SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);  //La texture monImage contient maintenant l'image importée
+
+    SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
     SDL_FreeSurface(image);
 
-    SDL_Rect position;
-    position.x = 0;
-    position.y = 300;
-    SDL_QueryTexture(monImage, NULL, NULL, &position.w, &position.h);
-    SDL_RenderCopy(rendu, monImage, NULL, &position);
+    SDL_Rect posImg;
+    posImg.x = 0;
+    posImg.y = 300;
 
+    SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
+    SDL_RenderCopy(rendu, monImage, NULL, &posImg);
+    legende(rendu);
     SDL_RenderPresent(rendu);
 
+    //CREATION BOUCLE EVENT 
+    bool continuer = true;
+    SDL_Event event;
 
     while (continuer)
     {
 
-        SDL_RenderCopy(rendu, monImage, NULL, &position); // copie de surface grâce au SDL_Renderer
 
-        SDL_RenderPresent(rendu); //Affichage
-        SDL_RenderClear(rendu);
-        SDL_WaitEvent(&event);//attente d’un évènement
-        switch (event.type) //test du type d’évènement
+        SDL_WaitEvent(&event);
+        switch (event.type)
         {
-        case SDL_QUIT: //clic sur la croix de fermeture
-                                        //on peut enlever SDL_Delay
+        case SDL_QUIT:
             continuer = false;
             break;
+        case SDL_KEYDOWN:
 
-        case SDL_KEYDOWN :
-            switch (event.key.keysym.sym)
-            {
+            switch (event.key.keysym.sym) {
+
             case SDLK_RIGHT:
-                if (position.x != 300) {
-                    position.x += 100;
-
-                    SDL_RenderPresent(rendu);
+                if (posImg.x != 300) {
+                    posImg.x += 100;
+                    place_img(monImage, posImg, rendu);
                 }
 
                 break;
             case SDLK_LEFT:
-                if (position.x != 0) {
-                    position.x-=100;
-
-                    SDL_RenderPresent(rendu);
+                if (posImg.x != 0) {
+                    posImg.x -= 100;
+                    place_img(monImage, posImg, rendu);
                 }
-
                 break;
             }
         }
+
     }
+
+    //DESTRUCTION FINAL 
+    SDL_DestroyRenderer(rendu);
+
+    SDL_DestroyWindow(win);
+
+
+    SDL_Quit();
+    return 0;
 }
