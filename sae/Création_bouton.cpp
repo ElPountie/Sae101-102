@@ -48,8 +48,6 @@ int main(int argn, char* argv[]) {//entête imposée
 
     );
 
-
-
     if (win == NULL)
 
         cout << "erreur ouverture fenetre";
@@ -116,15 +114,29 @@ int main(int argn, char* argv[]) {//entête imposée
 
         case SDL_QUIT: //clic sur la croix de fermeture
 
-                                   //on peut enlever SDL_Delay
-
             continuer = false;
 
             break;
-        }
-    }
 
-  
+        case SDL_MOUSEBUTTONUP://appui souris
+
+            if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
+
+                if (event.button.x > rect.x && event.button.x<rect.x + rect.w && event.button.y>rect.y && event.button.y < rect.y + rect.h) {                                                                                                                                                                                                                                    //on retrace le rectangle avec une couleur aléatoire
+
+                    SDL_SetRenderDrawColor(rendu, rand() % 256, rand() % 256, rand() % 256, 255); //on définit une clouleur aleatoire
+
+                    SDL_RenderDrawRect(rendu, &rect); //on trace un rectangle vide
+
+                }
+
+                SDL_RenderPresent(rendu);//on rafraichit
+            }
+
+            break;
+        }
+       
+    }
 
     //destruction du renderer à la fin
 

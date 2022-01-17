@@ -1,5 +1,6 @@
 #include <iostream>
 #include "struct.h"
+#include "Const_stats_update.h"
 using namespace std;
 
 int update_bambou_size(Bambou tabbambou[][NBBAMBOUY], int taillex, int tailley) {
