@@ -4,6 +4,7 @@
 #include "constante_khalis.h"
 #include "config_sdl.h"
 #include "Constante_Thibault.h"
+#include "Panda.h"
 using namespace std;
 
 SDL_Color blanc = { 255,255,255 };
@@ -15,7 +16,7 @@ SDL_Color violet = { 255,0,255 };
 
 
 void carre(SDL_Renderer* rendu) {
-    int N = sqrt(nb_bambou);
+    int N = sqrt_nb_bambou;
     for (int i = 0; i < N; i++){
         for (int j = 0; j < N; j++){
             SDL_Rect carre;
@@ -85,18 +86,18 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
 void affiche_bambou(SDL_Renderer* rendu) {
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     SDL_Rect bambou;
-    int N = sqrt(nb_bambou);
+    int N = sqrt_nb_bambou;
     int L = h_start_bambou;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++){
             bambou.x = 50 + j * 125+25;
             bambou.y = 50+(i+1)*125-40 ;
             bambou.w = 5;
-            bambou.h = N*10;//dans la table
+            bambou.h = N * 10;
             SDL_RenderFillRect(rendu, &bambou);
-            /*for (int k = 0; k < L; k++) {
+            for (int k = 0; k < L; k++) {
                 SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y +(bambou.h/L)*k, bambou.x + 10, bambou.y  + (bambou.h /L)*k);
-            }*/
+            }
         }
     }
 }
@@ -164,8 +165,13 @@ int init() {
     carre(rendu);
     ecrit(rendu, font);
     affiche_bambou(rendu);
+    int Taille = sqrt_nb_bambou;
     SDL_RenderPresent(rendu);
-
+    Panda panda;
+    panda.posx = 0;
+    panda.posy = 0;
+    panda.batterie = 100;
+    panda.distance = 0;
     //CREATION BOUCLE EVENT 
     bool continuer = true;
     SDL_Event event;
@@ -185,8 +191,9 @@ int init() {
             switch (event.key.keysym.sym) {
 
             case SDLK_RIGHT:
-                if (posImg.x != 600) {
+                if (posImg.x != 100+125*(sqrt_nb_bambou-1)) {
                     posImg.x += 125;
+                    panda.posx++;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     carre(rendu);
@@ -199,6 +206,7 @@ int init() {
             case SDLK_LEFT:
                 if (posImg.x != 100) {
                     posImg.x -= 125;
+                    panda.posx--;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     carre(rendu);
@@ -210,6 +218,7 @@ int init() {
             case SDLK_UP:
                 if (posImg.y != 100) {
                     posImg.y -= 125;
+                    panda.posy--;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     carre(rendu);
@@ -219,8 +228,9 @@ int init() {
                 }
                 break;
             case SDLK_DOWN:
-                if (posImg.y != 600) {
+                if (posImg.y != 100 + 125 * (sqrt_nb_bambou-1)) {
                     posImg.y += 125;
+                    panda.posy++;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     carre(rendu);
