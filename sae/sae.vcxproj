@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="affichage.cpp" />
     <ClCompile Include="Init_bambouseraie.cpp" />
     <ClCompile Include="Init_croissance.cpp" />
     <ClCompile Include="main.cpp" />
@@ -151,9 +152,11 @@
   <ItemGroup>
     <ClInclude Include="C:\Users\p2104367\Downloads\config_sdl.h" />
     <ClInclude Include="config_sdl.h" />
+    <ClInclude Include="constante_khalis.h" />
     <ClInclude Include="Constante_Thibault.h" />
     <ClInclude Include="Const_stats_update.h" />
     <ClInclude Include="fonct_thibault.h" />
+    <ClInclude Include="func_khalis.h" />
     <ClInclude Include="Panda.h" />
     <ClInclude Include="Bambou.h" />
   </ItemGroup>
