@@ -1,20 +1,36 @@
-// sae.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
-
 #include <iostream>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+
+const int nb_bambou = 12;
+const int h_start_bambou = 1;
+const int h_max_bambou = 5 * h_start_bambou;
+
+void init_bambouseraie(int bambou[][nb_bambou], int nb_bambou) {
+	for (int i = 0; i < nb_bambou; i++) {
+		for (int j = 0; j < nb_bambou; j++) {
+			bambou[i][j] = h_start_bambou;
+		}
+	}
 }
 
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
+void croissance_bambouseraie(int bambou[][nb_bambou], int nb_bambou) {
+	for (int i = 0; i < nb_bambou; i++) {
+		for (int j = 0; j < nb_bambou; j++) {
+			bambou[i][j] = bambou[i][j] + rand() % 5 * h_start_bambou;
+		}
+	}
+}
 
-// Astuces pour bien démarrer : 
-//   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
-//   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
-//   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
-//   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
+int main() {
+	int bambou[nb_bambou][nb_bambou];
+	init_bambouseraie(bambou, nb_bambou);
+	croissance_bambouseraie(bambou, nb_bambou);
+	for (int i = 0; i < nb_bambou; i++) {
+		for (int j = 0; j < nb_bambou; j++) {
+			cout << bambou[i][j];
+		}
+		cout << endl;
+	}
+	return 0;
+}
