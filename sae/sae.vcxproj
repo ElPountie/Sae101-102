@@ -155,7 +155,7 @@
     <ClInclude Include="Const_stats_update.h" />
     <ClInclude Include="fonct_thibault.h" />
     <ClInclude Include="Panda.h" />
-    <ClInclude Include="struct.h" />
+    <ClInclude Include="Bambou.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Lien SAE.txt" />

@@ -47,7 +47,7 @@
     <ClInclude Include="config_sdl.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="struct.h">
+    <ClInclude Include="Bambou.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Panda.h">
