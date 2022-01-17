@@ -6,11 +6,9 @@
 
 #include "config_sdl.h"
 
+#include "constante_khalis.h"
+
 using namespace std;
-
-const int LARGEUR = 640; //largeur fenetre
-
-const int HAUTEUR = 480;  //hauteur fenetre
 
 
 int main(int argn, char* argv[]) {//entête imposée
@@ -126,8 +124,9 @@ int main(int argn, char* argv[]) {//entête imposée
 
                     SDL_SetRenderDrawColor(rendu, rand() % 256, rand() % 256, rand() % 256, 255); //on définit une clouleur aleatoire
 
-                    SDL_RenderDrawRect(rendu, &rect); //on trace un rectangle vide
+                    SDL_RenderDrawRect(rendu, &rect); //on trace un rectangle video
 
+                    
                 }
 
                 SDL_RenderPresent(rendu);//on rafraichit
