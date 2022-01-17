@@ -1,5 +1,4 @@
-// sae.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
+// sae.cpp : Ce fichier contient la fonction 'main'. L'exÃ©cution du programme commence et se termine Ã  cet endroi
 #include <iostream>
 #include "func_khalis.h"
 
