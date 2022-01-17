@@ -2,8 +2,10 @@
 #include <iostream>
 #include "Constante_Thibault.h"
 #include "fonct_thibault.h"
+#include "savefile.h"
 using namespace std;
 
 int main() {
+    init_f("Save file.txt");
     return 0;
 }

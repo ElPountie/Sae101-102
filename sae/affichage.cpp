@@ -32,7 +32,7 @@ void place_img(SDL_Texture* monImage, SDL_Rect posImg, SDL_Renderer* rendu) {
     SDL_RenderPresent(rendu);
 }
 
-/*
+
 void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_Rect pos_Legende;
     pos_Legende.x = LARGEUR - 200;
@@ -78,7 +78,7 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_DestroyTexture(texture5);
 
 }
-*/
+
 
 void affiche_bambou(SDL_Renderer* rendu) {
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);

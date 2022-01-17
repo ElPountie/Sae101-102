@@ -140,12 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="affichage.cpp" />
+    <ClCompile Include="config_sdl.cpp" />
     <ClCompile Include="Init_bambouseraie.cpp" />
     <ClCompile Include="Init_croissance.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="update.cpp" />
-    <ClCompile Include="writer.cpp" />
+    <ClCompile Include="savefile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -160,6 +161,7 @@
     <ClInclude Include="func_khalis.h" />
     <ClInclude Include="Panda.h" />
     <ClInclude Include="Bambou.h" />
+    <ClInclude Include="savefile.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Lien SAE.txt" />
