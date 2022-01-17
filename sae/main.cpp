@@ -2,8 +2,8 @@
 //
 #include <iostream>
 #include "struct.h"
-#include "stats.cpp"
-#include "update.cpp"
+#include "Constante_Thibault.h"
+#include "fonct_thibault.h"
 using namespace std;
 
 void init_bambou(Bambou tabbambou[NBBAMBOUX][NBBAMBOUY], int taillex, int tailley) {

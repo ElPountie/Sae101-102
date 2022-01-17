@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Init_bambouseraie.cpp" />
+    <ClCompile Include="Init_croissance.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="update.cpp" />
@@ -149,6 +151,8 @@
   <ItemGroup>
     <ClInclude Include="C:\Users\p2104367\Downloads\config_sdl.h" />
     <ClInclude Include="config_sdl.h" />
+    <ClInclude Include="Constante_Thibault.h" />
+    <ClInclude Include="fonct_thibault.h" />
     <ClInclude Include="struct.h" />
   </ItemGroup>
   <ItemGroup>
