@@ -21,6 +21,9 @@
     <ClCompile Include="config_sdl.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="affichage.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -28,6 +31,12 @@
   <ItemGroup>
     <ClInclude Include="config_sdl.h">
       <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="constante_khalis.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="func_khalis.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

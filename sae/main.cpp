@@ -1,30 +1,11 @@
 #include<SDL.h> 
 #include<SDL_ttf.h> 
-#include<iostream>
 #include "config_sdl.h"
+#include "constante_khalis.h"
+#include <iostream>
+#include "func_khalis.h"
+
 using namespace std;
-const int LARGEUR = 800; 
-const int HAUTEUR = 480; 
-
-void legende(SDL_Renderer* rendu) {
-    SDL_Rect rect; 
-   
-    rect.x = LARGEUR-150;   
-    rect.y = 0;  
-    rect.w = 150;                
-    rect.h = HAUTEUR;
-
-    SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-    SDL_RenderFillRect(rendu, &rect);
-}
-
-void place_img(SDL_Texture* monImage, SDL_Rect posImg,SDL_Renderer* rendu) {
-    SDL_RenderClear(rendu);
-
-    SDL_RenderCopy(rendu, monImage, NULL, &posImg);
-
-    SDL_RenderPresent(rendu);
-}
 
 int main(int argn, char* argv[]) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -49,6 +30,13 @@ int main(int argn, char* argv[]) {
         -1, //par défaut
         SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
 
+    TTF_Init();
+    TTF_Font* font = TTF_OpenFont("calibri.ttf", 25);
+
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+    SDL_RenderClear(rendu);
+
+
     SDL_Surface* image = IMG_Load("panda.png");
     if (!image)
     {
@@ -60,12 +48,14 @@ int main(int argn, char* argv[]) {
     SDL_FreeSurface(image);
 
     SDL_Rect posImg;
-    posImg.x = 0;
-    posImg.y = 300;
+    posImg.x = 100;
+    posImg.y =100;
 
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
     SDL_RenderCopy(rendu, monImage, NULL, &posImg);
-    legende(rendu);
+    carre(rendu);
+    ecrit(rendu, font);
+    affiche_bambou(rendu);
     SDL_RenderPresent(rendu);
 
     //CREATION BOUCLE EVENT 
@@ -87,21 +77,60 @@ int main(int argn, char* argv[]) {
             switch (event.key.keysym.sym) {
 
             case SDLK_RIGHT:
-                if (posImg.x != 300) {
-                    posImg.x += 100;
+                if (posImg.x != 600) {
+                    posImg.x += 125;
+                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+                    SDL_RenderClear(rendu);
+                    carre(rendu);
+                    ecrit(rendu, font);
+                    affiche_bambou(rendu);
                     place_img(monImage, posImg, rendu);
                 }
 
                 break;
             case SDLK_LEFT:
-                if (posImg.x != 0) {
-                    posImg.x -= 100;
+                if (posImg.x != 100) {
+                    posImg.x -= 125;
+                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+                    SDL_RenderClear(rendu);
+                    carre(rendu);
+                    ecrit(rendu, font);
+                    affiche_bambou(rendu);
                     place_img(monImage, posImg, rendu);
                 }
                 break;
+            case SDLK_UP:
+                if (posImg.y != 100) {
+                    posImg.y -= 125;
+                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+                    SDL_RenderClear(rendu);
+                    carre(rendu);
+                    ecrit(rendu, font);
+                    affiche_bambou(rendu);
+                    place_img(monImage, posImg, rendu);
+                }
+                break;
+            case SDLK_DOWN:
+                if (posImg.y != 600) {
+                    posImg.y += 125;
+                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+                    SDL_RenderClear(rendu);
+                    carre(rendu);
+                    ecrit(rendu, font);
+                    affiche_bambou(rendu);
+                    place_img(monImage, posImg, rendu);
+                }
+                break;
+            case SDLK_RETURN:
+                SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+                SDL_RenderClear(rendu);
+                carre(rendu);
+                ecrit(rendu, font);
+                affiche_bambou(rendu);
+                coupe(rendu);
+                place_img(monImage, posImg, rendu);
             }
         }
-
     }
 
     //DESTRUCTION FINAL 
