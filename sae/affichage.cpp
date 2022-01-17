@@ -98,6 +98,6 @@ void affiche_bambou(SDL_Renderer* rendu) {
 
 void coupe(SDL_Renderer* rendu) {
     SDL_Rect cache;
-    cache.x
+    cache.x;
     
 }
