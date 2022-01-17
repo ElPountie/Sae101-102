@@ -249,7 +249,7 @@ int init() {
                 SDL_RenderClear(rendu);
                 place_img(monImage, posImg, rendu);
                 carre(rendu);
-                ecrit(rendu, font);
+                ecrit(rendu, font);coup
                 affiche_bambou(rendu);
                 coupe(rendu,posImg);
 
