@@ -6,7 +6,7 @@
 #include "Constante_Thibault.h"
 #include "Panda.h"
 #include "Bambou.h"
-#include <ctime>
+#include "savefile.h"
 using namespace std;
 
 SDL_Color blanc = { 255,255,255 };
@@ -15,16 +15,7 @@ SDL_Color bleu = { 0,0,255 };
 SDL_Color rouge = { 255,0,0 };
 SDL_Color violet = { 255,0,255 };
 
-Bambou tab[4][4];
-
-void init_tab(Bambou tab[4][4]) {
-    for (int i = 0; i < sqrt_nb_bambou; i++){
-        for (int j = 0; j < sqrt_nb_bambou; j++){
-            tab[i][j].taille = rand() % 12;
-            tab[i][j].vitesse = tab[i][j].taille;
-        }
-    }
-}
+Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
 
 void carre(SDL_Renderer* rendu) {
     int N = sqrt_nb_bambou;
@@ -94,7 +85,7 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
 
 }
 
-void affiche_bambou(SDL_Renderer* rendu) {
+void affiche_bambou(SDL_Renderer* rendu ) {
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     SDL_Rect bambou;
     int N = sqrt_nb_bambou;
@@ -112,13 +103,13 @@ void affiche_bambou(SDL_Renderer* rendu) {
     }
 }
 
-void coupe(SDL_Renderer* rendu,SDL_Rect pos_panda) {
-    tab[pos_panda.x][pos_panda.y].taille = tab[pos_panda.x][pos_panda.y].vitesse;
-}
 
 int init() {
-    srand(time(NULL));
-    init_tab(tab);
+    init_f("Save file.txt");
+    int a;
+    cout << "enter valeurs .txt" << endl;
+    cin >> a;
+    loadfile(tab, "Save file.txt");
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cout << "Echec à l’ouverture";
         return 1;
@@ -159,6 +150,41 @@ int init() {
 
     SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
     SDL_FreeSurface(image);
+
+    SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+
+    SDL_Rect rect; //on définit le rectangle à tracer
+
+                                //SDL_Rect est un type struct        
+
+    rect.x = LARGEUR - 100;  //coin en haut à gauche
+
+    rect.y = HAUTEUR - 75;  //coin en haut à gauche
+
+    rect.w = 80;                //largeur
+
+    rect.h = 20;                //hauteur
+
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255); //pinceau blanc
+
+    SDL_RenderDrawRect(rendu, &rect); //on trace un rectangle vide
+
+
+    SDL_Rect positionTexte;
+
+    positionTexte.x = LARGEUR - 98;
+
+    positionTexte.y = HAUTEUR - 75;
+
+    SDL_Texture* texture = loadText(rendu, "Start/Stop", blanc, font);
+
+    SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+
+    SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+
+    SDL_DestroyTexture(texture);
+
+    SDL_RenderPresent(rendu);
 
     SDL_Rect posImg;
     posImg.x = 100;
@@ -208,6 +234,7 @@ int init() {
                 }
 
                 break;
+
             case SDLK_LEFT:
                 if (posImg.x != 100) {
                     posImg.x -= 125;
@@ -220,6 +247,7 @@ int init() {
                     place_img(monImage, posImg, rendu);
                 }
                 break;
+
             case SDLK_UP:
                 if (posImg.y != 100) {
                     posImg.y -= 125;
@@ -232,6 +260,7 @@ int init() {
                     place_img(monImage, posImg, rendu);
                 }
                 break;
+
             case SDLK_DOWN:
                 if (posImg.y != 100 + 125 * (sqrt_nb_bambou-1)) {
                     posImg.y += 125;
@@ -244,15 +273,33 @@ int init() {
                     place_img(monImage, posImg, rendu);
                 }
                 break;
+
             case SDLK_RETURN:
                 SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                 SDL_RenderClear(rendu);
                 place_img(monImage, posImg, rendu);
                 carre(rendu);
-                ecrit(rendu, font);coup
+                ecrit(rendu, font);
                 affiche_bambou(rendu);
-                coupe(rendu,posImg);
+                break;
 
+            case SDL_MOUSEBUTTONUP://appui souris
+
+                if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
+
+                    if (event.button.x > rect.x && event.button.x<rect.x + rect.w && event.button.y>rect.y && event.button.y < rect.y + rect.h) {                                                                                                                                                                                                                                    //on retrace le rectangle avec une couleur aléatoire
+
+                        SDL_SetRenderDrawColor(rendu, rand() % 256, rand() % 256, rand() % 256, 255); //on définit une clouleur aleatoire
+
+                        SDL_RenderDrawRect(rendu, &rect); //on trace un rectangle video
+
+
+                    }
+
+                    SDL_RenderPresent(rendu);//on rafraichit
+                }
+
+                break;
             }
         }
     }

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-
+/*
 int main(int argn, char* argv[]) {//entête imposée
 
     //ouverture de la SDL
@@ -155,4 +155,4 @@ int main(int argn, char* argv[]) {//entête imposée
 
     return 0;
 
-}
+}*/
