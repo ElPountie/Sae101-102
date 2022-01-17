@@ -1,20 +1,33 @@
 // sae.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
 //
-
 #include <iostream>
+#include "struct.h"
+#include "stats.cpp"
+#include "update.cpp"
+using namespace std;
+
+void init_bambou(Bambou tabbambou[NBBAMBOUX][NBBAMBOUY], int taillex, int tailley) {
+    for (int i1 = 0; i1 < taillex; i1++) {
+        for (int i2 = 0; i2 < tailley; i2++) {
+            tabbambou[i1][i2].taille = 1;
+            tabbambou[i1][i2].vitesse = 1;
+        }
+    }
+}
+
+int debug_stat(Bambou tabbambou[NBBAMBOUX][NBBAMBOUY], int taillex, int tailley) {
+    return 0;
+}
+
+int debug_update(Bambou tabbambou[NBBAMBOUX][NBBAMBOUY], int taillex, int tailley) {
+
+    return 0;
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Panda Pand1;
+    Bambou tabbambou[NBBAMBOUX][NBBAMBOUY];
+    init_bambou(tabbambou, NBBAMBOUX, NBBAMBOUY);
+    cout << debug_stat(tabbambou, 50, 50);
 }
-
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
-
-// Astuces pour bien démarrer : 
-//   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
-//   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
-//   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
-//   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
