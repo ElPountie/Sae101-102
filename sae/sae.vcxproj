@@ -152,7 +152,9 @@
     <ClInclude Include="C:\Users\p2104367\Downloads\config_sdl.h" />
     <ClInclude Include="config_sdl.h" />
     <ClInclude Include="Constante_Thibault.h" />
+    <ClInclude Include="Const_stats_update.h" />
     <ClInclude Include="fonct_thibault.h" />
+    <ClInclude Include="Panda.h" />
     <ClInclude Include="struct.h" />
   </ItemGroup>
   <ItemGroup>
