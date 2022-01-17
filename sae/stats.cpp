@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Panda.h"
+#include "Bambou.h"
 #include "Const_stats_update.h"
 using namespace std;
 

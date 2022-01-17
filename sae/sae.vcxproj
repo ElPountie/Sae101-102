@@ -145,6 +145,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="update.cpp" />
+    <ClCompile Include="writer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
