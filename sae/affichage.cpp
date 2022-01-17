@@ -101,9 +101,9 @@ void affiche_bambou(SDL_Renderer* rendu) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++){
             bambou.x = 50 + j * 125+25;
-            bambou.y = 50+(i+1)*125-40 ;
+            bambou.y = 50+ i * 125 +125 ;
             bambou.w = 5;
-            bambou.h = N * 10;
+            bambou.h = -tab[i][j].taille * 10;
             SDL_RenderFillRect(rendu, &bambou);
             for (int k = 0; k < N; k++) {
                 SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y +(bambou.h/N)*k, bambou.x + 10, bambou.y  + (bambou.h /N)*k);
@@ -113,7 +113,7 @@ void affiche_bambou(SDL_Renderer* rendu) {
 }
 
 void coupe(SDL_Renderer* rendu,SDL_Rect pos_panda) {
-    tab[pos_panda.x][pos_panda.y]
+    tab[pos_panda.x][pos_panda.y].taille = tab[pos_panda.x][pos_panda.y].vitesse;
 }
 
 int init() {
