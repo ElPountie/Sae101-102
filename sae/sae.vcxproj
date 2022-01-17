@@ -145,6 +145,7 @@
     <ClCompile Include="Init_bambouseraie.cpp" />
     <ClCompile Include="Init_croissance.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="savefile.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="update.cpp" />
   </ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="func_khalis.h" />
     <ClInclude Include="Panda.h" />
     <ClInclude Include="Bambou.h" />
+    <ClInclude Include="savefile.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Lien SAE.txt" />

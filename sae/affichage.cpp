@@ -6,6 +6,7 @@
 #include "Constante_Thibault.h"
 #include "Panda.h"
 #include "Bambou.h"
+#include "savefile.h"
 using namespace std;
 
 SDL_Color blanc = { 255,255,255 };
@@ -14,6 +15,7 @@ SDL_Color bleu = { 0,0,255 };
 SDL_Color rouge = { 255,0,0 };
 SDL_Color violet = { 255,0,255 };
 
+Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
 
 void carre(SDL_Renderer* rendu) {
     int N = sqrt_nb_bambou;
@@ -103,6 +105,11 @@ void affiche_bambou(SDL_Renderer* rendu ) {
 
 
 int init() {
+    init_f("Save file.txt");
+    int a;
+    cout << "enter valeurs .txt" << endl;
+    cin >> a;
+    loadfile(tab, "Save file.txt");
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cout << "Echec à l’ouverture";
         return 1;
