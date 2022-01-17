@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
     Bambou tabbanbou[sqrt_nb_bambou][sqrt_nb_bambou];
-    init_f("Save file.txt");
+    init_f("Save file.txt", tabbanbou);
     int a;
     cin >> a;
     loadfile(tabbanbou, "Save file.txt");

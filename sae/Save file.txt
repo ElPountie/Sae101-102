@@ -1,16 +1,10 @@
 
-Largeur carre nombre bambou :2
-Taille de base :14
-Vitesse de base :7
-
-Taille de base :6
-Vitesse de base :8
-
-Changement de ligne
-Taille de base :45
-Vitesse de base :21
-
-Taille de base :8
-Vitesse de base :27
-
-Changement de ligne
+Largeur carre nombre bambou : 4
+Taille: 7
+Vitesse: 8
+Taille: 0
+Vitesse: 18
+Taille: 4
+Vitesse: 3
+Taille: 18
+Vitesse: 2
