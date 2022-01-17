@@ -28,7 +28,7 @@ void addline(ofstream& f, const char text[300]) {
 
 void init_f(const char nomf[50]) {
 	if (!file_exist(nomf)) {
-		cout << "Create save file";
+		cout << "Create save file" << endl;
 		ofstream f(nomf);
 		cout << "Largeur du carre (max 49):";
 		int nbbambou;
