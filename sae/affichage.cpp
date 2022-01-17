@@ -5,6 +5,8 @@
 #include "config_sdl.h"
 #include "Constante_Thibault.h"
 #include "Panda.h"
+#include "Bambou.h"
+#include <ctime>
 using namespace std;
 
 SDL_Color blanc = { 255,255,255 };
@@ -13,7 +15,16 @@ SDL_Color bleu = { 0,0,255 };
 SDL_Color rouge = { 255,0,0 };
 SDL_Color violet = { 255,0,255 };
 
+Bambou tab[4][4];
 
+void init_tab(Bambou tab[4][4]) {
+    for (int i = 0; i < sqrt_nb_bambou; i++){
+        for (int j = 0; j < sqrt_nb_bambou; j++){
+            tab[i][j].taille = rand() % 12;
+            tab[i][j].vitesse = tab[i][j].taille;
+        }
+    }
+}
 
 void carre(SDL_Renderer* rendu) {
     int N = sqrt_nb_bambou;
@@ -87,7 +98,6 @@ void affiche_bambou(SDL_Renderer* rendu) {
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     SDL_Rect bambou;
     int N = sqrt_nb_bambou;
-    int L = h_start_bambou;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++){
             bambou.x = 50 + j * 125+25;
@@ -95,25 +105,20 @@ void affiche_bambou(SDL_Renderer* rendu) {
             bambou.w = 5;
             bambou.h = N * 10;
             SDL_RenderFillRect(rendu, &bambou);
-            for (int k = 0; k < L; k++) {
-                SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y +(bambou.h/L)*k, bambou.x + 10, bambou.y  + (bambou.h /L)*k);
+            for (int k = 0; k < N; k++) {
+                SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y +(bambou.h/N)*k, bambou.x + 10, bambou.y  + (bambou.h /N)*k);
             }
         }
     }
 }
 
 void coupe(SDL_Renderer* rendu,SDL_Rect pos_panda) {
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-    SDL_Rect cache;
-    cache.x = pos_panda.x - 30;
-    cache.y = pos_panda.y- 2;
-    cache.h = 60-3;
-    cache.w = 20;
-    SDL_RenderFillRect(rendu, &cache);
-    SDL_RenderPresent(rendu);
+    tab[pos_panda.x][pos_panda.y]
 }
 
 int init() {
+    srand(time(NULL));
+    init_tab(tab);
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cout << "Echec à l’ouverture";
         return 1;
@@ -247,7 +252,7 @@ int init() {
                 ecrit(rendu, font);
                 affiche_bambou(rendu);
                 coupe(rendu,posImg);
- 
+
             }
         }
     }
