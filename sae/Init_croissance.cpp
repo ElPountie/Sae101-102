@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Constante_Thibault.h"
-#include "struct.h"
+#include "Bambou.h"
 using namespace std;
 
 
