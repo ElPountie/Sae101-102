@@ -158,7 +158,7 @@
     <ClInclude Include="fonct_thibault.h" />
     <ClInclude Include="func_khalis.h" />
     <ClInclude Include="Panda.h" />
-    <ClInclude Include="struct.h" />
+    <ClInclude Include="Bambou.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Lien SAE.txt" />

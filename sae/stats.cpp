@@ -1,5 +1,6 @@
 #include <iostream>
-#include "struct.h"
+#include "Panda.h"
+#include "Const_stats_update.h"
 using namespace std;
 
 int tab_moy_line(Bambou tabbambou[NBBAMBOUY], int tailley) {
