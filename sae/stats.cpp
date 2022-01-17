@@ -1,12 +1,13 @@
 #include <iostream>
-#include "struct.h"
+#include "Bambou.h"
+#include "Const_stats_update.h"
 using namespace std;
 
 int tab_moy_line(Bambou tabbambou[NBBAMBOUY], int tailley) {
 	int moy = 0;
 	for (int i = 0; i < tailley; i++) {
 		moy += tabbambou[i].taille;
-	}
+	;}
 	return moy / tailley;
 }
 

@@ -4,3 +4,4 @@
 
 SDL_Texture *loadImage(SDL_Renderer* rendu,const char *name);
 SDL_Texture *loadText(SDL_Renderer* rendu,const char *text, SDL_Color coul, TTF_Font* font);
+

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "constante_khalis.h"
 #include "config_sdl.h"
+#include "Constante_Thibault.h"
 using namespace std;
 
 SDL_Color blanc = { 255,255,255 };
@@ -14,8 +15,9 @@ SDL_Color violet = { 255,0,255 };
 
 
 void carre(SDL_Renderer* rendu) {
-    for (int i = 0; i < 5; i++){
-        for (int j = 0; j < 5; j++){
+    int N = sqrt(nb_bambou);
+    for (int i = 0; i < N; i++){
+        for (int j = 0; j < N; j++){
             SDL_Rect carre;
             carre.x = 50 + j * 125;
             carre.y = 50 + i * 125;
@@ -83,17 +85,18 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
 void affiche_bambou(SDL_Renderer* rendu) {
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     SDL_Rect bambou;
-    int N = 3; //taille bambou
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++){
+    int N = sqrt(nb_bambou);
+    int L = h_start_bambou;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++){
             bambou.x = 50 + j * 125+25;
-            bambou.y = (50 + (i+1) * 125)-60 ;
+            bambou.y = 50+(i+1)*125-40 ;
             bambou.w = 5;
-            bambou.h = 60;//dans la table
+            bambou.h = N*10;//dans la table
             SDL_RenderFillRect(rendu, &bambou);
-            for (int k = 0; k < N; k++){
-                SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y +(bambou.h/N)*k, bambou.x + 10, bambou.y  + (bambou.h /N)*k);
-            }
+            /*for (int k = 0; k < L; k++) {
+                SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y +(bambou.h/L)*k, bambou.x + 10, bambou.y  + (bambou.h /L)*k);
+            }*/
         }
     }
 }
