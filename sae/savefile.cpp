@@ -80,12 +80,13 @@ void init_f(const char nomf[50], Bambou tabbanbou[][sqrt_nb_bambou]) {
 			}
 		}
 		else {
-			loadfile(tabbanbou, nomf);
+			int nb_cote = 0;
+			loadfile(tabbanbou, nomf, nb_cote);
 		}
 	}
 }
 
-void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_cote ) {
+void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_cote) {
 	if (file_readable(nomf)) {
 		ifstream f(nomf);
 		f.seekg(0);
