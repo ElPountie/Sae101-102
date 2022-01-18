@@ -15,7 +15,7 @@ SDL_Color bleu = { 0,0,255 };
 SDL_Color rouge = { 255,0,0 };
 SDL_Color violet = { 255,0,255 };
 
-Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
+
 
 void carre(SDL_Renderer* rendu) {
     int N = sqrt_nb_bambou;
@@ -85,7 +85,7 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
 
 }
 
-void affiche_bambou(SDL_Renderer* rendu ) {
+void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     SDL_Rect bambou;
     int N = sqrt_nb_bambou;
@@ -96,20 +96,21 @@ void affiche_bambou(SDL_Renderer* rendu ) {
             bambou.w = 5;
             bambou.h = -tab[i][j].taille * 10;
             SDL_RenderFillRect(rendu, &bambou);
-            for (int k = 0; k < N; k++) {
-                SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y +(bambou.h/N)*k, bambou.x + 10, bambou.y  + (bambou.h /N)*k);
-            }
         }
     }
+    SDL_RenderPresent(rendu);
 }
 
+void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
+    tab[posy][posx].taille = tab[posy][posx].vitesse;
+}
 
-int init() {
-    init_f("Save file.txt");
+int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
     int a;
     cout << "enter valeurs .txt" << endl;
     cin >> a;
-    loadfile(tab, "Save file.txt");
+    int nb_cote;
+    loadfile(tab, "Save file.txt",nb_cote);
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cout << "Echec à l’ouverture";
         return 1;
@@ -195,7 +196,7 @@ int init() {
 
     carre(rendu);
     ecrit(rendu, font);
-    affiche_bambou(rendu);
+    affiche_bambou(rendu,tab);
     int Taille = sqrt_nb_bambou;
     SDL_RenderPresent(rendu);
     Panda panda;
@@ -229,7 +230,7 @@ int init() {
                     SDL_RenderClear(rendu);
                     carre(rendu);
                     ecrit(rendu, font);
-                    affiche_bambou(rendu);
+                    affiche_bambou(rendu,tab);
                     place_img(monImage, posImg, rendu);
                 }
 
@@ -243,7 +244,7 @@ int init() {
                     SDL_RenderClear(rendu);
                     carre(rendu);
                     ecrit(rendu, font);
-                    affiche_bambou(rendu);
+                    affiche_bambou(rendu,tab);
                     place_img(monImage, posImg, rendu);
                 }
                 break;
@@ -254,10 +255,11 @@ int init() {
                     panda.posy--;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
+                    place_img(monImage, posImg, rendu);
                     carre(rendu);
                     ecrit(rendu, font);
-                    affiche_bambou(rendu);
-                    place_img(monImage, posImg, rendu);
+                    affiche_bambou(rendu,tab);
+                    
                 }
                 break;
 
@@ -267,23 +269,24 @@ int init() {
                     panda.posy++;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
+                    place_img(monImage, posImg, rendu);
                     carre(rendu);
                     ecrit(rendu, font);
-                    affiche_bambou(rendu);
-                    place_img(monImage, posImg, rendu);
+                    affiche_bambou(rendu,tab);
                 }
                 break;
 
             case SDLK_RETURN:
                 SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                 SDL_RenderClear(rendu);
+                coupe(tab, panda.posx, panda.posy);
                 place_img(monImage, posImg, rendu);
                 carre(rendu);
                 ecrit(rendu, font);
-                affiche_bambou(rendu);
+                affiche_bambou(rendu,tab);
                 break;
 
-            case SDL_MOUSEBUTTONUP://appui souris
+            /*case SDL_MOUSEBUTTONUP://appui souris
 
                 if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
 
@@ -299,7 +302,7 @@ int init() {
                     SDL_RenderPresent(rendu);//on rafraichit
                 }
 
-                break;
+                break;*/
             }
         }
     }
