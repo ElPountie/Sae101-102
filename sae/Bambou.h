@@ -2,8 +2,8 @@
 #define Bambou_def
 
 struct Bambou {
-	int taille;
-	int vitesse;
+	float taille;
+	float vitesse;
 };
 
 #endif

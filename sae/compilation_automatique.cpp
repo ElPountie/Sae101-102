@@ -8,8 +8,8 @@
 #include "fonct_thibault.h"
 
 using namespace std;
-
-/*void start_automatic() {
+/*
+void start_automatic() {
 	Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
 	Panda panda;
 	panda.batterie = 100;
@@ -24,15 +24,25 @@ using namespace std;
 	loadfile(tab, "Save file.txt", nb_cote);
 	init(tab, nb_cote);
 	//Init image
-
 	while (running){
 		to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
-		while (panda.posx != cutx && panda.posy != cuty && panda.batterie <= 0) {
-			if (panda.batterie == 0) {
+		while (panda.posx != cutx && panda.posy != cuty && panda.batterie <= (panda.posx + panda.posy)){
+			if (panda.batterie <= (panda.posx + panda.posy + 1)) {
+				if (panda.posx == 0 && panda.posy == 0) {
+					coupe(tab, 0, 0);
+				}
+				else if (panda.posx > 0) {
+					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+				}
+				else if (panda.posy > 0) {
+					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+				}
+			}
+			else if (panda.batterie == 0) {
 				panda.batterie = 100;
 				croissance_bambouseraie(tab, nb_bambou);
 				to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
-			}/*
+			}
 			else if (panda.posx < cutx) {
 				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
 			}

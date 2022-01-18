@@ -48,7 +48,7 @@ int print_bambou(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby){
 }
 
 int min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
-	int min = tab[0][0].taille;
+	float min = tab[0][0].taille;
 	for (int i1 = 0; i1 < tabx; i1++) {
 		for (int i2 = 0; i2 < taby; i2++) {
 			if (tab[i1][i2].taille < min) {
@@ -60,7 +60,7 @@ int min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 }
 
 int max_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
-	int max = tab[0][0].taille;
+	float max = tab[0][0].taille;
 	for (int i1 = 0; i1 < tabx; i1++) {
 		for (int i2 = 0; i2 < taby; i2++) {
 			if (tab[i1][i2].taille > max) {

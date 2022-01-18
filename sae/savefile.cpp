@@ -7,6 +7,12 @@
 
 using namespace std;
 
+void moy_x(float tab[], int taille, int x) {
+	for (int i = 0; i < taille; i++) {
+		tab[i] = rand() % (10 * x - 1) / 1.5 * x;
+	}
+}
+
 bool file_exist(const char nomf[50]) {
 	ifstream f(nomf);
 	f.close();
@@ -99,6 +105,8 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 			nb_cote = 1;
 		}
 		int speed;
+		float tab[sqrt_nb_bambou * sqrt_nb_bambou];
+		moy_x(tab, nb_cote, 2.5);
 		for (int i1 = 0; i1 < nb_cote; i1++) {
 			for (int i2 = 0; i2 < nb_cote; i2++) {
 				f.getline(na, 30);
@@ -110,7 +118,7 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 				}
 				else {
 					cout << "Erreur chargement des donnees de sauvegarde, valeur attribuee automatiquement." << endl;
-					tabbanbou[i1][i2].vitesse = tabbanbou[i1][i2].taille = 4;
+					tabbanbou[i1][i2].vitesse = tabbanbou[i1][i2].taille = tab[i1*nb_cote + i2*nb_cote];
 				}
 			}
 		}
