@@ -46,3 +46,14 @@ int print_bambou(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby){
 	return 0;
 }
 
+int min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
+	int min = tab[0][0].taille;
+	for (int i1 = 0; i1 < tabx; i1++) {
+		for (int i2 = 0; i2 < taby; i2++) {
+			if (tab[i1][i2].taille < min) {
+				min = tab[i1][i2].taille;
+			}
+		}
+	}
+	return min;
+}
