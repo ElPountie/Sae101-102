@@ -7,6 +7,7 @@
 #include "Panda.h"
 #include "Bambou.h"
 #include "savefile.h"
+#include"fonct_thibault.h"
 using namespace std;
 
 SDL_Color blanc = { 255,255,255 };
@@ -94,7 +95,7 @@ void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bamb
             bambou.x = 50 + j * 125+25;
             bambou.y = 50+ i * 125 +125 ;
             bambou.w = 5;
-            bambou.h = -tab[i][j].taille * 10;
+            bambou.h = -tab[i][j].taille * 5;
             SDL_RenderFillRect(rendu, &bambou);
         }
     }
@@ -275,6 +276,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
             case SDLK_RETURN:
                 SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                 SDL_RenderClear(rendu);
+                croissance_bambouseraie(tab, nb_cote);
                 coupe(tab, panda.posx, panda.posy);
                 place_img(monImage, posImg, rendu);
                 carre(rendu,nb_cote);
