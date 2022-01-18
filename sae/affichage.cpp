@@ -92,16 +92,22 @@ void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bamb
     SDL_SetRenderDrawColor(rendu, 50, 255, 0, 255);
     SDL_Rect bambou;
     int N = nb_cote;
+    int k = 0;
+    int tmp = 0;
     for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++){
-            bambou.x = 50 + j * 125+25;
-            bambou.y = 50+ i * 125 +125 ;
+        for (int j = 0; j < N; j++) {
+            k = 0;
+            bambou.x = 50 + j * 125 + 25;
+            bambou.y = 50 + i * 125 + 125;
             bambou.w = 5;
             bambou.h = -tab[i][j].taille * 1.5;
             SDL_RenderFillRect(rendu, &bambou);
-            for (int k = 0; k < tab[i][j].taille/tab[i][j].vitesse; k++){
-                SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y, bambou.x + 10, bambou.y);
-            }
+            tmp = tab[i][j].taille / tab[i][j].vitesse;
+            do
+            {
+                SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y - (k* tab[i][j].vitesse) *1.5 , bambou.x + 10, bambou.y - (k * tab[i][j].vitesse)*1.5);
+                k++;
+            } while (k < tmp);
         }
     }
     SDL_RenderPresent(rendu);
@@ -223,7 +229,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
             case SDLK_RIGHT:
-                if (panda.batterie <= 0) {
+                if (panda.batterie > 0) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
                     panda.batterie-= 1;
                 }
@@ -233,7 +239,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 break;
 
             case SDLK_LEFT:
-                if (panda.batterie <= 0) {
+                if (panda.batterie > 0) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
                     panda.batterie -= 1;
                 }
@@ -243,7 +249,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 break;
 
             case SDLK_UP:
-                if (panda.batterie <= 0) {
+                if (panda.batterie > 0) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
                     panda.batterie -= 1;
                 }
@@ -253,7 +259,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 break;
 
             case SDLK_DOWN:
-                if (panda.batterie <= 0) {
+                if (panda.batterie > 0) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
                     panda.batterie -= 1;
                 }
@@ -263,7 +269,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 break;
 
             case SDLK_RETURN:
-                if (panda.batterie <= 0) {
+                if (panda.batterie >= 0) {
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     croissance_bambouseraie(tab, nb_cote);
