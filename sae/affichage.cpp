@@ -280,7 +280,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 }
 
 
-void update_movment(SDL_Rect posImg, Panda panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction) {
+void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction) {
     if (direction == 1) {
         if (posImg.x != 100 + 125 * (nb_cote - 1)) {
             posImg.x += 125;
@@ -307,8 +307,8 @@ void update_movment(SDL_Rect posImg, Panda panda, SDL_Renderer* rendu, TTF_Font*
     }
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
+    place_img(monImage, posImg, rendu);
     carre(rendu, nb_cote);
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
-    place_img(monImage, posImg, rendu);
 }
