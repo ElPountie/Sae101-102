@@ -42,6 +42,10 @@ void start_automatic() {
 				panda.batterie = 100;
 				croissance_bambouseraie(tab, nb_bambou);
 				to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
+				place_img(monImage, posImg, rendu);
+				carre(rendu,nb_cote);
+				ecrit(rendu, font);
+				affiche_bambou(rendu,tab,nb_cote);
 			}
 			else if (panda.posx < cutx) {
 				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
@@ -66,7 +70,5 @@ void start_automatic() {
 		SDL_Event event;
 		SDL_WaitEvent(&event);
 			switch (event.type){
-
-
 	}
 }*/
