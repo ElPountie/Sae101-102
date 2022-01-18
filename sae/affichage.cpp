@@ -19,6 +19,7 @@ SDL_Color vert = { 0,255,0 };
 SDL_Color bleu = { 0,0,255 };
 SDL_Color rouge = { 255,0,0 };
 SDL_Color violet = { 255,0,255 };
+SDL_Color noir = { 0,0,0 };
 
 void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const char texte[100], int posx, int posy) {
     SDL_Rect pos_Legende;
@@ -91,6 +92,7 @@ void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bamb
 void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
     tab[posy][posx].taille = tab[posy][posx].vitesse;
 }
+
 void statistique(SDL_Renderer* rendu ) {
     SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
     SDL_Rect stat;
@@ -123,6 +125,28 @@ void batterire(SDL_Renderer* rendu, int charge) {
 
 }
 
+void background(SDL_Renderer* rendu) {
+    SDL_Surface* image = IMG_Load("background.png");
+    if (!image)
+    {
+        cout << "erreur";
+        return;
+    }
+
+    SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
+    SDL_FreeSurface(image);
+
+
+
+    SDL_Rect posImg;
+    posImg.x = 0;
+    posImg.y = 0;
+
+    SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
+    SDL_RenderCopy(rendu, monImage, NULL, &posImg);
+
+    SDL_RenderPresent(rendu);
+}
 // Creation Menue
 
 int menue() {
@@ -147,15 +171,37 @@ int menue() {
         SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
 
     TTF_Init();
-    TTF_Font* font = TTF_OpenFont("calibri.ttf", 25);
+    TTF_Font* font_Title = TTF_OpenFont("04B_30__.ttf", 70);
+
+    TTF_Font* font_txt = TTF_OpenFont("8-bit-pusab.ttf", 25);
+
+
+    background(rendu);
+
+    SDL_Rect titleTxt; // Titre
+
+    titleTxt.x = 350 ;
+
+    titleTxt.y = 50;
+
+    titleTxt.w = 100;
+    titleTxt.h = 100;
+
+    SDL_Texture* title = loadText(rendu, "Panda Robot",noir, font_Title);
+
+    SDL_QueryTexture(title, NULL, NULL, &titleTxt.w, &titleTxt.h);
+
+    SDL_RenderCopy(rendu, title, NULL, &titleTxt);
+
+    SDL_DestroyTexture(title);
 
     SDL_Rect positionTexteBienvenue; // Texte de bienvenue
 
-    positionTexteBienvenue.x = LARGEUR/2 -150;
+    positionTexteBienvenue.x = 350;
 
-    positionTexteBienvenue.y = HAUTEUR/2;
+    positionTexteBienvenue.y = 300;
 
-    SDL_Texture* texture_Bienvenue = loadText(rendu, "Bienvenue !!", vert, font);
+    SDL_Texture* texture_Bienvenue = loadText(rendu, "Selectionnez un mode : ", noir, font_txt);
 
     SDL_QueryTexture(texture_Bienvenue, NULL, NULL, &positionTexteBienvenue.w, &positionTexteBienvenue.h);
 
@@ -163,38 +209,25 @@ int menue() {
 
     SDL_DestroyTexture(texture_Bienvenue);
 
-    SDL_Rect positionTexte3; // Voulez-vous jouer?
-
-    positionTexte3.x = LARGEUR / 2 -150;
-
-    positionTexte3.y = HAUTEUR / 2 + 50;
-
-    SDL_Texture* texture_jouer = loadText(rendu, "Voulez_vous jouez ?", vert, font);
-
-    SDL_QueryTexture(texture_jouer, NULL, NULL, &positionTexte3.w, &positionTexte3.h);
-
-    SDL_RenderCopy(rendu, texture_jouer, NULL, &positionTexte3);
-
-    SDL_DestroyTexture(texture_jouer);
 
     //SDL_RenderPresent(rendu);
 
     SDL_Rect Oui; //Bouton oui ou tout va etre mal disposé mais j'ai confiance en toi khalis :)
-    Oui.x = LARGEUR/2-200;
-    Oui.y = 600;
-    Oui.w = 25;
-    Oui.h = 25;
+    Oui.x = 300;
+    Oui.y = 400;
+    Oui.w = 300;
+    Oui.h = 50;
     SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255); //pinceau bleu
 
     SDL_RenderFillRect(rendu, &Oui);
 
     SDL_Rect positionTexteOui; // OUI !
 
-    positionTexteOui.x = LARGEUR / 2 - 150;
+    positionTexteOui.x = 310;
 
-    positionTexteOui.y = 600;
+    positionTexteOui.y = 400;
 
-    SDL_Texture* texture_Oui = loadText(rendu, "OUI !", bleu, font);
+    SDL_Texture* texture_Oui = loadText(rendu, " Automatique", noir, font_txt);
 
     SDL_QueryTexture(texture_Oui, NULL, NULL, &positionTexteOui.w, &positionTexteOui.h);
 
@@ -205,21 +238,21 @@ int menue() {
     //SDL_RenderPresent(rendu);
 
     SDL_Rect Non; //Bouton Non ou tout va etre mal disposé mais j'ai confiance en toi khalis :)
-    Non.x = LARGEUR / 2 - 50;
-    Non.y = 600;
-    Non.w = 25;
-    Non.h = 25;
+    Non.x = 650;
+    Non.y = 400;
+    Non.w = 300;
+    Non.h = 50;
     SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255); //pinceau rouge
 
     SDL_RenderFillRect(rendu, &Non);
 
     SDL_Rect positionTexteNon; // Non ...
 
-    positionTexteNon.x = LARGEUR / 2 ;
+    positionTexteNon.x = 700 ;
 
-    positionTexteNon.y = 600;
+    positionTexteNon.y = 400;
 
-    SDL_Texture* texture_Non = loadText(rendu, "Non ...", rouge, font);
+    SDL_Texture* texture_Non = loadText(rendu, " Manuelle", noir, font_txt);
 
     SDL_QueryTexture(texture_Non, NULL, NULL, &positionTexteNon.w, &positionTexteNon.h);
 
@@ -238,7 +271,7 @@ int menue() {
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT) {
                     cout << event.button.x << endl << event.button.y << endl;
-                    if ((event.button.x > LARGEUR / 2 - 50 && event.button.x < (LARGEUR / 2 - 50) + 25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
+                    if ((event.button.x > 300 && event.button.x < 600 && (event.button.y > 400 && event.button.y < 450))) {
                         SDL_DestroyRenderer(rendu);
 
                         SDL_DestroyWindow(win);
@@ -246,7 +279,7 @@ int menue() {
                         SDL_Quit();
                         return 0;
                     }
-                    else if ((event.button.x > LARGEUR / 2 - 200 && event.button.x < (LARGEUR / 2 - 200) + 25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
+                    else if ((event.button.x > 650 && event.button.x < 950 && (event.button.y > 400 && event.button.y < 450))) {
                         SDL_DestroyRenderer(rendu);
 
                         SDL_DestroyWindow(win);
@@ -264,7 +297,7 @@ int menue() {
     SDL_DestroyWindow(win);
 
     SDL_Quit();
-    return 0;
+    return 3;
 }
 
 int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
@@ -289,7 +322,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
         SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
 
     TTF_Init();
-    TTF_Font* font = TTF_OpenFont("calibri.ttf", 25);
+    TTF_Font* font = TTF_OpenFont("04B_30__.ttf", 25);
 
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -416,6 +449,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     cpt_return++;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
+                    background(rendu);
                     croissance_bambouseraie(tab, nb_cote);
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
@@ -488,6 +522,7 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     }
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
+    background(rendu);
     statistique(rendu);
     place_img(monImage, posImg, rendu);
     carre(rendu, nb_cote);

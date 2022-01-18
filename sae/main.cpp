@@ -16,10 +16,11 @@ int main(int argn, char* argv[]) {
     cin >> a;
     int nb_cote;
     loadfile(tabbanbou, "Save file.txt", nb_cote);
-    if (menue() == 0) {
+    int y = menue();
+    if (y == 0) {
         start_automatic(nb_cote,tabbanbou);
     }
-    else{
+    else if (y == 1){
         while (!fin) {
             if (init(tabbanbou, nb_cote) == 0) {
                 fin = true;
