@@ -9,7 +9,7 @@
 
 using namespace std;
 
-/*
+
 void start_automatic(SDL_Rect& posImg, SDL_Renderer* rendu, TTF_Font* font, SDL_Texture* monImage) {
 	Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
 	Panda panda;
@@ -74,4 +74,3 @@ void start_automatic(SDL_Rect& posImg, SDL_Renderer* rendu, TTF_Font* font, SDL_
 		}
 	}
 }
-*/
