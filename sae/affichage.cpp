@@ -225,34 +225,61 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
             continuer = false;
             break;
         case SDL_KEYDOWN:
-
             switch (event.key.keysym.sym) {
-
             case SDLK_RIGHT:
-                update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
+                if (panda.batterie <= 0) {
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
+                    panda.batterie-= 1;
+                }
+                else {
+                    panda.batterie = 100;
+                }
                 break;
 
             case SDLK_LEFT:
-                update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+                if (panda.batterie <= 0) {
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+                    panda.batterie -= 1;
+                }
+                else {
+                    panda.batterie = 100;
+                }
                 break;
 
             case SDLK_UP:
-                update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+                if (panda.batterie <= 0) {
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+                    panda.batterie -= 1;
+                }
+                else {
+                    panda.batterie = 100;
+                }
                 break;
 
             case SDLK_DOWN:
-                update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
+                if (panda.batterie <= 0) {
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
+                    panda.batterie -= 1;
+                }
+                else {
+                    panda.batterie = 100;
+                }
                 break;
 
             case SDLK_RETURN:
-                SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-                SDL_RenderClear(rendu);
-                croissance_bambouseraie(tab, nb_cote);
-                coupe(tab, panda.posx, panda.posy);
-                place_img(monImage, posImg, rendu);
-                carre(rendu,nb_cote);
-                ecrit(rendu, font);
-                affiche_bambou(rendu,tab,nb_cote);
+                if (panda.batterie <= 0) {
+                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+                    SDL_RenderClear(rendu);
+                    croissance_bambouseraie(tab, nb_cote);
+                    coupe(tab, panda.posx, panda.posy);
+                    place_img(monImage, posImg, rendu);
+                    carre(rendu,nb_cote);
+                    ecrit(rendu, font);
+                    affiche_bambou(rendu,tab,nb_cote);
+                }
+                else {
+                    panda.batterie = 100;
+                }
                 break;
 
             /*case SDL_MOUSEBUTTONUP://appui souris
