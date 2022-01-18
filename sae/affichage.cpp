@@ -125,7 +125,7 @@ void batterire(SDL_Renderer* rendu, int charge) {
 
 // Creation Menue
 
-void menue(SDL_Renderer* rendu, TTF_Font* font) {
+void menue(SDL_Renderer* rendu, TTF_Font* font , SDL_Rect& posImg, SDL_Texture* monImage,Panda& panda, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou], int& nb_cote) {
 
 
     SDL_Rect positionTexteBienvenue; // Texte de bienvenue
@@ -217,7 +217,7 @@ void menue(SDL_Renderer* rendu, TTF_Font* font) {
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT) {
                     if ((event.button.x > LARGEUR / 2 - 50 && event.button.x < (LARGEUR / 2 - 50) + 25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
-
+                        start_automatic(posImg, rendu, font, monImage);
                     }
                     else if ((event.button.x > LARGEUR / 2 - 200 && event.button.x < LARGEUR / 2 - 200+25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
 
@@ -328,7 +328,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     //CREATION BOUCLE EVENT 
     bool continuer = true;
     SDL_Event event;
-    menue(rendu, font);
+    menue(rendu, font,posImg,monImage,panda,tab,nb_cote);
 
 
     while (continuer)
