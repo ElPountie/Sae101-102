@@ -65,4 +65,5 @@ void start_automatic(SDL_Rect& posImg, SDL_Renderer* rendu, TTF_Font* font, SDL_
 		}
 		coupe(tab, panda.posx, panda.posy);
 		croissance_bambouseraie(tab, nb_bambou);
+	}
 }

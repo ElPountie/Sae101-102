@@ -399,6 +399,9 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     panda.batterie = 100;
                 }
                 break;
+            case SDLK_j:
+                start_automatic(posImg, rendu, font, monImage);
+                break;
 
             /*case SDL_MOUSEBUTTONUP://appui souris
 
