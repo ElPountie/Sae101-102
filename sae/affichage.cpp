@@ -285,8 +285,6 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     while (continuer)
     {
-
-
         SDL_WaitEvent(&event);
         switch (event.type)
         {
