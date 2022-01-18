@@ -18,6 +18,17 @@ SDL_Color bleu = { 0,0,255 };
 SDL_Color rouge = { 255,0,0 };
 SDL_Color violet = { 255,0,255 };
 
+void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const char texte[100], int posx, int posy) {
+    SDL_Rect pos_Legende;
+    pos_Legende.x = posx;
+    pos_Legende.y = posy;
+    SDL_Texture* texture = loadText(rendu, texte, color, font);
+    SDL_QueryTexture(texture, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
+    SDL_RenderCopy(rendu, texture, NULL, &pos_Legende);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
+}
+
 
 
 void carre(SDL_Renderer* rendu,int nb_cote) {
@@ -43,49 +54,11 @@ void place_img(SDL_Texture* monImage, SDL_Rect posImg, SDL_Renderer* rendu) {
 }
 
 void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
-    SDL_Rect pos_Legende;
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 50;
-    SDL_Texture* texture1 = loadText(rendu, "Legende", blanc, font);
-    SDL_QueryTexture(texture1, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
-    SDL_RenderCopy(rendu, texture1, NULL, &pos_Legende);
-    SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture1);
-
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 100;
-    SDL_Texture* texture2 = loadText(rendu, "haut.max", vert, font);
-    SDL_QueryTexture(texture2, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
-    SDL_RenderCopy(rendu, texture2, NULL, &pos_Legende);
-    SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture2);
-
-
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 150;
-    SDL_Texture* texture3 = loadText(rendu, "haut.moy", violet, font);
-    SDL_QueryTexture(texture3, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
-    SDL_RenderCopy(rendu, texture3, NULL, &pos_Legende);
-    SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture3);
-
-
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 200;
-    SDL_Texture* texture4 = loadText(rendu, "haut_min", rouge, font);
-    SDL_QueryTexture(texture4, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
-    SDL_RenderCopy(rendu, texture4, NULL, &pos_Legende);
-    SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture4);
-
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 250;
-    SDL_Texture* texture5 = loadText(rendu, "nb coupes", bleu, font);
-    SDL_QueryTexture(texture5, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
-    SDL_RenderCopy(rendu, texture5, NULL, &pos_Legende);
-    SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture5);
-
+    ecrire_render(font, rendu, blanc, "Legende", LARGEUR - 200, 50);
+    ecrire_render(font, rendu, vert, "haut.max", LARGEUR - 200, 100);
+    ecrire_render(font, rendu, violet, "haut.moy", LARGEUR - 200, 150);
+    ecrire_render(font, rendu, rouge, "haut_min", LARGEUR - 200, 200);
+    ecrire_render(font, rendu, bleu, "nb coupes", LARGEUR - 200, 250);
 }
 
 void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
@@ -435,10 +408,4 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
             panda.posy--;
         }
     }
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-    SDL_RenderClear(rendu);
-    place_img(monImage, posImg, rendu);
-    carre(rendu, nb_cote);
-    ecrit(rendu, font);
-    affiche_bambou(rendu, tab, nb_cote);
 }
