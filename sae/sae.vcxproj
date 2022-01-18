@@ -161,6 +161,7 @@
     <ClInclude Include="fonct_stats.h" />
     <ClInclude Include="fonct_thibault.h" />
     <ClInclude Include="func_khalis.h" />
+    <ClInclude Include="auto.h" />
     <ClInclude Include="Panda.h" />
     <ClInclude Include="Bambou.h" />
     <ClInclude Include="savefile.h" />

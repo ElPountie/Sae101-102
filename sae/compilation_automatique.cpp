@@ -8,7 +8,7 @@
 #include "fonct_thibault.h"
 
 using namespace std;
-/*
+
 void start_automatic(SDL_Rect& posImg, Panda& panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote) {
 	Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
 	Panda panda;
@@ -64,12 +64,4 @@ void start_automatic(SDL_Rect& posImg, Panda& panda, SDL_Renderer* rendu, TTF_Fo
 		}
 		coupe(tab, panda.posx, panda.posy);
 		croissance_bambouseraie(tab, nb_bambou);
-		//Refresh image
-		
-		SDL_Event event;
-		SDL_WaitEvent(&event);
-		switch (event.type){
-			
-		}
 }
-*/

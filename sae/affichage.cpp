@@ -9,6 +9,8 @@
 #include "savefile.h"
 #include"fonct_thibault.h"
 #include "func_khalis.h"
+#include "auto.h";
+
 
 using namespace std;
 
@@ -214,7 +216,10 @@ void menue(SDL_Renderer* rendu, TTF_Font* font) {
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT) {
-                    if (event.button.x > LARGEUR / 2 - 50 && event.button.x < (LARGEUR / 2 - 50) + 25) {
+                    if ((event.button.x > LARGEUR / 2 - 50 && event.button.x < (LARGEUR / 2 - 50) + 25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
+
+                    }
+                    else if ((event.button.x > LARGEUR / 2 - 200 && event.button.x < LARGEUR / 2 - 200+25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
 
                     }
                 }
