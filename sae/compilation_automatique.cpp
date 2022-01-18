@@ -9,7 +9,7 @@
 
 using namespace std;
 /*
-void start_automatic() {
+void start_automatic(SDL_Rect& posImg, Panda& panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote) {
 	Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
 	Panda panda;
 	panda.batterie = 100;
@@ -23,7 +23,6 @@ void start_automatic() {
 	init_f("Save file.txt", tab);
 	loadfile(tab, "Save file.txt", nb_cote);
 	init(tab, nb_cote);
-	//Init image
 	while (running){
 		to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
 		while (panda.posx != cutx && panda.posy != cuty && panda.batterie <= (panda.posx + panda.posy)){
@@ -42,6 +41,10 @@ void start_automatic() {
 				panda.batterie = 100;
 				croissance_bambouseraie(tab, nb_bambou);
 				to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
+				place_img(monImage, posImg, rendu);
+				carre(rendu,nb_cote);
+				ecrit(rendu, font);
+				affiche_bambou(rendu,tab,nb_cote);
 			}
 			else if (panda.posx < cutx) {
 				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
@@ -65,8 +68,8 @@ void start_automatic() {
 		
 		SDL_Event event;
 		SDL_WaitEvent(&event);
-			switch (event.type){
-
-
-	}
-}*/
+		switch (event.type){
+			
+		}
+}
+*/
