@@ -12,7 +12,7 @@ void vitesse_croissance(Bambou croissance[][nb_bambou], int nb_bambou) {
 	}
 }
 
-void croissance_bambouseraie(Bambou bambou[][nb_bambou], int nb_bambou) {
+void croissance_bambouseraie(Bambou bambou[][sqrt_nb_bambou], int nb_bambou) {
 	for (int i = 0; i < nb_bambou; i++) {
 		for (int j = 0; j < nb_bambou; j++) {
 			bambou[i][j].taille = bambou[i][j].taille + bambou[i][j].vitesse;

@@ -219,57 +219,19 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
             switch (event.key.keysym.sym) {
 
             case SDLK_RIGHT:
-                if (posImg.x != 100+125*(nb_cote-1)) {
-                    posImg.x += 125;
-                    panda.posx++;
-                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-                    SDL_RenderClear(rendu);
-                    carre(rendu,nb_cote);
-                    ecrit(rendu, font);
-                    affiche_bambou(rendu,tab,nb_cote);
-                    place_img(monImage, posImg, rendu);
-                }
-
+                update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
                 break;
 
             case SDLK_LEFT:
-                if (posImg.x != 100) {
-                    posImg.x -= 125;
-                    panda.posx--;
-                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-                    SDL_RenderClear(rendu);
-                    carre(rendu,nb_cote);
-                    ecrit(rendu, font);
-                    affiche_bambou(rendu,tab,nb_cote);
-                    place_img(monImage, posImg, rendu);
-                }
+                update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
                 break;
 
             case SDLK_UP:
-                if (posImg.y != 100) {
-                    posImg.y -= 125;
-                    panda.posy--;
-                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-                    SDL_RenderClear(rendu);
-                    place_img(monImage, posImg, rendu);
-                    carre(rendu,nb_cote);
-                    ecrit(rendu, font);
-                    affiche_bambou(rendu,tab,nb_cote);
-                    
-                }
+                update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
                 break;
 
             case SDLK_DOWN:
-                if (posImg.y != 100 + 125 * (nb_cote-1)) {
-                    posImg.y += 125;
-                    panda.posy++;
-                    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-                    SDL_RenderClear(rendu);
-                    place_img(monImage, posImg, rendu);
-                    carre(rendu,nb_cote);
-                    ecrit(rendu, font);
-                    affiche_bambou(rendu,tab,nb_cote);
-                }
+                update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
                 break;
 
             case SDLK_RETURN:
@@ -311,4 +273,38 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     SDL_Quit();
     return 0;
+}
+
+
+void update_movment(SDL_Rect posImg, Panda panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction) {
+    if (direction == 1) {
+        if (posImg.x != 100 + 125 * (nb_cote - 1)) {
+            posImg.x += 125;
+            panda.posx++;
+        }
+    }
+    else if (direction == 2) {
+        if (posImg.y != 100 + 125 * (nb_cote - 1)) {
+            posImg.y += 125;
+            panda.posy++;
+        }
+    }
+    else if (direction == 3) {
+        if (posImg.x != 100) {
+            posImg.x -= 125;
+            panda.posx--;
+        }
+    }
+    else if (direction == 4) {
+        if (posImg.y != 100) {
+            posImg.y -= 125;
+            panda.posy--;
+        }
+    }
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+    SDL_RenderClear(rendu);
+    carre(rendu, nb_cote);
+    ecrit(rendu, font);
+    affiche_bambou(rendu, tab, nb_cote);
+    place_img(monImage, posImg, rendu);
 }
