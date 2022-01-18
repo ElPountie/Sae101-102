@@ -104,8 +104,14 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 				f.getline(na, 30);
 				f.getline(na, 30, ':');
 				f >> speed;
-				tabbanbou[i1][i2].vitesse = speed;
-				tabbanbou[i1][i2].taille = speed;
+				if (speed >0 && speed < 100){
+					tabbanbou[i1][i2].vitesse = speed;
+					tabbanbou[i1][i2].taille = speed;
+				}
+				else {
+					cout << "Erreur chargement des donnees de sauvegarde, valeur attribuee automatiquement." << endl;
+					tabbanbou[i1][i2].vitesse = tabbanbou[i1][i2].taille = 4;
+				}
 			}
 		}
 		f.close();

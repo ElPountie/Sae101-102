@@ -1,57 +1,38 @@
 
-Largeur carre nombre bambou : 5
-Vitesse: 5
+Largeur carre nombre bambou : 4
+Vitesse: XXX
 
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
-
-Vitesse: 5
+Vitesse: XXX
 
 Changement de ligne
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
-
-Vitesse: 5
+Vitesse: XXX
 
 Changement de ligne
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
-
-Vitesse: 5
+Vitesse: XXX
 
 Changement de ligne
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
+Vitesse: XXX
 
-Vitesse: 5
-
-Vitesse: 5
-
-Changement de ligne
-Vitesse: 5
-
-Vitesse: 5
-
-Vitesse: 5
-
-Vitesse: 5
-
-Vitesse: 5
+Vitesse: XXX
 
 Changement de ligne
