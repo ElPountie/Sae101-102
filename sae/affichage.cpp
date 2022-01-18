@@ -8,6 +8,8 @@
 #include "Bambou.h"
 #include "savefile.h"
 #include"fonct_thibault.h"
+#include "func_khalis.h"
+
 using namespace std;
 
 SDL_Color blanc = { 255,255,255 };
