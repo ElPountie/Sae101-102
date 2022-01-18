@@ -52,5 +52,11 @@ void start_automatic() {
 		coupe(tab, panda.posx, panda.posy);
 		croissance_bambouseraie(tab, nb_bambou);
 		//Refresh image
-	}
+		/*
+		SDL_Event event;
+		SDL_WaitEvent(&event);
+			switch (event.type){
+
+
+	}*/
 }
