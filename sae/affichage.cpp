@@ -151,18 +151,11 @@ void batterire(SDL_Renderer* rendu, int charge) {
 // Creation Menue
 
 void menue(SDL_Renderer* rendu, TTF_Font* font) {
-    SDL_Rect menue;
-    menue.x = 0;
-    menue.y = 0;
-    menue.w = LARGEUR;
-    menue.h = HAUTEUR;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
 
-    SDL_RenderFillRect(rendu, &menue); 
 
     SDL_Rect positionTexteBienvenue; // Texte de bienvenue
 
-    positionTexteBienvenue.x = LARGEUR/2;
+    positionTexteBienvenue.x = LARGEUR/2 -150;
 
     positionTexteBienvenue.y = HAUTEUR/2;
 
@@ -176,9 +169,9 @@ void menue(SDL_Renderer* rendu, TTF_Font* font) {
 
     SDL_Rect positionTexte3; // Voulez-vous jouer?
 
-    positionTexte3.x = LARGEUR / 2;
+    positionTexte3.x = LARGEUR / 2 -150;
 
-    positionTexte3.y = HAUTEUR / 2 + 10;
+    positionTexte3.y = HAUTEUR / 2 + 50;
 
     SDL_Texture* texture_jouer = loadText(rendu, "Voulez_vous jouez ?", vert, font);
 
@@ -191,8 +184,8 @@ void menue(SDL_Renderer* rendu, TTF_Font* font) {
     //SDL_RenderPresent(rendu);
 
     SDL_Rect Oui; //Bouton oui ou tout va etre mal disposé mais j'ai confiance en toi khalis :)
-    Oui.x = LARGEUR / 2 - 10;
-    Oui.y = HAUTEUR / 2 + 20;
+    Oui.x = LARGEUR/2-200;
+    Oui.y = 600;
     Oui.w = 25;
     Oui.h = 25;
     SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255); //pinceau bleu
@@ -201,9 +194,9 @@ void menue(SDL_Renderer* rendu, TTF_Font* font) {
 
     SDL_Rect positionTexteOui; // OUI !
 
-    positionTexteOui.x = LARGEUR / 2-10;
+    positionTexteOui.x = LARGEUR / 2 - 150;
 
-    positionTexteOui.y = HAUTEUR / 2 + 20;
+    positionTexteOui.y = 600;
 
     SDL_Texture* texture_Oui = loadText(rendu, "OUI !", bleu, font);
 
@@ -216,8 +209,8 @@ void menue(SDL_Renderer* rendu, TTF_Font* font) {
     //SDL_RenderPresent(rendu);
 
     SDL_Rect Non; //Bouton Non ou tout va etre mal disposé mais j'ai confiance en toi khalis :)
-    Non.x = LARGEUR / 2 - 10;
-    Non.y = HAUTEUR / 2 + 20;
+    Non.x = LARGEUR / 2 - 50;
+    Non.y = 600;
     Non.w = 25;
     Non.h = 25;
     SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255); //pinceau rouge
@@ -226,19 +219,39 @@ void menue(SDL_Renderer* rendu, TTF_Font* font) {
 
     SDL_Rect positionTexteNon; // Non ...
 
-    positionTexteNon.x = LARGEUR / 2 + 10;
+    positionTexteNon.x = LARGEUR / 2 ;
 
-    positionTexteNon.y = HAUTEUR / 2 + 20;
+    positionTexteNon.y = 600;
 
     SDL_Texture* texture_Non = loadText(rendu, "Non ...", rouge, font);
 
     SDL_QueryTexture(texture_Non, NULL, NULL, &positionTexteNon.w, &positionTexteNon.h);
 
     SDL_RenderCopy(rendu, texture_Non, NULL, &positionTexteNon);
+    SDL_RenderPresent(rendu);
+    SDL_Event event;
+
+    bool continuer = true;
+
+    while (continuer){
+        SDL_WaitEvent(&event);
+        switch (event.type) {
+            case SDL_QUIT:
+                continuer = false;
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                if (event.button.button == SDL_BUTTON_LEFT) {
+                    if (event.button.x > LARGEUR / 2 - 50 && event.button.x < (LARGEUR / 2 - 50) + 25) {
+
+                    }
+                }
+ 
+        }
+
+
+    }
 
     SDL_DestroyTexture(texture_Non);
-
-    //SDL_RenderPresent(rendu);
 
 }
 
@@ -268,7 +281,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
  
 
-
+    
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
@@ -285,7 +298,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
     SDL_FreeSurface(image);
 
-    SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+    /*SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 
     SDL_Rect rect; //on définit le rectangle à tracer
 
@@ -318,19 +331,13 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     SDL_DestroyTexture(texture);
 
-    SDL_RenderPresent(rendu);
+    SDL_RenderPresent(rendu);*/
 
     SDL_Rect posImg;
     posImg.x = 100;
     posImg.y = 100;
 
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
-    SDL_RenderCopy(rendu, monImage, NULL, &posImg);
-
-    statistique(rendu);
-    carre(rendu,nb_cote);
-    ecrit(rendu, font);
-    affiche_bambou(rendu,tab,nb_cote);
     int Taille = sqrt_nb_bambou;
     SDL_RenderPresent(rendu);
     Panda panda;
@@ -343,12 +350,12 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     //CREATION BOUCLE EVENT 
     bool continuer = true;
     SDL_Event event;
+    menue(rendu, font);
+
 
     while (continuer)
     {
-
-
-        SDL_WaitEvent(&event);
+        SDL_WaitEvent(&event);//update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 5);
         switch (event.type)
         {
         case SDL_QUIT:
