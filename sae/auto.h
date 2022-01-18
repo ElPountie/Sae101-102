@@ -1,6 +1,7 @@
 #pragma once
 #ifndef auto
 #define auto
+
 #include "Bambou.h"
 #include "Constante_Thibault.h"
 #include "func_khalis.h"
