@@ -2,6 +2,7 @@
 #include "Bambou.h"
 #include "Const_stats_update.h"
 #include "Constante_Thibault.h"
+#include "Stats struct.h"
 using namespace std;
 
 int tab_moy_line(Bambou tabbambou[sqrt_nb_bambou], int tailley) {
@@ -68,4 +69,12 @@ int max_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 		}
 	}
 	return max;
+}
+
+void calcul_stats(Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int taby, int taille) {
+	for (int i = 0; i < taille; i++) {
+		tabs[i].max = max_bambou(tabb, tabx, taby);
+		tabs[i].min = min_bambou(tabb, tabx, taby);
+		tabs[i].moy = tab_moy_column_line(tabb, tabx, taby);
+	}
 }
