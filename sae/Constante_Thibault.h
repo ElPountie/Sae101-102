@@ -5,6 +5,6 @@
 const int nb_bambou = 16;
 const int sqrt_nb_bambou = 4;
 const int h_start_bambou = 1;
-const int h_max_bambou = 5 * h_start_bambou; 
+const int h_max_bambou = 120;
 
 #endif
