@@ -17,6 +17,6 @@ void update_movment(SDL_Rect& posImg, Panda& panda, SDL_Renderer* rendu, TTF_Fon
 void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou], int posx, int posy);
 void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const char texte[100], int posx, int posy);
 void batterire(SDL_Renderer* rendu, int charge);
-void menue(SDL_Renderer* rendu, TTF_Font* font, SDL_Rect& posImg, SDL_Texture* monImage, Panda& panda, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou], int& nb_cote);
+int menue();
 
 #endif

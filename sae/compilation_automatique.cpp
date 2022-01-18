@@ -1,8 +1,11 @@
+#include<SDL.h> 
+#include<SDL_ttf.h> 
 #include <iostream>
 #include "func_khalis.h"
 #include "savefile.h"
 #include "Bambou.h"
 #include "Constante_Thibault.h"
+#include "constante_khalis.h"
 #include "func_khalis.h"
 #include "fonct_stats.h"
 #include "fonct_thibault.h"
@@ -10,61 +13,116 @@
 using namespace std;
 
 
-void start_automatic(SDL_Rect& posImg, SDL_Renderer* rendu, TTF_Font* font, SDL_Texture* monImage) {
-	Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
+int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
+	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+		cout << "Echec à l’ouverture";
+		return 1;
+	}
+
+	SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
+		SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
+		SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
+		LARGEUR,                         //largeur en pixels                        
+		HAUTEUR,                         //hauteur en pixels
+		SDL_WINDOW_SHOWN //d’autres options (plein ecran, resizable, sans bordure...)
+	);
+	if (win == NULL)
+		cout << "erreur ouverture fenetre";
+	SDL_Renderer* rendu = SDL_CreateRenderer(
+		win,  //nom de la fenêtre
+		-1, //par défaut
+		SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
+
+	TTF_Init();
+	TTF_Font* font = TTF_OpenFont("calibri.ttf", 25);
+
+	SDL_Surface* image = IMG_Load("panda.png");
+	if (!image)
+	{
+		printf("Erreur de chargement de l'image : %s", SDL_GetError());
+		return -1;
+	}
+
+	SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
+	SDL_FreeSurface(image);
+
+
+
+	SDL_Rect posImg;
+	posImg.x = 100;
+	posImg.y = 100;
+
+	SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
+
+	int Taille = sqrt_nb_bambou;
 	Panda panda;
 	panda.batterie = 100;
 	panda.posy = panda.posx = panda.distance = 0;
 	bool running = true;
-
-	int nb_cote = 0;
+	SDL_Event event;
 	int record_taille = 0;
 	int cutx, cuty;
+	update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+	SDL_RenderPresent(rendu);
 
-	init_f("Save file.txt", tab);
-	loadfile(tab, "Save file.txt", nb_cote);
-	init(tab, nb_cote);
 	while (running) {
-		to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
-		while (panda.posx != cutx && panda.posy != cuty && panda.batterie <= (panda.posx + panda.posy)) {
-			if (panda.batterie <= (panda.posx + panda.posy + 1)) {
-				if (panda.posx == 0 && panda.posy == 0) {
-					coupe(tab, 0, 0);
+
+		SDL_WaitEvent(&event);
+		switch (event.type) {
+		case SDL_QUIT:
+			running = false;
+			break;
+
+		default:
+			to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
+			while (panda.posx != cutx && panda.posy != cuty && panda.batterie > (panda.posx + panda.posy)) {
+				if (panda.batterie <= (panda.posx + panda.posy + 1)) {
+					if (panda.posx == 0 && panda.posy == 0) {
+						coupe(tab, 0, 0);
+					}
+					else if (panda.posx > 0) {
+						update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+					}
+					else if (panda.posy > 0) {
+						update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+					}
 				}
-				else if (panda.posx > 0) {
+				else if (panda.batterie == 0) {
+					panda.batterie = 100;
+					croissance_bambouseraie(tab, nb_bambou);
+					to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
+					place_img(monImage, posImg, rendu);
+					carre(rendu, nb_cote);
+					ecrit(rendu, font);
+					affiche_bambou(rendu, tab, nb_cote);
+				}
+				else if (panda.posx < cutx) {
+					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
+				}
+				else if (panda.posx > cutx) {
 					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
 				}
-				else if (panda.posy > 0) {
+				else if (panda.posy < cuty) {
+					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
+				}
+				else if (panda.posy > cuty) {
 					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
 				}
+				else {
+					cout << "Unexpected value";
+				}
 			}
-			else if (panda.batterie == 0) {
-				panda.batterie = 100;
-				croissance_bambouseraie(tab, nb_bambou);
-				to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
-				place_img(monImage, posImg, rendu);
-				carre(rendu, nb_cote);
-				ecrit(rendu, font);
-				affiche_bambou(rendu, tab, nb_cote);
-			}
-			else if (panda.posx < cutx) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
-			}
-			else if (panda.posx > cutx) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
-			}
-			else if (panda.posy < cuty) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
-			}
-			else if (panda.posy > cuty) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
-			}
-			else {
-				cout << "Unexpected value";
-			}
+			break;
+			SDL_RenderPresent(rendu);
+			coupe(tab, panda.posx, panda.posy);
+			croissance_bambouseraie(tab, nb_bambou);
 		}
-		coupe(tab, panda.posx, panda.posy);
-		croissance_bambouseraie(tab, nb_bambou);
-
 	}
+	
+	SDL_DestroyRenderer(rendu);
+
+	SDL_DestroyWindow(win);
+
+	SDL_Quit();
+	return 0;
 }

@@ -6,5 +6,5 @@
 #include "Constante_Thibault.h"
 #include "func_khalis.h"
 
-void start_automatic(SDL_Rect& posImg, SDL_Renderer* rendu, TTF_Font* font, SDL_Texture* monImage);
+int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]);
 #endif

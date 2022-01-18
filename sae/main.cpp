@@ -4,7 +4,7 @@
 #include "savefile.h"
 #include "Bambou.h"
 #include "Constante_Thibault.h"
-
+#include "auto.h"
 using namespace std;
 
 int main(int argn, char* argv[]) {
@@ -16,9 +16,14 @@ int main(int argn, char* argv[]) {
     cin >> a;
     int nb_cote;
     loadfile(tabbanbou, "Save file.txt", nb_cote);
-    while (!fin) {
-        if (init(tabbanbou,nb_cote) == 0) {
-            fin = true;
+    if (menue() == 0) {
+        start_automatic(nb_cote,tabbanbou);
+    }
+    else{
+        while (!fin) {
+            if (init(tabbanbou, nb_cote) == 0) {
+                fin = true;
+            }
         }
     }
     return 0;

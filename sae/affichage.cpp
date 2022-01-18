@@ -125,8 +125,29 @@ void batterire(SDL_Renderer* rendu, int charge) {
 
 // Creation Menue
 
-void menue(SDL_Renderer* rendu, TTF_Font* font , SDL_Rect& posImg, SDL_Texture* monImage,Panda& panda, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou], int& nb_cote) {
+int menue() {
 
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        cout << "Echec à l’ouverture";
+        return 1;
+    }
+
+    SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
+        SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
+        SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
+        LARGEUR,                         //largeur en pixels                        
+        HAUTEUR,                         //hauteur en pixels
+        SDL_WINDOW_SHOWN //d’autres options (plein ecran, resizable, sans bordure...)
+    );
+    if (win == NULL)
+        cout << "erreur ouverture fenetre";
+    SDL_Renderer* rendu = SDL_CreateRenderer(
+        win,  //nom de la fenêtre
+        -1, //par défaut
+        SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
+
+    TTF_Init();
+    TTF_Font* font = TTF_OpenFont("calibri.ttf", 25);
 
     SDL_Rect positionTexteBienvenue; // Texte de bienvenue
 
@@ -204,33 +225,41 @@ void menue(SDL_Renderer* rendu, TTF_Font* font , SDL_Rect& posImg, SDL_Texture* 
 
     SDL_RenderCopy(rendu, texture_Non, NULL, &positionTexteNon);
     SDL_RenderPresent(rendu);
-    SDL_Event event;
-
     bool continuer = true;
-
-    while (continuer){
+    SDL_Event event;
+    while (continuer)
+    {
         SDL_WaitEvent(&event);
-        switch (event.type) {
+        switch (event.type)
+        {
             case SDL_QUIT:
                 continuer = false;
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT) {
+                    cout << event.button.x << endl << event.button.y << endl;
                     if ((event.button.x > LARGEUR / 2 - 50 && event.button.x < (LARGEUR / 2 - 50) + 25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
-                        start_automatic(posImg, rendu, font, monImage);
+                        SDL_DestroyRenderer(rendu);
+
+                        SDL_DestroyWindow(win);
+
+                        SDL_Quit();
+                        return 0;
                     }
-                    else if ((event.button.x > LARGEUR / 2 - 200 && event.button.x < LARGEUR / 2 - 200+25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
+                    else if ((event.button.x > LARGEUR / 2 - 200 && event.button.x < LARGEUR / 2 - 200 + 25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
 
                     }
                 }
- 
         }
-
 
     }
 
-    SDL_DestroyTexture(texture_Non);
+    SDL_DestroyRenderer(rendu);
 
+    SDL_DestroyWindow(win);
+
+    SDL_Quit();
+    return 0;
 }
 
 int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
@@ -263,20 +292,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
-
-    //IMPORTATION IMG PANDA
-
-    SDL_Surface* image = IMG_Load("panda.png");
-    if (!image)
-    {
-        printf("Erreur de chargement de l'image : %s", SDL_GetError());
-        return -1;
-    }
-
-    SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
-    SDL_FreeSurface(image);
-
-    /*SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+   /*SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 
     SDL_Rect rect; //on définit le rectangle à tracer
 
@@ -310,6 +326,19 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     SDL_DestroyTexture(texture);
 
     SDL_RenderPresent(rendu);*/
+    //IMPORTATION IMG PANDA
+
+    SDL_Surface* image = IMG_Load("panda.png");
+    if (!image)
+    {
+        printf("Erreur de chargement de l'image : %s", SDL_GetError());
+        return -1;
+    }
+
+    SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
+    SDL_FreeSurface(image);
+
+ 
 
     SDL_Rect posImg;
     posImg.x = 100;
@@ -328,8 +357,6 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     //CREATION BOUCLE EVENT 
     bool continuer = true;
     SDL_Event event;
-    menue(rendu, font,posImg,monImage,panda,tab,nb_cote);
-
 
     while (continuer)
     {
