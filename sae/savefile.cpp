@@ -114,12 +114,12 @@ void createTemplateSaveFile(const char nomf[50]) {
 	f << nbbambou;
 	for (int i1 = 0; i1 < nbbambou; i1++) {
 		for (int i2 = 0; i2 < nbbambou; i2++) {
+			int taille = rand() % 8 + 2;
 			addline(f, "Taille: ");
-			f << rand() % 10;
+			f << taille;
 			addline(f, "Vitesse: ");
-			f << rand() % 9 + 1;
+			f << taille;
 		}
-		
 	}
 	f.close();
 }

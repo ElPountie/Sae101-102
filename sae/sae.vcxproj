@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="affichage.cpp" />
+    <ClCompile Include="compilation_automatique.cpp" />
     <ClCompile Include="config_sdl.cpp" />
     <ClCompile Include="Création_bouton.cpp" />
     <ClCompile Include="Init_bambouseraie.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="constante_khalis.h" />
     <ClInclude Include="Constante_Thibault.h" />
     <ClInclude Include="Const_stats_update.h" />
+    <ClInclude Include="fonct_stats.h" />
     <ClInclude Include="fonct_thibault.h" />
     <ClInclude Include="func_khalis.h" />
     <ClInclude Include="Panda.h" />

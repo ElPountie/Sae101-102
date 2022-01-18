@@ -14,4 +14,5 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font);
 void affiche_bambou(SDL_Renderer* rendu,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_carre);
 int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote);
 void update_movment(SDL_Rect& posImg, Panda& panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction);
+void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou], int posx, int posy);
 #endif
