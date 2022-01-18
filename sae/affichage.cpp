@@ -89,7 +89,7 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
 }
 
 void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
-    SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+    SDL_SetRenderDrawColor(rendu, 50, 255, 0, 255);
     SDL_Rect bambou;
     int N = nb_cote;
     for (int i = 0; i < N; i++) {
@@ -97,8 +97,11 @@ void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bamb
             bambou.x = 50 + j * 125+25;
             bambou.y = 50+ i * 125 +125 ;
             bambou.w = 5;
-            bambou.h = -tab[i][j].taille * 5;
+            bambou.h = -tab[i][j].taille * 1.5;
             SDL_RenderFillRect(rendu, &bambou);
+            for (int k = 0; k < tab[i][j].taille/tab[i][j].vitesse; k++){
+                SDL_RenderDrawLine(rendu, bambou.x - 5, bambou.y, bambou.x + 10, bambou.y);
+            }
         }
     }
     SDL_RenderPresent(rendu);

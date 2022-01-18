@@ -115,10 +115,11 @@ void createTemplateSaveFile(const char nomf[50]) {
 	for (int i1 = 0; i1 < nbbambou; i1++) {
 		for (int i2 = 0; i2 < nbbambou; i2++) {
 			addline(f, "Taille: ");
-			f << rand() % 20;
+			f << rand() % 10;
 			addline(f, "Vitesse: ");
-			f << rand() % 19 + 1;
+			f << rand() % 9 + 1;
 		}
-		f.close();
+		
 	}
+	f.close();
 }
