@@ -7,9 +7,9 @@
 #include "Bambou.h"
 #include "Constante_Thibault.h"
 
-void carre(SDL_Renderer* rendu);
+void carre(SDL_Renderer* rendu,int nb_carre);
 void place_img(SDL_Texture* monImage, SDL_Rect posImg, SDL_Renderer* rendu);
 void ecrit(SDL_Renderer* rendu, TTF_Font* font);
-void affiche_bambou(SDL_Renderer* rendu,Bambou tab[][]);
-int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]);
+void affiche_bambou(SDL_Renderer* rendu,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_carre);
+int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote);
 #endif

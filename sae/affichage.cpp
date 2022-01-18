@@ -17,8 +17,8 @@ SDL_Color violet = { 255,0,255 };
 
 
 
-void carre(SDL_Renderer* rendu) {
-    int N = sqrt_nb_bambou;
+void carre(SDL_Renderer* rendu,int nb_cote) {
+    int N = nb_cote;
     for (int i = 0; i < N; i++){
         for (int j = 0; j < N; j++){
             SDL_Rect carre;
@@ -85,10 +85,10 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
 
 }
 
-void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
+void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     SDL_Rect bambou;
-    int N = sqrt_nb_bambou;
+    int N = nb_cote;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++){
             bambou.x = 50 + j * 125+25;
@@ -105,12 +105,8 @@ void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
     tab[posy][posx].taille = tab[posy][posx].vitesse;
 }
 
-int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
-    int a;
-    cout << "enter valeurs .txt" << endl;
-    cin >> a;
-    int nb_cote;
-    loadfile(tab, "Save file.txt",nb_cote);
+int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cout << "Echec à l’ouverture";
         return 1;
@@ -194,9 +190,9 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
     SDL_RenderCopy(rendu, monImage, NULL, &posImg);
 
-    carre(rendu);
+    carre(rendu,nb_cote);
     ecrit(rendu, font);
-    affiche_bambou(rendu,tab);
+    affiche_bambou(rendu,tab,nb_cote);
     int Taille = sqrt_nb_bambou;
     SDL_RenderPresent(rendu);
     Panda panda;
@@ -223,14 +219,14 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
             switch (event.key.keysym.sym) {
 
             case SDLK_RIGHT:
-                if (posImg.x != 100+125*(sqrt_nb_bambou-1)) {
+                if (posImg.x != 100+125*(nb_cote-1)) {
                     posImg.x += 125;
                     panda.posx++;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
-                    carre(rendu);
+                    carre(rendu,nb_cote);
                     ecrit(rendu, font);
-                    affiche_bambou(rendu,tab);
+                    affiche_bambou(rendu,tab,nb_cote);
                     place_img(monImage, posImg, rendu);
                 }
 
@@ -242,9 +238,9 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
                     panda.posx--;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
-                    carre(rendu);
+                    carre(rendu,nb_cote);
                     ecrit(rendu, font);
-                    affiche_bambou(rendu,tab);
+                    affiche_bambou(rendu,tab,nb_cote);
                     place_img(monImage, posImg, rendu);
                 }
                 break;
@@ -256,23 +252,23 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     place_img(monImage, posImg, rendu);
-                    carre(rendu);
+                    carre(rendu,nb_cote);
                     ecrit(rendu, font);
-                    affiche_bambou(rendu,tab);
+                    affiche_bambou(rendu,tab,nb_cote);
                     
                 }
                 break;
 
             case SDLK_DOWN:
-                if (posImg.y != 100 + 125 * (sqrt_nb_bambou-1)) {
+                if (posImg.y != 100 + 125 * (nb_cote-1)) {
                     posImg.y += 125;
                     panda.posy++;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     place_img(monImage, posImg, rendu);
-                    carre(rendu);
+                    carre(rendu,nb_cote);
                     ecrit(rendu, font);
-                    affiche_bambou(rendu,tab);
+                    affiche_bambou(rendu,tab,nb_cote);
                 }
                 break;
 
@@ -281,9 +277,9 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
                 SDL_RenderClear(rendu);
                 coupe(tab, panda.posx, panda.posy);
                 place_img(monImage, posImg, rendu);
-                carre(rendu);
+                carre(rendu,nb_cote);
                 ecrit(rendu, font);
-                affiche_bambou(rendu,tab);
+                affiche_bambou(rendu,tab,nb_cote);
                 break;
 
             /*case SDL_MOUSEBUTTONUP://appui souris
