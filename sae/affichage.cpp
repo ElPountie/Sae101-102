@@ -148,6 +148,100 @@ void batterire(SDL_Renderer* rendu, int charge) {
 
 }
 
+// Creation Menue
+
+void menue(SDL_Renderer* rendu, TTF_Font* font) {
+    SDL_Rect menue;
+    menue.x = 0;
+    menue.y = 0;
+    menue.w = LARGEUR;
+    menue.h = HAUTEUR;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+
+    SDL_RenderFillRect(rendu, &menue); 
+
+    SDL_Rect positionTexteBienvenue; // Texte de bienvenue
+
+    positionTexteBienvenue.x = LARGEUR/2;
+
+    positionTexteBienvenue.y = HAUTEUR/2;
+
+    SDL_Texture* texture_Bienvenue = loadText(rendu, "Bienvenue !!", vert, font);
+
+    SDL_QueryTexture(texture_Bienvenue, NULL, NULL, &positionTexteBienvenue.w, &positionTexteBienvenue.h);
+
+    SDL_RenderCopy(rendu, texture_Bienvenue, NULL, &positionTexteBienvenue);
+
+    SDL_DestroyTexture(texture_Bienvenue);
+
+    SDL_Rect positionTexte3; // Voulez-vous jouer?
+
+    positionTexte3.x = LARGEUR / 2;
+
+    positionTexte3.y = HAUTEUR / 2 + 10;
+
+    SDL_Texture* texture_jouer = loadText(rendu, "Voulez_vous jouez ?", vert, font);
+
+    SDL_QueryTexture(texture_jouer, NULL, NULL, &positionTexte3.w, &positionTexte3.h);
+
+    SDL_RenderCopy(rendu, texture_jouer, NULL, &positionTexte3);
+
+    SDL_DestroyTexture(texture_jouer);
+
+    //SDL_RenderPresent(rendu);
+
+    SDL_Rect Oui; //Bouton oui ou tout va etre mal disposé mais j'ai confiance en toi khalis :)
+    Oui.x = LARGEUR / 2 - 10;
+    Oui.y = HAUTEUR / 2 + 20;
+    Oui.w = 25;
+    Oui.h = 25;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255); //pinceau bleu
+
+    SDL_RenderFillRect(rendu, &Oui);
+
+    SDL_Rect positionTexteOui; // OUI !
+
+    positionTexteOui.x = LARGEUR / 2-10;
+
+    positionTexteOui.y = HAUTEUR / 2 + 20;
+
+    SDL_Texture* texture_Oui = loadText(rendu, "OUI !", bleu, font);
+
+    SDL_QueryTexture(texture_Oui, NULL, NULL, &positionTexteOui.w, &positionTexteOui.h);
+
+    SDL_RenderCopy(rendu, texture_Oui, NULL, &positionTexteOui);
+
+    SDL_DestroyTexture(texture_Oui);
+
+    //SDL_RenderPresent(rendu);
+
+    SDL_Rect Non; //Bouton Non ou tout va etre mal disposé mais j'ai confiance en toi khalis :)
+    Non.x = LARGEUR / 2 - 10;
+    Non.y = HAUTEUR / 2 + 20;
+    Non.w = 25;
+    Non.h = 25;
+    SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255); //pinceau rouge
+
+    SDL_RenderFillRect(rendu, &Non);
+
+    SDL_Rect positionTexteNon; // Non ...
+
+    positionTexteNon.x = LARGEUR / 2 + 10;
+
+    positionTexteNon.y = HAUTEUR / 2 + 20;
+
+    SDL_Texture* texture_Non = loadText(rendu, "Non ...", rouge, font);
+
+    SDL_QueryTexture(texture_Non, NULL, NULL, &positionTexteNon.w, &positionTexteNon.h);
+
+    SDL_RenderCopy(rendu, texture_Non, NULL, &positionTexteNon);
+
+    SDL_DestroyTexture(texture_Non);
+
+    //SDL_RenderPresent(rendu);
+
+}
+
 int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
