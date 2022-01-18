@@ -44,16 +44,16 @@ void place_img(SDL_Texture* monImage, SDL_Rect posImg, SDL_Renderer* rendu) {
 
 void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_Rect pos_Legende;
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 50;
+    pos_Legende.x = LARGEUR - 300;
+    pos_Legende.y = 20;
     SDL_Texture* texture1 = loadText(rendu, "Legende", blanc, font);
     SDL_QueryTexture(texture1, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
     SDL_RenderCopy(rendu, texture1, NULL, &pos_Legende);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture1);
 
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 100;
+    pos_Legende.x = LARGEUR - 575;
+    pos_Legende.y = 50;
     SDL_Texture* texture2 = loadText(rendu, "haut.max", vert, font);
     SDL_QueryTexture(texture2, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
     SDL_RenderCopy(rendu, texture2, NULL, &pos_Legende);
@@ -61,8 +61,8 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_DestroyTexture(texture2);
 
 
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 150;
+    pos_Legende.x = LARGEUR - 425;
+    pos_Legende.y = 50;
     SDL_Texture* texture3 = loadText(rendu, "haut.moy", violet, font);
     SDL_QueryTexture(texture3, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
     SDL_RenderCopy(rendu, texture3, NULL, &pos_Legende);
@@ -70,16 +70,16 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_DestroyTexture(texture3);
 
 
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 200;
+    pos_Legende.x = LARGEUR - 275;
+    pos_Legende.y = 50;
     SDL_Texture* texture4 = loadText(rendu, "haut_min", rouge, font);
     SDL_QueryTexture(texture4, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
     SDL_RenderCopy(rendu, texture4, NULL, &pos_Legende);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture4);
 
-    pos_Legende.x = LARGEUR - 200;
-    pos_Legende.y = 250;
+    pos_Legende.x = LARGEUR - 125 ;
+    pos_Legende.y = 50;
     SDL_Texture* texture5 = loadText(rendu, "nb coupes", bleu, font);
     SDL_QueryTexture(texture5, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
     SDL_RenderCopy(rendu, texture5, NULL, &pos_Legende);
@@ -115,6 +115,37 @@ void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bamb
 
 void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
     tab[posy][posx].taille = tab[posy][posx].vitesse;
+}
+void statistique(SDL_Renderer* rendu ) {
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+    SDL_Rect stat;
+    stat.x = LARGEUR - 550;
+    stat.y = HAUTEUR - 600;
+    stat.h = 200;
+    stat.w = 500;
+    SDL_RenderDrawRect(rendu, &stat);
+}
+
+void batterire(SDL_Renderer* rendu, int charge) {
+   
+    SDL_Rect batterie;    
+    batterie.x = 700;
+    batterie.y = 175;   
+    batterie.h = -120;
+    batterie.w = 40;
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+    SDL_RenderFillRect(rendu, &batterie);
+
+    SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+    batterie.h = -charge;
+    batterie.w = 30;
+    batterie.x = 700;
+    batterie.y = 175;
+
+    SDL_RenderFillRect(rendu, &batterie);
+
+    SDL_RenderPresent(rendu);
+
 }
 
 int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
@@ -202,6 +233,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
     SDL_RenderCopy(rendu, monImage, NULL, &posImg);
 
+    statistique(rendu);
     carre(rendu,nb_cote);
     ecrit(rendu, font);
     affiche_bambou(rendu,tab,nb_cote);
@@ -212,6 +244,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     panda.posy = 0;
     panda.batterie = 100;
     panda.distance = 0;
+
+    int cpt_return = 0;
     //CREATION BOUCLE EVENT 
     bool continuer = true;
     SDL_Event event;
@@ -270,14 +304,17 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
             case SDLK_RETURN:
                 if (panda.batterie >= 0) {
+                    cpt_return++;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     croissance_bambouseraie(tab, nb_cote);
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
+                    statistique(rendu);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);
+                    batterire(rendu, panda.batterie);
                 }
                 else {
                     panda.batterie = 100;
@@ -309,7 +346,6 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     SDL_DestroyRenderer(rendu);
 
     SDL_DestroyWindow(win);
-
 
     SDL_Quit();
     return 0;
@@ -343,8 +379,10 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     }
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
+    statistique(rendu);
     place_img(monImage, posImg, rendu);
     carre(rendu, nb_cote);
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
+    batterire(rendu, panda.batterie);
 }

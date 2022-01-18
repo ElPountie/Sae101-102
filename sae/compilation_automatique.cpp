@@ -25,7 +25,7 @@ void start_automatic() {
 	init(tab, nb_cote);
 	//Init image
 
-	while (running){
+	while (running) {
 		to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);
 		while (panda.posx != cutx && panda.posy != cuty && panda.batterie <= 0) {
 			if (panda.batterie == 0) {
@@ -59,4 +59,6 @@ void start_automatic() {
 
 
 	}*/
+
+	}
 }
