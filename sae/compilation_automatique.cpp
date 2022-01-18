@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void start_automatic() {
+/*void start_automatic() {
 	Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou];
 	Panda panda;
 	panda.batterie = 100;
@@ -47,10 +47,16 @@ void start_automatic() {
 			}
 			else {
 				cout << "Unexpected value";
-			}*/
+			}
 		}
 		coupe(tab, panda.posx, panda.posy);
 		croissance_bambouseraie(tab, nb_bambou);
 		//Refresh image
+		
+		SDL_Event event;
+		SDL_WaitEvent(&event);
+			switch (event.type){
+
+
 	}
-}
+}*/

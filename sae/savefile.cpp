@@ -64,14 +64,13 @@ void init_f(const char nomf[50], Bambou tabbanbou[][sqrt_nb_bambou]) {
 			}
 			else {
 				ofstream f(nomf);
-				cout << "Largeur du carre (max 49):";
+				cout << "Largeur du carre (min 1, max 5):";
 				int nbbambou;
 				cin >> nbbambou;
 				addline(f, "Largeur carre nombre bambou : ");
 				f << nbbambou;
 				for (int i1 = 0; i1 < nbbambou; i1++) {
 					for (int i2 = 0; i2 < nbbambou; i2++) {
-						addline(f, "Taille: XXX");
 						addline(f, "Vitesse: XXX");
 						addline(f, "");
 					}
@@ -93,14 +92,26 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 		char na[30];
 		f.getline(na, 30, ':');
 		f >> nb_cote;
+		if (nb_cote > 5){
+			nb_cote = 5;
+		}
+		else if (nb_cote < 1) {
+			nb_cote = 1;
+		}
+		int speed;
 		for (int i1 = 0; i1 < nb_cote; i1++) {
 			for (int i2 = 0; i2 < nb_cote; i2++) {
 				f.getline(na, 30);
 				f.getline(na, 30, ':');
-				f >> tabbanbou[i1][i2].taille;
-				f.getline(na, 30);
-				f.getline(na, 30, ':');
-				f >> tabbanbou[i1][i2].vitesse;
+				f >> speed;
+				if (speed >0 && speed < 100){
+					tabbanbou[i1][i2].vitesse = speed;
+					tabbanbou[i1][i2].taille = speed;
+				}
+				else {
+					cout << "Erreur chargement des donnees de sauvegarde, valeur attribuee automatiquement." << endl;
+					tabbanbou[i1][i2].vitesse = tabbanbou[i1][i2].taille = 4;
+				}
 			}
 		}
 		f.close();
@@ -110,13 +121,11 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 void createTemplateSaveFile(const char nomf[50]) {
 	ofstream f(nomf);
 	addline(f, "Largeur carre nombre bambou : ");
-	int nbbambou = rand() % 3 + 2;
+	int nbbambou = rand() % 4 + 2;
 	f << nbbambou;
 	for (int i1 = 0; i1 < nbbambou; i1++) {
 		for (int i2 = 0; i2 < nbbambou; i2++) {
 			int taille = rand() % 8 + 2;
-			addline(f, "Taille: ");
-			f << taille;
 			addline(f, "Vitesse: ");
 			f << taille;
 		}
