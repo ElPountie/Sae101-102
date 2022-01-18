@@ -114,7 +114,7 @@ void batterire(SDL_Renderer* rendu, int charge) {
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     batterie.h = -charge;
     batterie.w = 30;
-    batterie.x = 700;
+    batterie.x = 705;
     batterie.y = 175;
 
     SDL_RenderFillRect(rendu, &batterie);
@@ -246,8 +246,13 @@ int menue() {
                         SDL_Quit();
                         return 0;
                     }
-                    else if ((event.button.x > LARGEUR / 2 - 200 && event.button.x < LARGEUR / 2 - 200 + 25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
+                    else if ((event.button.x > LARGEUR / 2 - 200 && event.button.x < (LARGEUR / 2 - 200) + 25) && (event.button.y > 600 && event.button.y < 600 + 25)) {
+                        SDL_DestroyRenderer(rendu);
 
+                        SDL_DestroyWindow(win);
+
+                        SDL_Quit();
+                        return 1;
                     }
                 }
         }
@@ -286,9 +291,6 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     TTF_Init();
     TTF_Font* font = TTF_OpenFont("calibri.ttf", 25);
 
- 
-
-    
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
@@ -357,6 +359,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     //CREATION BOUCLE EVENT 
     bool continuer = true;
     SDL_Event event;
+    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
 
     while (continuer)
     {
