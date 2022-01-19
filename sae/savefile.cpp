@@ -116,9 +116,13 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 					tabbanbou[i1][i2].vitesse = speed;
 					tabbanbou[i1][i2].taille = speed;
 				}
-				else {
+				else if (nb_cote <= 3){
 					createTemplateSaveFile(nomf, nb_cote);
 					loadfile(tabbanbou, nomf, nb_cote);
+				}
+				else {
+					tabbanbou[i1][i2].vitesse = 1;
+					tabbanbou[i1][i2].taille = 1;
 				}
 			}
 		}

@@ -52,7 +52,6 @@ void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
     char txt[1000];
     sprintf_s(txt, "%d", nb_coupe);
     ecrire_render(font, rendu, bleu, txt, 400, 675);
-
 }
 
 void carre(SDL_Renderer* rendu,int nb_cote) {
