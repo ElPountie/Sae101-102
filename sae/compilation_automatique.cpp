@@ -54,17 +54,16 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 
 	SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
 
-	int Taille = sqrt_nb_bambou;
 	Panda panda;
 	panda.batterie = 100;
 	panda.posy = panda.posx = panda.distance = 0;
 	bool running = true;
 	SDL_Event event;
 	int record_taille = 0;
-	int cutx, cuty;
 	update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
 	SDL_RenderPresent(rendu);
-
+	int cutx, cuty = 100;
+	int smvitesse = Sommevitesse(tab, nb_cote, nb_cote);
 	while (running) {
 		SDL_Delay(500);
 		SDL_WaitEvent(&event);
@@ -72,8 +71,13 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 		case SDL_QUIT:
 			running = false;
 			break;
-		
-		if (panda.batterie <= (panda.posx + panda.posy + 1)) {																				//Plus de batterie
+		}
+		to_cut_reduce_fastest(tab, nb_cote, nb_cote, Sommevitesse(tab, nb_cote, nb_cote), record_taille, cutx, cuty);
+		if (cutx == 100 || cuty == 100) {
+			croissance_bambouseraie(tab, nb_cote);
+			affiche_bambou(rendu, tab, nb_cote);
+		}
+		else if (panda.batterie <= (panda.posx + panda.posy + 1)) {																				//Plus de batterie
 			if (panda.posx > 0) {
 				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
 			}
@@ -81,18 +85,35 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
 			}
 			else if (panda.batterie == 1) {
+				SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+				SDL_RenderClear(rendu);
+				background(rendu);
+				croissance_bambouseraie(tab, nb_cote);
 				coupe(tab, panda.posx, panda.posy);
+				place_img(monImage, posImg, rendu);
+				statistique(rendu);
+				carre(rendu, nb_cote);
+				ecrit(rendu, font);
+				affiche_bambou(rendu, tab, nb_cote);
+				batterire(rendu, panda.batterie);
 			}
 			else {
 				panda.batterie = 100;
-				croissance_bambouseraie(tab, nb_bambou);
-				to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);														//Choisis le bambou à couper
+				croissance_bambouseraie(tab, nb_cote);														//Choisis le bambou à couper
 			}
 		}
 		else if (panda.posx == cutx && panda.posy == cuty) {								//Coupe s'il est en position
-			croissance_bambouseraie(tab, sqrt_nb_bambou);
+			SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+			SDL_RenderClear(rendu);
+			background(rendu);
+			croissance_bambouseraie(tab, nb_cote);
 			coupe(tab, panda.posx, panda.posy);
-			to_cut_reduce_fastest(tab, nb_cote, nb_cote, 1.45, record_taille, cutx, cuty);														//Choisis le bambou à couper
+			place_img(monImage, posImg, rendu);
+			statistique(rendu); 
+			carre(rendu, nb_cote);
+			ecrit(rendu, font);
+			affiche_bambou(rendu, tab, nb_cote);
+			batterire(rendu, panda.batterie);
 		}
 		else if (panda.posx > cutx) {														//Se dirige vers le bambou
 			update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
@@ -106,11 +127,9 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 		else if (panda.posy < cuty) {
 			update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
 		}
-		break;
 		SDL_RenderPresent(rendu);
-		}
 	}
-	
+
 	SDL_DestroyRenderer(rendu);
 
 	SDL_DestroyWindow(win);

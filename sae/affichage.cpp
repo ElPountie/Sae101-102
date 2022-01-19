@@ -34,7 +34,10 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
     SDL_DestroyTexture(texture);
 }
 
-
+void nb_coupes(SDL_Renderer* rendu,TTF_Font* font) {
+    ecrire_render(font, rendu, bleu, "nb coupes", LARGEUR - 200, 250);
+    
+}
 
 void carre(SDL_Renderer* rendu,int nb_cote) {
     int N = nb_cote;
@@ -139,7 +142,7 @@ void courbe(SDL_Renderer* rendu, Stats tabs[], Bambou tabb[][sqrt_nb_bambou], in
 
 
 void batterire(SDL_Renderer* rendu, int charge) {
-   
+
     SDL_Rect batterie;    
     batterie.x = 700;
     batterie.y = 175;   
@@ -155,6 +158,24 @@ void batterire(SDL_Renderer* rendu, int charge) {
     batterie.y = 175;
 
     SDL_RenderFillRect(rendu, &batterie);
+    SDL_Surface* image = IMG_Load("eclair.png");
+    if (!image)
+    {
+        cout << "erreur";
+        return;
+    }
+
+    SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
+    SDL_FreeSurface(image);
+
+
+
+    SDL_Rect posImg;
+    posImg.x = 705;
+    posImg.y = 100;
+
+    SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
+    SDL_RenderCopy(rendu, monImage, NULL, &posImg);
 
     SDL_RenderPresent(rendu);
 
@@ -232,7 +253,7 @@ int menue() {
 
     SDL_Rect positionTexteBienvenue; // Texte de bienvenue
 
-    positionTexteBienvenue.x = 350;
+    positionTexteBienvenue.x = 400;
 
     positionTexteBienvenue.y = 300;
 
@@ -248,17 +269,17 @@ int menue() {
     //SDL_RenderPresent(rendu);
 
     SDL_Rect Oui; //Bouton oui ou tout va etre mal disposé mais j'ai confiance en toi khalis :)
-    Oui.x = 300;
+    Oui.x = 350;
     Oui.y = 400;
     Oui.w = 300;
     Oui.h = 50;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255); //pinceau bleu
+    SDL_SetRenderDrawColor(rendu, 233, 170, 240, 255); //pinceau bleu
 
     SDL_RenderFillRect(rendu, &Oui);
 
     SDL_Rect positionTexteOui; // OUI !
 
-    positionTexteOui.x = 310;
+    positionTexteOui.x = 360;
 
     positionTexteOui.y = 400;
 
@@ -273,21 +294,21 @@ int menue() {
     //SDL_RenderPresent(rendu);
 
     SDL_Rect Non; //Bouton Non ou tout va etre mal disposé mais j'ai confiance en toi khalis :)
-    Non.x = 650;
+    Non.x = 725;
     Non.y = 400;
     Non.w = 300;
     Non.h = 50;
-    SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255); //pinceau rouge
+    SDL_SetRenderDrawColor(rendu, 127, 231, 240, 255); //pinceau rouge
 
     SDL_RenderFillRect(rendu, &Non);
 
     SDL_Rect positionTexteNon; // Non ...
 
-    positionTexteNon.x = 700 ;
+    positionTexteNon.x = 780 ;
 
     positionTexteNon.y = 400;
 
-    SDL_Texture* texture_Non = loadText(rendu, " Manuelle", noir, font_txt);
+    SDL_Texture* texture_Non = loadText(rendu, " Manuel", noir, font_txt);
 
     SDL_QueryTexture(texture_Non, NULL, NULL, &positionTexteNon.w, &positionTexteNon.h);
 

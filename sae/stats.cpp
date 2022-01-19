@@ -26,14 +26,17 @@ int to_cut_reduce_fastest(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby
 	for (int i1 = 0; i1 < tabx; i1++) {
 		for (int i2 = 0; i2 < taby; i2++) {
 			if (tabbambou[i1][i2].taille > max_size and tabbambou[i1][i2].vitesse > vitesse_max) {
-				tabbambou[i1][i2].vitesse = vitesse_max;
-				to_cutx = i1;
-				to_cuty = i2;
+				vitesse_max = tabbambou[i1][i2].vitesse;
+				to_cutx = i2;
+				to_cuty = i1;
 				if (tabbambou[i1][i2].taille > recordtaille) {
 					recordtaille = tabbambou[i1][i2].taille;
 				}
 			}
 		}
+	}
+	if (vitesse_max = 0) {
+		to_cutx = to_cuty = 100;
 	}
 	return 0;
 }
@@ -77,4 +80,14 @@ void calcul_stats(Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int tab
 		tabs[i].min = min_bambou(tabb, tabx, taby);
 		tabs[i].moy = tab_moy_column_line(tabb, tabx, taby);
 	}
+}
+
+int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
+	int sm = 0;
+	for (int i1 = 0; i1 < tabx; i1++) {
+		for (int i2 = 0; i2 < tabx; i2++) {
+			sm += tab[i1][i2].vitesse;
+		}
+	}
+	return sm;
 }
