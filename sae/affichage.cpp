@@ -38,13 +38,26 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
 }
 
 void recharge(SDL_Renderer* rendu) {
+   
+    SDL_Surface* chargeur = IMG_Load("Recharge.png");
+    if (!chargeur)
+    {
+        cout << "erreur";
+        return;
+    }
+
+    SDL_Texture* monchargeur = SDL_CreateTextureFromSurface(rendu, chargeur);
+    SDL_FreeSurface(chargeur);
+
     SDL_Rect batterie;
-    batterie.x = 150;
-    batterie.y = 50;
-    batterie.w = 25;
-    batterie.h = 25;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-    SDL_RenderDrawRect(rendu, &batterie);
+    batterie.x = 95;
+    batterie.y = 45;
+
+    SDL_QueryTexture(monchargeur, NULL, NULL, &batterie.w, &batterie.h);
+    SDL_RenderCopy(rendu, monchargeur, NULL, &batterie);
+    SDL_DestroyTexture(monchargeur);
+
+    SDL_RenderPresent(rendu);
 }
 
 void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
@@ -111,8 +124,7 @@ void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
     tab[posy][posx].taille = tab[posy][posx].vitesse;
 }
 
-void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou], int nb_coupe, int nb_cote){
-    Stats T[100];
+void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou],Stats T[], int nb_coupe, int nb_cote){
     int pos_x = LARGEUR - 550;
     int height_square = 200;
     int width_square = 500;
@@ -124,6 +136,7 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou], int nb_coupe
     stat.h = height_square;
     stat.w = width_square;
     SDL_RenderDrawRect(rendu, &stat);
+
     stat.x = pos_x;
     stat.y = HAUTEUR - 400;
     stat.h = height_square;
@@ -131,7 +144,7 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou], int nb_coupe
     SDL_RenderDrawRect(rendu, &stat);
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
 
-    calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe % 10);
+    calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe % 100);
 
     if (nb_coupe != 0) {
         affiche_stats(rendu, T, pos_x, nb_coupe);
@@ -142,18 +155,22 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou], int nb_coupe
 
 void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_coupe) {
 
-    int min_y = HAUTEUR - 500;
-    int max_y = HAUTEUR - 400;
-    int moy_y = HAUTEUR - 300;
-    if (nb_coupe < 10) {
-        for (int i = 1; i < nb_coupe; i++) {
-            SDL_RenderDrawLine(rendu, pos_x, min_y + 2 * stats_tab[i].min , pos_x + 10, min_y + 2 * stats_tab[i].min);
-            SDL_RenderDrawLine(rendu, pos_x, max_y + 2 * stats_tab[i].max, pos_x + 10, max_y + 2 * stats_tab[i].max);
-            SDL_RenderDrawLine(rendu, pos_x, moy_y + 2 * stats_tab[i].moy, pos_x + 10, moy_y + 2 * stats_tab[i].moy);
-            }    
+    int min_y = HAUTEUR - 420;
+    int max_y = HAUTEUR - 310;
+    int moy_y = HAUTEUR - 175;
+    if (nb_coupe < 100) {
+        for (int i = 1; i < (nb_coupe%100); i++) {
+            SDL_RenderDrawLine(rendu, pos_x+(i-1)*5, min_y + 2 * stats_tab[i-1].min , (pos_x + i*5), min_y + 2 * stats_tab[i].min);
+            SDL_RenderDrawLine(rendu, pos_x+(i-1)*5, max_y - 0.5 * stats_tab[i-1].max, (pos_x +i*5), max_y - 0.5 * stats_tab[i].max);
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y - 2 * stats_tab[i - 1].moy, (pos_x + i * 5), moy_y - 2 * stats_tab[i].moy);
         }
+    }
     else {
-
+        for (int i = 1; i < 100; i++) {
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, min_y + 2 * stats_tab[(i - 1+nb_coupe) % 100].min, (pos_x + i * 5), min_y + 2 * stats_tab[(i+nb_coupe)%100].min);
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, max_y - 0.5 * stats_tab[(i - 1 + nb_coupe) % 100].max, (pos_x + i * 5), max_y - 0.5 * stats_tab[(i+nb_coupe)%100].max);
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y - 2 * stats_tab[(i - 1 + nb_coupe) % 100].moy, (pos_x + i * 5), moy_y - 2 * stats_tab[(i+nb_coupe)%100].moy);
+        }
     }
 }
 
@@ -305,7 +322,6 @@ void bouton(SDL_Renderer* rendu, TTF_Font* font) {
 
 // Creation Menue
 
-
 int menue() {
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -313,7 +329,7 @@ int menue() {
         return 1;
     }
 
-    SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
+    SDL_Window* win = SDL_CreateWindow("PANDA Robot home",
         SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
         SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
         LARGEUR,                         //largeur en pixels                        
@@ -464,7 +480,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
         return 1;
     }
 
-    SDL_Window* win = SDL_CreateWindow("Mon beau bambou",
+    SDL_Window* win = SDL_CreateWindow("PANDA Robot game",
         SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
         SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
         LARGEUR,                         //largeur en pixels                        
@@ -483,6 +499,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     TTF_Font* font2 = TTF_OpenFont("04B_30__.ttf", 25);
     TTF_Font* font3 = TTF_OpenFont("04B_30__.ttf", 50);
 
+    Stats T[100] = { 0 };
 
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -521,7 +538,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     bool continuer = true;
     bool pause = false;
     SDL_Event event;
-    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
+    update_movment(posImg, panda, rendu, font, tab, monImage,T, nb_cote, 3,cpt_return);
 
     while (continuer)
     {
@@ -538,7 +555,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
             switch (event.key.keysym.sym) {
             case SDLK_RIGHT:
                 if (panda.batterie > 0) {
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1,cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T, nb_cote, 1,cpt_return);
                     panda.batterie-= 1;
                     nb_coupes(rendu, font2, cpt_return);
                     controle(rendu, font2);
@@ -549,14 +566,14 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T, nb_cote, 3, cpt_return);
                     message_batterie(rendu, font3);
                 }
                 break;
 
             case SDLK_LEFT:
                 if (panda.batterie > 0) {
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T, nb_cote, 3,cpt_return);
                     panda.batterie -= 1;
                     nb_coupes(rendu, font2, cpt_return);
                     controle(rendu, font2);
@@ -567,7 +584,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T, nb_cote, 3, cpt_return);
                     nb_coupes(rendu, font2, cpt_return);                 
                     controle(rendu, font2);
                     message_batterie(rendu, font3);
@@ -576,7 +593,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
             case SDLK_UP:
                 if (panda.batterie > 0) {
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4,cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T, nb_cote, 4,cpt_return);
                     panda.batterie -= 1;
                     controle(rendu, font2);
                     nb_coupes(rendu, font2, cpt_return);
@@ -589,7 +606,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T, nb_cote, 3, cpt_return);
                     nb_coupes(rendu, font2, cpt_return);
                     controle(rendu, font2);
                     message_batterie(rendu, font3);
@@ -599,7 +616,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
             case SDLK_DOWN:
                 if (panda.batterie > 0) {
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2,cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T, nb_cote, 2,cpt_return);
                     panda.batterie -= 1;
                     controle(rendu, font2);
                     nb_coupes(rendu, font2, cpt_return);
@@ -612,7 +629,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T, nb_cote, 3, cpt_return);
                     nb_coupes(rendu, font2, cpt_return);
                     controle(rendu, font2);
                     message_batterie(rendu, font3);
@@ -630,7 +647,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     croissance_bambouseraie(tab, nb_cote);
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
-                    statistique(rendu, tab, cpt_return, nb_cote);
+                    statistique(rendu, tab,T, cpt_return, nb_cote);
 
                     //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     recharge(rendu);
@@ -647,7 +664,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, T,nb_cote,  3, cpt_return);
                     nb_coupes(rendu, font2, cpt_return);
                     controle(rendu, font2);
                     message_batterie(rendu, font3);
@@ -668,7 +685,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 }
 
 
-void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction,int cpt_return) {
+void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage,Stats T[], int& nb_cote, int direction,int cpt_return) {
     if (direction == 1) {
         if (posImg.x != 100 + 125 * (nb_cote - 1)) {
             posImg.x += 125;
@@ -702,7 +719,7 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
     batterire(rendu, panda.batterie);
-    statistique(rendu, tab, cpt_return, nb_cote);
+    statistique(rendu, tab,T, cpt_return, nb_cote);
     recharge(rendu);
 
 }
