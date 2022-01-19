@@ -134,14 +134,25 @@ void createTemplateSaveFile(const char nomf[50], int nbbambou) {
 	ofstream f(nomf);
 	addline(f, "Largeur carre nombre bambou : ");
 	if(nbbambou == 10){
-		int nbbambou = rand() % 4 + 2;
+		int nbbambou = rand() % 3;
 	}
 	f << nbbambou;
-	for (int i1 = 0; i1 < nbbambou; i1++) {
-		for (int i2 = 0; i2 < nbbambou; i2++) {
-			int taille = rand() % 8 + 2;
-			addline(f, "Vitesse: ");
-			f << taille;
+	if (nbbambou < 4){
+		for (int i1 = 0; i1 < nbbambou; i1++) {
+			for (int i2 = 0; i2 < nbbambou; i2++) {
+				int taille = rand() % 5;
+				addline(f, "Vitesse: ");
+				f << taille;
+			}
+		}
+	}
+	else {
+		for (int i1 = 0; i1 < nbbambou; i1++) {
+			for (int i2 = 0; i2 < nbbambou; i2++) {
+				int taille = rand() % 3;
+				addline(f, "Vitesse: ");
+				f << taille;
+			}
 		}
 	}
 	f.close();
