@@ -23,4 +23,5 @@ void background(SDL_Renderer* rendu);
 void nb_coupes(SDL_Renderer* rendu, TTF_Font* font, int nb_coupe);
 void courbe(SDL_Renderer* rendu, Bambou tabb[][sqrt_nb_bambou]);
 void message_batterie(SDL_Renderer* rendu, TTF_Font* font);
+void bouton(SDL_Renderer* rendu, TTF_Font* font);
 #endif

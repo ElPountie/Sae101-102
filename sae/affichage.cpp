@@ -12,6 +12,7 @@
 #include "func_khalis.h"
 #include "auto.h";
 #include "Stats struct.h"
+#include "fonct_stats.h"
 
 
 using namespace std;
@@ -99,7 +100,7 @@ void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
     tab[posy][posx].taille = tab[posy][posx].vitesse;
 }
 
-void statistique(SDL_Renderer* rendu ) {
+void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou]) {
     SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
     SDL_Rect stat;
     stat.x = LARGEUR - 550;
@@ -113,6 +114,15 @@ void statistique(SDL_Renderer* rendu ) {
     stat.h = 200;
     stat.w = 500;
     SDL_RenderDrawRect(rendu, &stat);
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            int k = 0;
+            do {
+                SDL_RenderDrawLine(rendu, stat.x - 5, stat.y - (k*tab[i][j].vitesse) * 1.5, stat.x + 10, stat.y - (k * tab[i][j].vitesse) * 1.5);
+                k++;
+            } while (k < 5);
+        }
+    }
 
 }
 
@@ -226,7 +236,7 @@ void controle(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_DestroyTexture(texture);
 }
 
-/*void bouton(SDL_Renderer* rendu, TTF_Font* font) {
+void bouton(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_Rect bouton;
     bouton.x = 575;
     bouton.y = 680;
@@ -235,7 +245,7 @@ void controle(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_RenderCopy(rendu, texture, NULL, &bouton);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
-}*/
+}
 
 // Creation Menue
 
