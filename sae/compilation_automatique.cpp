@@ -101,7 +101,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 					croissance_bambouseraie(tab, nb_cote);
 					coupe(tab, panda.posx, panda.posy);
 					place_img(monImage, posImg, rendu);
-					statistique(rendu);
+					statistique(rendu, tab);
 					carre(rendu, nb_cote);
 					ecrit(rendu, font);
 					affiche_bambou(rendu, tab, nb_cote);
@@ -120,7 +120,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				croissance_bambouseraie(tab, nb_cote);
 				coupe(tab, panda.posx, panda.posy);
 				place_img(monImage, posImg, rendu);
-				statistique(rendu); 
+				statistique(rendu, tab); 
 				carre(rendu, nb_cote);
 				ecrit(rendu, font);
 				affiche_bambou(rendu, tab, nb_cote);

@@ -596,7 +596,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     croissance_bambouseraie(tab, nb_cote);
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
-                    statistique(rendu);
+                    statistique(rendu, tab);
                     //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
@@ -661,7 +661,7 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
     background(rendu);
-    statistique(rendu);
+    statistique(rendu, tab);
     place_img(monImage, posImg, rendu);
     carre(rendu, nb_cote);
     ecrit(rendu, font);
