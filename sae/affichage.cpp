@@ -115,42 +115,11 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou]) {
     stat.h = 200;
     stat.w = 500;
     SDL_RenderDrawRect(rendu, &stat);
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
-            int k = 0;
-            do {
-                SDL_RenderDrawLine(rendu, stat.x - 5, stat.y - (k*tab[i][j].vitesse) * 1.5, stat.x + 10, stat.y - (k * tab[i][j].vitesse) * 1.5);
-                k++;
-            } while (k < 5);
-        }
-    }
+    
 
 }
 
-void courbe(SDL_Renderer* rendu, Bambou tabb[][sqrt_nb_bambou]) {
-    SDL_SetRenderDrawColor(rendu, 50, 255, 0, 255);
-    SDL_Rect courbe1;
-    int N = sqrt_nb_bambou;
-    int k = 0;
-    int tmp = 0;
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            k = 0;
-            courbe1.x = 50 + j * 125 + 25;
-            courbe1.y = 50 + i * 125 + 125;
-            courbe1.w = 5;
-            courbe1.h = -tabb[i][j].taille * 1.5;
-            SDL_RenderFillRect(rendu, &courbe1);
-            tmp = tabb[i][j].taille / tabb[i][j].vitesse;
-            do
-            {
-                SDL_RenderDrawLine(rendu, courbe1.x - 5, courbe1.y - (k * tabb[i][j].taille) * 1.5, courbe1.x + 10, courbe1.y - (k * tabb[i][j].taille) * 1.5);
-                k++;
-            } while (k < tmp);
-        }
-    }
-    SDL_RenderPresent(rendu);
-}
+
 
 void batterire(SDL_Renderer* rendu, int charge) {
 
