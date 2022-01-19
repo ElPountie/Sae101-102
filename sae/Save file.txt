@@ -1,23 +1,102 @@
 
-Largeur carre nombre bambou : 3
-Vitesse: XXX
-
-Vitesse: XXX
-
-Vitesse: XXX
-
-Changement de ligne
-Vitesse: XXX
-
-Vitesse: XXX
-
-Vitesse: XXX
-
-Changement de ligne
-Vitesse: XXX
-
-Vitesse: XXX
-
-Vitesse: XXX
-
-Changement de ligne
+Largeur carre nombre bambou : 10
+Vitesse: 2
+Vitesse: 1
+Vitesse: 1
+Vitesse: 2
+Vitesse: 1
+Vitesse: 5
+Vitesse: 5
+Vitesse: 1
+Vitesse: 2
+Vitesse: 2
+Vitesse: 2
+Vitesse: 1
+Vitesse: 4
+Vitesse: 1
+Vitesse: 2
+Vitesse: 1
+Vitesse: 2
+Vitesse: 2
+Vitesse: 3
+Vitesse: 4
+Vitesse: 2
+Vitesse: 2
+Vitesse: 9
+Vitesse: 1
+Vitesse: 1
+Vitesse: 2
+Vitesse: 2
+Vitesse: 2
+Vitesse: 2
+Vitesse: 2
+Vitesse: 5
+Vitesse: 2
+Vitesse: 0
+Vitesse: 0
+Vitesse: 1
+Vitesse: 2
+Vitesse: 1
+Vitesse: 1
+Vitesse: 0
+Vitesse: 2
+Vitesse: 0
+Vitesse: 2
+Vitesse: 0
+Vitesse: 0
+Vitesse: 2
+Vitesse: 0
+Vitesse: 1
+Vitesse: 2
+Vitesse: 1
+Vitesse: 2
+Vitesse: 2
+Vitesse: 1
+Vitesse: 0
+Vitesse: 0
+Vitesse: 1
+Vitesse: 2
+Vitesse: 0
+Vitesse: 1
+Vitesse: 1
+Vitesse: 1
+Vitesse: 2
+Vitesse: 2
+Vitesse: 0
+Vitesse: 0
+Vitesse: 1
+Vitesse: 1
+Vitesse: 2
+Vitesse: 1
+Vitesse: 1
+Vitesse: 2
+Vitesse: 0
+Vitesse: 2
+Vitesse: 0
+Vitesse: 1
+Vitesse: 2
+Vitesse: 0
+Vitesse: 0
+Vitesse: 6
+Vitesse: 2
+Vitesse: 1
+Vitesse: 2
+Vitesse: 2
+Vitesse: 1
+Vitesse: 7
+Vitesse: 2
+Vitesse: 1
+Vitesse: 2
+Vitesse: 2
+Vitesse: 1
+Vitesse: 4
+Vitesse: 5
+Vitesse: 2
+Vitesse: 1
+Vitesse: 2
+Vitesse: 1
+Vitesse: 2
+Vitesse: 4
+Vitesse: 3
+Vitesse: 2
+Vitesse: 3
