@@ -115,7 +115,7 @@ void statistique(SDL_Renderer* rendu ) {
 
 }
 
-void courbe(SDL_Renderer* rendu, Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int taby, int taille) {
+/*void courbe(SDL_Renderer* rendu, Bambou tabb[][sqrt_nb_bambou]) {
     SDL_SetRenderDrawColor(rendu, 50, 255, 0, 255);
     SDL_Rect courbe1;
     int N = sqrt_nb_bambou;
@@ -138,7 +138,7 @@ void courbe(SDL_Renderer* rendu, Stats tabs[], Bambou tabb[][sqrt_nb_bambou], in
         }
     }
     SDL_RenderPresent(rendu);
-}
+}*/
 
 
 void batterire(SDL_Renderer* rendu, int charge) {
@@ -510,7 +510,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
                     statistique(rendu);
-                    courbe(rendu, tabs[], tabb, tabx, taby, taille)
+                    courbe(rendu, tab);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);
