@@ -87,11 +87,11 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 			}
 			else if (panda.batterie <= (panda.posx + panda.posy + 1)) {																				//Plus de batterie
 				if (panda.posx > 0) {
-					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
 					panda.batterie -= 1;
 				}
 				else if (panda.posy > 0) {
-					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4, cpt_return);
 					panda.batterie -= 1;
 				}
 				else if (panda.batterie == 1) {
@@ -128,19 +128,19 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				batterire(rendu, panda.batterie);
 			}
 			else if (panda.posx > cutx) {														//Se dirige vers le bambou
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
 				panda.batterie -= 1;
 			}
 			else if (panda.posx < cutx) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1, cpt_return);
 				panda.batterie -= 1;
 			}
 			else if (panda.posy > cuty) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4, cpt_return);
 				panda.batterie -= 1;
 			}
 			else if (panda.posy < cuty) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2, cpt_return);
 				panda.batterie -= 1;
 			}
 		}

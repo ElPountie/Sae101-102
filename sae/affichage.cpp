@@ -531,6 +531,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 else {
                     panda.batterie = 100;
+                    panda.posx = 0;
+                    panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
@@ -547,6 +549,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 else {
                     panda.batterie = 100;
+                    panda.posx = 0;
+                    panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
@@ -567,6 +571,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 else {
                     panda.batterie = 100;
+                    panda.posx = 0;
+                    panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
@@ -588,6 +594,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 else {
                     panda.batterie = 100;
+                    panda.posx = 0;
+                    panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
@@ -619,6 +627,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 else {
                     panda.batterie = 100;
+                    panda.posx = 0;
+                    panda.posy = 0;
                     posImg.x = 100;
                     posImg.y = 100;
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
