@@ -117,8 +117,8 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 					tabbanbou[i1][i2].taille = speed;
 				}
 				else {
-					cout << "Erreur chargement des donnees de sauvegarde, valeur attribuee automatiquement." << endl;
-					tabbanbou[i1][i2].vitesse = tabbanbou[i1][i2].taille = tab[i1*nb_cote + i2*nb_cote];
+					createTemplateSaveFile(nomf, nb_cote);
+					loadfile(tabbanbou, nomf, nb_cote);
 				}
 			}
 		}
@@ -126,10 +126,12 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 	} 
 }
 
-void createTemplateSaveFile(const char nomf[50]) {
+void createTemplateSaveFile(const char nomf[50], int nbbambou) {
 	ofstream f(nomf);
 	addline(f, "Largeur carre nombre bambou : ");
-	int nbbambou = rand() % 4 + 2;
+	if(nbbambou == 10){
+		int nbbambou = rand() % 4 + 2;
+	}
 	f << nbbambou;
 	for (int i1 = 0; i1 < nbbambou; i1++) {
 		for (int i2 = 0; i2 < nbbambou; i2++) {
