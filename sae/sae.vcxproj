@@ -166,7 +166,7 @@
     <ClInclude Include="Panda.h" />
     <ClInclude Include="Bambou.h" />
     <ClInclude Include="savefile.h" />
-    <ClInclude Include="Stats struct.h" />
+    <ClInclude Include="Stats_struct.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Lien SAE.txt" />

@@ -11,7 +11,7 @@
 #include"fonct_thibault.h"
 #include "func_khalis.h"
 #include "auto.h";
-#include "Stats struct.h"
+#include "Stats_struct.h"
 #include "fonct_stats.h"
 
 
@@ -32,6 +32,7 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
     SDL_Texture* texture = loadText(rendu, texte, color, font);
     SDL_QueryTexture(texture, NULL, NULL, &pos_Legende.w, &pos_Legende.h);
     SDL_RenderCopy(rendu, texture, NULL, &pos_Legende);
+    SDL_DestroyTexture(texture);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 }
@@ -101,7 +102,12 @@ void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
     tab[posy][posx].taille = tab[posy][posx].vitesse;
 }
 
-void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou]) {
+void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou]){
+    Stats T[100];
+    int i;
+    for (i = 0; i < 100; i++){
+        T[i].min = 0;
+    }
     SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
     SDL_Rect stat;
     stat.x = LARGEUR - 550;
@@ -115,11 +121,20 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou]) {
     stat.h = 200;
     stat.w = 500;
     SDL_RenderDrawRect(rendu, &stat);
-    
-
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+    init_tab(T, tab);
+    i = 0;
+    while (i<100){
+        if (i == 0){
+            SDL_RenderDrawLine(rendu, LARGEUR - 550, 2*((T[i].min) * (HAUTEUR - 500)), LARGEUR - 540, 2*((T[i].min) * (HAUTEUR - 500)));
+        }
+        else {
+            SDL_RenderDrawLine(rendu, LARGEUR - 550, (T[i-1].min) * (HAUTEUR - 500), LARGEUR - 540, (T[i].min) * (HAUTEUR - 500));
+        }
+        i++;
+    }
+    SDL_RenderPresent(rendu);
 }
-
-
 
 void batterire(SDL_Renderer* rendu, int charge) {
 
@@ -156,6 +171,7 @@ void batterire(SDL_Renderer* rendu, int charge) {
 
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
     SDL_RenderCopy(rendu, monImage, NULL, &posImg);
+    SDL_DestroyTexture(monImage);
 
     SDL_RenderPresent(rendu);
 
@@ -180,6 +196,7 @@ void background(SDL_Renderer* rendu) {
 
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
     SDL_RenderCopy(rendu, monImage, NULL, &posImg);
+    SDL_DestroyTexture(monImage);
 
     SDL_RenderPresent(rendu);
 }
@@ -191,6 +208,7 @@ void message_batterie(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_Texture* texture = loadText(rendu, "VOUS N'AVEZ PLUS DE BATTERIE", rouge, font);
     SDL_QueryTexture(texture, NULL, NULL, &mess_batterie.w, &mess_batterie.h);
     SDL_RenderCopy(rendu, texture, NULL, &mess_batterie);
+    SDL_DestroyTexture(texture);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 }
@@ -223,6 +241,7 @@ void controle(SDL_Renderer* rendu, TTF_Font* font) {
 
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
     SDL_RenderCopy(rendu, monImage, NULL, &posImg);
+    SDL_DestroyTexture(monImage);
 
     SDL_RenderPresent(rendu);
 
@@ -253,6 +272,8 @@ void controle(SDL_Renderer* rendu, TTF_Font* font) {
 
     SDL_QueryTexture(monImage2, NULL, NULL, &posImg2.w, &posImg2.h);
     SDL_RenderCopy(rendu, monImage2, NULL, &posImg2);
+    SDL_DestroyTexture(monImage2);
+
 
     SDL_RenderPresent(rendu);
 }
@@ -267,6 +288,7 @@ void bouton(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 }
+
 
 // Creation Menue
 
@@ -490,7 +512,6 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     while (continuer)
     {
-        courbe(rendu, tab);
         nb_coupes(rendu, font2, cpt_return);
         controle(rendu, font2);
         SDL_WaitEvent(&event);//update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 5);
@@ -597,6 +618,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
                     statistique(rendu, tab);
+
                     //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
@@ -667,4 +689,6 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
     batterire(rendu, panda.batterie);
+    statistique(rendu, tab);
+
 }

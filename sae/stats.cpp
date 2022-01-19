@@ -2,7 +2,7 @@
 #include "Bambou.h"
 #include "Const_stats_update.h"
 #include "Constante_Thibault.h"
-#include "Stats struct.h"
+#include "Stats_struct.h"
 using namespace std;
 
 
@@ -87,4 +87,10 @@ int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 		}
 	}
 	return sm;
+}
+
+void init_tab(Stats T[100],Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
+	for (int i = 0; i < 100; i++){
+		T[i].min = min_bambou(tab, sqrt_nb_bambou, sqrt_nb_bambou);
+	}
 }
