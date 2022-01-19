@@ -26,4 +26,5 @@ void message_batterie(SDL_Renderer* rendu, TTF_Font* font);
 void controle(SDL_Renderer* rendu, TTF_Font* font);
 void bouton(SDL_Renderer* rendu, TTF_Font* font);
 void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_coupe);
+void recharge(SDL_Renderer* rendu);
 #endif
