@@ -167,7 +167,7 @@ void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_cou
 
     int min_y = HAUTEUR - 420;
     int max_y = HAUTEUR - 310;
-    int moy_y = HAUTEUR - 175;
+    int moy_y = HAUTEUR - 250;
     if (nb_coupe < 100) {
         for (int i = 1; i < (nb_coupe%100); i++) {
             SDL_SetRenderDrawColor(rendu, 232, 40, 40, 255);
@@ -178,7 +178,7 @@ void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_cou
             SDL_RenderDrawLine(rendu, pos_x+(i-1)*5, max_y - 0.5 * stats_tab[i-1].max, (pos_x +i*5), max_y - 0.5 * stats_tab[i].max);
             SDL_SetRenderDrawColor(rendu, 38, 147, 250, 255);
 
-            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y - 2 * stats_tab[i - 1].moy, (pos_x + i * 5), moy_y - 2 * stats_tab[i].moy);
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y + 2 * stats_tab[i - 1].moy, (pos_x + i * 5), moy_y + 2 * stats_tab[i].moy);
         }
     }
     else {
@@ -191,7 +191,7 @@ void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_cou
             SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, max_y - 0.5 * stats_tab[(i - 1 + nb_coupe) % 100].max, (pos_x + i * 5), max_y - 0.5 * stats_tab[(i+nb_coupe)%100].max);
             SDL_SetRenderDrawColor(rendu, 38, 147, 250, 255);
 
-            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y - 2 * stats_tab[(i - 1 + nb_coupe) % 100].moy, (pos_x + i * 5), moy_y - 2 * stats_tab[(i+nb_coupe)%100].moy);
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y + 2 * stats_tab[(i - 1 + nb_coupe) % 100].moy, (pos_x + i * 5), moy_y + 2 * stats_tab[(i+nb_coupe)%100].moy);
         }
     }
 }
