@@ -132,7 +132,7 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou],int nb_coupe,
     }
     else{
         for (int i = 1; i < 10; i++) {
-            SDL_RenderDrawLine(rendu, (LARGEUR - 550)+((i-1)*55.5), ((HAUTEUR - 500)-T[(i -1  + nb_coupe) % 10].min*5)+80, (((LARGEUR - 550) + (i)*55.5)), ((HAUTEUR - 500)-T[(i + nb_coupe) % 10].min*5)+80);
+            SDL_RenderDrawLine(rendu, (LARGEUR - 550) + ((i - 1) * 55.5), ((HAUTEUR - 500) - T[(i - 1 + nb_coupe) % 10].min * 4) + 80, (((LARGEUR - 550) + (i) * 55.5)), ((HAUTEUR - 500) - T[(i + nb_coupe) % 10].min * 4) + 80);
         }
     }
     SDL_RenderPresent(rendu);
@@ -285,7 +285,6 @@ void bouton(SDL_Renderer* rendu, TTF_Font* font) {
 }
 
 // Creation Menue
-
 
 int menue() {
 
@@ -464,7 +463,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     TTF_Font* font2 = TTF_OpenFont("04B_30__.ttf", 25);
     TTF_Font* font3 = TTF_OpenFont("04B_30__.ttf", 50);
 
-    Stats T[10];
+    Stats T[100];
 
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -557,6 +556,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     nb_coupes(rendu, font2, cpt_return);
                     controle(rendu, font2);
                     message_batterie(rendu, font3);
+
                 }
                 break;
 
@@ -613,12 +613,12 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 if (panda.batterie >= 0) {
                     cpt_return++;
                     panda.batterie -= 1;
+                    init_tab(T, tab, cpt_return, nb_cote);
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     background(rendu);
                     croissance_bambouseraie(tab, nb_cote);
                     coupe(tab, panda.posx, panda.posy);
-                    statistique(rendu, tab, cpt_return, T);
                     place_img(monImage, posImg, rendu);
                     //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     recharge(rendu);
@@ -627,7 +627,9 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     affiche_bambou(rendu,tab,nb_cote);
                     batterire(rendu, panda.batterie);
                     nb_coupes(rendu, font2, cpt_return);
-                    controle(rendu, font2);
+                    controle(rendu, font2);      
+                    statistique(rendu, tab, cpt_return, T);
+                    
 
                 }
                 else {
@@ -691,5 +693,6 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
     batterire(rendu, panda.batterie);
+    init_tab(T, tab, cpt_return, nb_cote);
 
 }

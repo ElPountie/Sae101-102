@@ -83,6 +83,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 
 	while (running) {
 		if (!pause){
+			init_tab(T, tab, cpt_return, nb_cote);
 			start = SDL_GetTicks64();
 			to_cut_reduce_fastest(tab, nb_cote, nb_cote, Sommevitesse(tab, nb_cote, nb_cote), record_taille, cutx, cuty);
 			if (cutx == 100 || cuty == 100) {
@@ -106,7 +107,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 					croissance_bambouseraie(tab, nb_cote);
 					coupe(tab, panda.posx, panda.posy);
 					place_img(monImage, posImg, rendu);
-					statistique(rendu, tab);
+					statistique(rendu, tab,cpt_return,T);
 					bouton(rendu, font);
 					nb_coupes(rendu, font, cpt_return);
 					carre(rendu, nb_cote);
@@ -128,7 +129,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				croissance_bambouseraie(tab, nb_cote);
 				coupe(tab, panda.posx, panda.posy);
 				place_img(monImage, posImg, rendu);
-				statistique(rendu, tab); 
+				statistique(rendu, tab,cpt_return,T); 
 				bouton(rendu, font);
 				nb_coupes(rendu, font, cpt_return);
 				carre(rendu, nb_cote);
@@ -139,7 +140,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				cpt_return++;
 			}
 			else if (panda.posx > cutx) {																		//Se dirige vers le bambou
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return,T);
 				panda.batterie -= 1;
 			}
 			else if (panda.posx < cutx) {
@@ -175,7 +176,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 			}
 		}
 		bouton(rendu, font);
-		statistique(rendu, tab);
+		statistique(rendu, tab,cpt_return,T);
 		nb_coupes(rendu, font, cpt_return);
 		SDL_RenderPresent(rendu);
 	}
