@@ -83,7 +83,7 @@
     <ClInclude Include="fonct_stats.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Stats struct.h">
+    <ClInclude Include="Stats_struct.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="auto.h">

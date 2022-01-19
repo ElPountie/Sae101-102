@@ -7,6 +7,7 @@
 #include "Bambou.h"
 #include "Constante_Thibault.h"
 #include "Panda.h"
+#include "Stats_struct.h"
 
 void carre(SDL_Renderer* rendu,int nb_carre);
 void place_img(SDL_Texture* monImage, SDL_Rect posImg, SDL_Renderer* rendu);
@@ -21,7 +22,6 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou]);
 int menue();
 void background(SDL_Renderer* rendu);
 void nb_coupes(SDL_Renderer* rendu, TTF_Font* font, int nb_coupe);
-void courbe(SDL_Renderer* rendu, Bambou tabb[][sqrt_nb_bambou]);
 void message_batterie(SDL_Renderer* rendu, TTF_Font* font);
 void controle(SDL_Renderer* rendu, TTF_Font* font);
 void bouton(SDL_Renderer* rendu, TTF_Font* font);
