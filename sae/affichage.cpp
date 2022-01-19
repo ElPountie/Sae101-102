@@ -329,7 +329,7 @@ int menue() {
         return 1;
     }
 
-    SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
+    SDL_Window* win = SDL_CreateWindow("PANDA Robot home",
         SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
         SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
         LARGEUR,                         //largeur en pixels                        
@@ -480,7 +480,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
         return 1;
     }
 
-    SDL_Window* win = SDL_CreateWindow("Mon beau bambou",
+    SDL_Window* win = SDL_CreateWindow("PANDA Robot game",
         SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
         SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
         LARGEUR,                         //largeur en pixels                        
