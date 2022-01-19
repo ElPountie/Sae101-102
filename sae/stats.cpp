@@ -6,8 +6,8 @@
 using namespace std;
 
 
-int tab_moy_column_line(Bambou tabbambou[][sqrt_nb_bambou], int taillex, int tailley) {
-	int moy = 0;
+float moy_bambou(Bambou tabbambou[][sqrt_nb_bambou], int taillex, int tailley) {
+	float moy = 0;
 	for (int i =0; i < taillex; i++) {
 		for (int j = 0; j < tailley; j++)
 		{
@@ -46,7 +46,7 @@ int print_bambou(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby){
 	return 0;
 }
 
-int min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
+float min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	float min = tab[0][0].taille;
 	for (int i1 = 0; i1 < tabx; i1++) {
 		for (int i2 = 0; i2 < taby; i2++) {
@@ -58,7 +58,7 @@ int min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	return min;
 }
 
-int max_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
+float max_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	float max = tab[0][0].taille;
 	for (int i1 = 0; i1 < tabx; i1++) {
 		for (int i2 = 0; i2 < taby; i2++) {
@@ -84,5 +84,5 @@ int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 void init_tab(Stats T[100],Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int i,int nb_cote) {
 	T[i].min = min_bambou(tab, nb_cote, nb_cote);
 	T[i].max = max_bambou(tab, nb_cote, nb_cote);
-	T[i].moy = tab_moy_column_line(tab, nb_cote, nb_cote);
+	T[i].moy = moy_bambou(tab, nb_cote, nb_cote);
 }

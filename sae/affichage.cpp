@@ -113,28 +113,38 @@ void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
 
 void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou],int nb_coupe,Stats T[]){
     int j = 0;
-    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
-    SDL_Rect stat;
-    stat.x = LARGEUR - 550;
-    stat.y = HAUTEUR - 500;
-    stat.h = 200;
-    stat.w = 500;
-    SDL_RenderDrawRect(rendu, &stat);
+    int square_x = LARGEUR - 550;
 
-    stat.x = LARGEUR - 550;
-    stat.y = HAUTEUR - 400;
-    stat.h = 200;
-    stat.w = 500;
-    SDL_RenderDrawRect(rendu, &stat);
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+    SDL_Rect square_min;
+    square_min.x = square_x;
+    square_min.y = HAUTEUR - 500;
+    square_min.h = 200;
+    square_min.w = 500;
+    SDL_RenderDrawRect(rendu, &square_min);
+
+    SDL_Rect square_max;
+    square_max.x = square_x;
+    square_max.y = HAUTEUR - 400;
+    square_max.h = 200;
+    square_max.w = 500;
+    SDL_RenderDrawRect(rendu, &square_max);
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     if (nb_coupe == 0){
         T[0].min = 0;
     }
+    else if (nb_coupe < 10) {
+        for (int i = 1; i < nb_coupe; i++) {
+            SDL_RenderDrawLine(rendu, square_x + ((i - 1) * 55.5), ((square_min.y) - T[(i - 1) % 10].min * 4) + 80, ((square_x + (i) * 55.5)), ((square_min.y) - T[(i) % 10].min * 4) + 80);
+            SDL_RenderDrawLine(rendu, square_x + ((i - 1) * 55.5), ((square_max.y) - T[(i - 1) % 10].max * 4) + 80, ((square_x + (i) * 55.5)), ((square_max.y) - T[(i) % 10].max * 4) + 80);
+            SDL_RenderDrawLine(rendu, square_x + ((i - 1) * 55.5), ((HAUTEUR - 300) - T[(i - 1) % 10].moy) + 80, ((square_x + (i) * 55.5)), ((HAUTEUR - 300) - T[(i) % 10].moy) + 80);
+        }
+    }
     else{
         for (int i = 1; i < 10; i++) {
-            SDL_RenderDrawLine(rendu, (LARGEUR - 550) + ((i - 1) * 55.5), ((HAUTEUR - 500) - T[(i - 1 + nb_coupe) % 10].min * 4) + 80, (((LARGEUR - 550) + (i) * 55.5)), ((HAUTEUR - 500) - T[(i + nb_coupe) % 10].min * 4) + 80);
-            SDL_RenderDrawLine(rendu, (LARGEUR - 550) + ((i - 1) * 55.5), ((HAUTEUR - 400) - T[(i - 1 + nb_coupe) % 10].max * 4) + 80, (((LARGEUR - 550) + (i) * 55.5)), ((HAUTEUR - 400) - T[(i + nb_coupe) % 10].max * 4) + 80);
-            SDL_RenderDrawLine(rendu, (LARGEUR - 550) + ((i - 1) * 55.5), ((HAUTEUR - 300) - T[(i - 1 + nb_coupe) % 10].moy) + 80, (((LARGEUR - 550) + (i) * 55.5)), ((HAUTEUR - 300) - T[(i + nb_coupe) % 10].moy) + 80);
+            SDL_RenderDrawLine(rendu, (square_min.x) + ((i - 1) * 55.5), ((square_min.y) - T[(i - 1 + nb_coupe) % 10].min * 4) + 80, (((square_min.x) + (i) * 55.5)), ((square_min.y) - T[(i + nb_coupe) % 10].min * 4) + 80);
+            SDL_RenderDrawLine(rendu, (square_max.x) + ((i - 1) * 55.5), ((square_max.y) - T[(i - 1 + nb_coupe) % 10].max * 4) + 80, (((square_max.x) + (i) * 55.5)), ((square_max.y) - T[(i + nb_coupe) % 10].max * 4) + 80);
+            SDL_RenderDrawLine(rendu, (square_max.x) + ((i - 1) * 55.5), ((HAUTEUR - 300) - T[(i - 1 + nb_coupe) % 10].moy) + 80, (((square_max.x) + (i) * 55.5)), ((HAUTEUR - 300) - T[(i + nb_coupe) % 10].moy) + 80);
         }
     }
     SDL_RenderPresent(rendu);

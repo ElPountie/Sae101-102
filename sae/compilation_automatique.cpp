@@ -69,9 +69,6 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 	bool running = true;
 	bool pause = false;
 
-	const int FPS = 10;
-	Uint64 start;
-
 	SDL_Event event;
 	int record_taille = 0;
 	update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return,T);
@@ -84,11 +81,11 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 	while (running) {
 		if (!pause){
 			init_tab(T, tab, cpt_return, nb_cote);
-			start = SDL_GetTicks64();
 			to_cut_reduce_fastest(tab, nb_cote, nb_cote, Sommevitesse(tab, nb_cote, nb_cote), record_taille, cutx, cuty);
 			if (cutx == 100 || cuty == 100) {
 				croissance_bambouseraie(tab, nb_cote);
 				affiche_bambou(rendu, tab, nb_cote);
+				cpt_return++;
 				
 			}
 			else if (panda.batterie <= (panda.posx + panda.posy + 1)) {																				//Plus de batterie
@@ -119,7 +116,8 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				}
 				else {
 					panda.batterie = 100;
-					croissance_bambouseraie(tab, nb_cote);														//Choisis le bambou à couper
+					croissance_bambouseraie(tab, nb_cote);														
+					cpt_return++;
 				}
 			}
 			else if (panda.posx == cutx && panda.posy == cuty) {												//Coupe s'il est en position

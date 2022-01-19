@@ -3,9 +3,9 @@
 #define struct_Stats_def
 
 struct Stats {
-	int max;
-	int min;
-	int moy;
+	float max;
+	float min;
+	float moy;
 };
 
 #endif
