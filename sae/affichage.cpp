@@ -309,7 +309,6 @@ void bouton(SDL_Renderer* rendu, TTF_Font* font) {
 
 // Creation Menue
 
-
 int menue() {
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
