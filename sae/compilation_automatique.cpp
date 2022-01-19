@@ -58,82 +58,105 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 	panda.batterie = 100;
 	panda.posy = panda.posx = panda.distance = 0;
 	bool running = true;
+	bool pause = false;
+
+	const int FPS = 10;
+	Uint64 start;
+
 	SDL_Event event;
 	int record_taille = 0;
 	update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
 	SDL_RenderPresent(rendu);
 	int cutx, cuty = 100;
 	int smvitesse = Sommevitesse(tab, nb_cote, nb_cote);
+
+	SDL_EventState(SDL_MOUSEMOTION, false);
+	SDL_EventState(SDL_KEYDOWN, false);
+	SDL_EventState(SDL_KEYUP, false);
+	SDL_EventState(SDL_MOUSEMOTION, false);
+	SDL_EventState(SDL_MOUSEBUTTONDOWN, false);
+	SDL_EventState(SDL_MOUSEBUTTONUP, false);
+
 	while (running) {
-		SDL_Delay(500);
-		SDL_WaitEvent(&event);
-		switch (event.type) {
-		case SDL_QUIT:
-			running = false;
-			break;
-		}
-		to_cut_reduce_fastest(tab, nb_cote, nb_cote, Sommevitesse(tab, nb_cote, nb_cote), record_taille, cutx, cuty);
-		if (cutx == 100 || cuty == 100) {
-			croissance_bambouseraie(tab, nb_cote);
-			affiche_bambou(rendu, tab, nb_cote);
-		}
-		else if (panda.batterie <= (panda.posx + panda.posy + 1)) {																				//Plus de batterie
-			if (panda.posx > 0) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+		if (!pause){
+			start = SDL_GetTicks64();
+			to_cut_reduce_fastest(tab, nb_cote, nb_cote, Sommevitesse(tab, nb_cote, nb_cote), record_taille, cutx, cuty);
+			if (cutx == 100 || cuty == 100) {
+				croissance_bambouseraie(tab, nb_cote);
+				affiche_bambou(rendu, tab, nb_cote);
 			}
-			else if (panda.posy > 0) {
-				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+			else if (panda.batterie <= (panda.posx + panda.posy + 1)) {																				//Plus de batterie
+				if (panda.posx > 0) {
+					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+					panda.batterie -= 1;
+				}
+				else if (panda.posy > 0) {
+					update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+					panda.batterie -= 1;
+				}
+				else if (panda.batterie == 1) {
+					SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+					SDL_RenderClear(rendu);
+					background(rendu);
+					croissance_bambouseraie(tab, nb_cote);
+					coupe(tab, panda.posx, panda.posy);
+					place_img(monImage, posImg, rendu);
+					statistique(rendu);
+					carre(rendu, nb_cote);
+					ecrit(rendu, font);
+					affiche_bambou(rendu, tab, nb_cote);
+					panda.batterie -= 1;
+					batterire(rendu, panda.batterie);
+				}
+				else {
+					panda.batterie = 100;
+					croissance_bambouseraie(tab, nb_cote);														//Choisis le bambou à couper
+				}
 			}
-			else if (panda.batterie == 1) {
+			else if (panda.posx == cutx && panda.posy == cuty) {								//Coupe s'il est en position
 				SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
 				SDL_RenderClear(rendu);
 				background(rendu);
 				croissance_bambouseraie(tab, nb_cote);
 				coupe(tab, panda.posx, panda.posy);
 				place_img(monImage, posImg, rendu);
-				statistique(rendu);
+				statistique(rendu); 
 				carre(rendu, nb_cote);
 				ecrit(rendu, font);
 				affiche_bambou(rendu, tab, nb_cote);
+				panda.batterie -= 1;
 				batterire(rendu, panda.batterie);
 			}
-			else {
-				panda.batterie = 100;
-				croissance_bambouseraie(tab, nb_cote);														//Choisis le bambou à couper
+			else if (panda.posx > cutx) {														//Se dirige vers le bambou
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+				panda.batterie -= 1;
+			}
+			else if (panda.posx < cutx) {
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
+				panda.batterie -= 1;
+			}
+			else if (panda.posy > cuty) {
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+				panda.batterie -= 1;
+			}
+			else if (panda.posy < cuty) {
+				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
+				panda.batterie -= 1;
 			}
 		}
-		else if (panda.posx == cutx && panda.posy == cuty) {								//Coupe s'il est en position
-			SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-			SDL_RenderClear(rendu);
-			background(rendu);
-			croissance_bambouseraie(tab, nb_cote);
-			coupe(tab, panda.posx, panda.posy);
-			place_img(monImage, posImg, rendu);
-			statistique(rendu); 
-			carre(rendu, nb_cote);
-			ecrit(rendu, font);
-			affiche_bambou(rendu, tab, nb_cote);
-			batterire(rendu, panda.batterie);
-		}
-		else if (panda.posx > cutx) {														//Se dirige vers le bambou
-			update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
-		}
-		else if (panda.posx < cutx) {
-			update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
-		}
-		else if (panda.posy > cuty) {
-			update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
-		}
-		else if (panda.posy < cuty) {
-			update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
+		if (SDL_WaitEventTimeout(&event, 100)) {
+			switch (event.type) {
+			case SDL_QUIT:
+				running = false;
+				break;
+			}
 		}
 		SDL_RenderPresent(rendu);
 	}
 
 	SDL_DestroyRenderer(rendu);
-
 	SDL_DestroyWindow(win);
-
 	SDL_Quit();
+
 	return 0;
 }
