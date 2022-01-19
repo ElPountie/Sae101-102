@@ -39,13 +39,7 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
 }
 
 void recharge(SDL_Renderer* rendu) {
-    SDL_Rect batterie;
-    batterie.x = 150;
-    batterie.y = 50;
-    batterie.w = 25;
-    batterie.h = 25;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-    SDL_RenderDrawRect(rendu, &batterie);
+   
     SDL_Surface* chargeur = IMG_Load("Recharge.png");
     if (!chargeur)
     {
@@ -55,6 +49,16 @@ void recharge(SDL_Renderer* rendu) {
 
     SDL_Texture* monchargeur = SDL_CreateTextureFromSurface(rendu, chargeur);
     SDL_FreeSurface(chargeur);
+
+    SDL_Rect batterie;
+    batterie.x = 95;
+    batterie.y = 45;
+
+    SDL_QueryTexture(monchargeur, NULL, NULL, &batterie.w, &batterie.h);
+    SDL_RenderCopy(rendu, monchargeur, NULL, &batterie);
+    SDL_DestroyTexture(monchargeur);
+
+    SDL_RenderPresent(rendu);
 }
 
 void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
@@ -338,7 +342,7 @@ int menue() {
         return 1;
     }
 
-    SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
+    SDL_Window* win = SDL_CreateWindow("PANDA Robot home",
         SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
         SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
         LARGEUR,                         //largeur en pixels                        
@@ -489,7 +493,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
         return 1;
     }
 
-    SDL_Window* win = SDL_CreateWindow("Mon beau bambou",
+    SDL_Window* win = SDL_CreateWindow("PANDA Robot game",
         SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
         SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
         LARGEUR,                         //largeur en pixels                        
