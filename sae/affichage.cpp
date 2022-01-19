@@ -278,6 +278,17 @@ void controle(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_RenderPresent(rendu);
 }
 
+/*void bouton(SDL_Renderer* rendu, TTF_Font* font) {
+    SDL_Rect bouton;
+    bouton.x = 575;
+    bouton.y = 680;
+    SDL_Texture* texture = loadText(rendu, "START/STOP", noir, font);
+    SDL_QueryTexture(texture, NULL, NULL, &bouton.w, &bouton.h);
+    SDL_RenderCopy(rendu, texture, NULL, &bouton);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
+}*/
+
 // Creation Menue
 
 
@@ -507,6 +518,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
         case SDL_QUIT:
             continuer = false;
             break;
+       
+
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
             case SDLK_RIGHT:
