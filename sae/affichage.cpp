@@ -18,10 +18,11 @@
 using namespace std;
 
 SDL_Color blanc = { 255,255,255 };
-SDL_Color vert = { 0,255,0 };
-SDL_Color bleu = { 0,0,255 };
+SDL_Color rouge2 = { 232,40,40 };
+SDL_Color vert = { 55,178,45 };
+SDL_Color bleu = { 41,92,171 };
 SDL_Color rouge = { 255,0,0 };
-SDL_Color violet = { 255,0,255 };
+SDL_Color violet = { 38,147,250 };
 SDL_Color noir = { 0,0,0 };
 SDL_Color dark_grey = { 60,60,60 };
 
@@ -90,7 +91,7 @@ void place_img(SDL_Texture* monImage, SDL_Rect posImg, SDL_Renderer* rendu) {
 }
 
 void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
-    ecrire_render(font, rendu, blanc, "haut.min", LARGEUR - 670, HAUTEUR-475);
+    ecrire_render(font, rendu, rouge2, "haut.min", LARGEUR - 670, HAUTEUR-475);
     ecrire_render(font, rendu, vert, "haut.max", LARGEUR - 670, HAUTEUR - 375);
     ecrire_render(font, rendu, violet, "haut.moy", LARGEUR - 670, HAUTEUR - 275);
 }
@@ -135,14 +136,23 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou],Stats T[], in
     stat.y = HAUTEUR - 500;
     stat.h = height_square;
     stat.w = width_square;
+
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+    SDL_RenderFillRect(rendu, &stat);
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderDrawRect(rendu, &stat);
 
     stat.x = pos_x;
     stat.y = HAUTEUR - 400;
     stat.h = height_square;
     stat.w = width_square;
-    SDL_RenderDrawRect(rendu, &stat);
+
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+    SDL_RenderFillRect(rendu, &stat);
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+    SDL_RenderDrawRect(rendu, &stat);
+    SDL_RenderDrawLine(rendu, pos_x,HAUTEUR-300,pos_x+500,HAUTEUR-300);
+
 
     calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe % 100);
 
@@ -160,15 +170,27 @@ void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_cou
     int moy_y = HAUTEUR - 175;
     if (nb_coupe < 100) {
         for (int i = 1; i < (nb_coupe%100); i++) {
+            SDL_SetRenderDrawColor(rendu, 232, 40, 40, 255);
+
             SDL_RenderDrawLine(rendu, pos_x+(i-1)*5, min_y + 2 * stats_tab[i-1].min , (pos_x + i*5), min_y + 2 * stats_tab[i].min);
+            SDL_SetRenderDrawColor(rendu, 55, 178, 45, 255);
+
             SDL_RenderDrawLine(rendu, pos_x+(i-1)*5, max_y - 0.5 * stats_tab[i-1].max, (pos_x +i*5), max_y - 0.5 * stats_tab[i].max);
+            SDL_SetRenderDrawColor(rendu, 38, 147, 250, 255);
+
             SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y - 2 * stats_tab[i - 1].moy, (pos_x + i * 5), moy_y - 2 * stats_tab[i].moy);
         }
     }
     else {
         for (int i = 1; i < 100; i++) {
+            SDL_SetRenderDrawColor(rendu, 232, 40, 40, 255);
+
             SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, min_y + 2 * stats_tab[(i - 1+nb_coupe) % 100].min, (pos_x + i * 5), min_y + 2 * stats_tab[(i+nb_coupe)%100].min);
+            SDL_SetRenderDrawColor(rendu, 55, 178, 45, 255);
+
             SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, max_y - 0.5 * stats_tab[(i - 1 + nb_coupe) % 100].max, (pos_x + i * 5), max_y - 0.5 * stats_tab[(i+nb_coupe)%100].max);
+            SDL_SetRenderDrawColor(rendu, 38, 147, 250, 255);
+
             SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y - 2 * stats_tab[(i - 1 + nb_coupe) % 100].moy, (pos_x + i * 5), moy_y - 2 * stats_tab[(i+nb_coupe)%100].moy);
         }
     }
