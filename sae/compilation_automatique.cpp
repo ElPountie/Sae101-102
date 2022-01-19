@@ -149,6 +149,16 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 			case SDL_QUIT:
 				running = false;
 				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if (event.button.x > 450 && event.button.x < 550 && event.button.y > 675 && event.button.y < 700) {
+					if (pause) {
+						pause = false;
+					}
+					else {
+						pause = true;
+					}
+				}
+				break;
 			}
 		}
 		SDL_RenderPresent(rendu);
