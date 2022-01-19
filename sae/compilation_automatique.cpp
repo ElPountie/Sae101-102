@@ -156,7 +156,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				panda.batterie -= 1;
 			}
 		}
-		if (SDL_WaitEventTimeout(&event, 1)) {
+		if (SDL_WaitEventTimeout(&event, 50)) {
 			switch (event.type) {
 			case SDL_QUIT:
 				running = false;

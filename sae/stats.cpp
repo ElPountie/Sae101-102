@@ -14,7 +14,7 @@ int tab_moy_column_line(Bambou tabbambou[][sqrt_nb_bambou], int taillex, int tai
 			moy += tabbambou[i][j].taille;
 		}
 	}
-	return moy / taillex*tailley;
+	return moy / (taillex*tailley);
 }
 
 int to_cut_reduce_fastest(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby, int max_size, int& recordtaille, int& to_cutx, int& to_cuty) {
@@ -83,6 +83,6 @@ int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 
 void init_tab(Stats T[100],Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int i,int nb_cote) {
 	T[i].min = min_bambou(tab, nb_cote, nb_cote);
-	//T[i].max = max_bambou(tab, nb_cote, nb_cote);
-	//T[i].moy = tab_moy_column_line(tab, nb_cote, nb_cote);
+	T[i].max = max_bambou(tab, nb_cote, nb_cote);
+	T[i].moy = tab_moy_column_line(tab, nb_cote, nb_cote);
 }

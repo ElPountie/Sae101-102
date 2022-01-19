@@ -133,6 +133,8 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou],int nb_coupe,
     else{
         for (int i = 1; i < 10; i++) {
             SDL_RenderDrawLine(rendu, (LARGEUR - 550) + ((i - 1) * 55.5), ((HAUTEUR - 500) - T[(i - 1 + nb_coupe) % 10].min * 4) + 80, (((LARGEUR - 550) + (i) * 55.5)), ((HAUTEUR - 500) - T[(i + nb_coupe) % 10].min * 4) + 80);
+            SDL_RenderDrawLine(rendu, (LARGEUR - 550) + ((i - 1) * 55.5), ((HAUTEUR - 400) - T[(i - 1 + nb_coupe) % 10].max * 4) + 80, (((LARGEUR - 550) + (i) * 55.5)), ((HAUTEUR - 400) - T[(i + nb_coupe) % 10].max * 4) + 80);
+            SDL_RenderDrawLine(rendu, (LARGEUR - 550) + ((i - 1) * 55.5), ((HAUTEUR - 300) - T[(i - 1 + nb_coupe) % 10].moy) + 80, (((LARGEUR - 550) + (i) * 55.5)), ((HAUTEUR - 300) - T[(i + nb_coupe) % 10].moy) + 80);
         }
     }
     SDL_RenderPresent(rendu);
