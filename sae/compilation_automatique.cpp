@@ -101,7 +101,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 					croissance_bambouseraie(tab, nb_cote);
 					coupe(tab, panda.posx, panda.posy);
 					place_img(monImage, posImg, rendu);
-					statistique(rendu, tab);
+					statistique(rendu, tab, cpt_return, nb_cote);
 					bouton(rendu, font);
 					nb_coupes(rendu, font, cpt_return);
 					carre(rendu, nb_cote);
@@ -123,7 +123,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				croissance_bambouseraie(tab, nb_cote);
 				coupe(tab, panda.posx, panda.posy);
 				place_img(monImage, posImg, rendu);
-				statistique(rendu, tab); 
+				statistique(rendu, tab, cpt_return, nb_cote); 
 				bouton(rendu, font);
 				nb_coupes(rendu, font, cpt_return);
 				carre(rendu, nb_cote);
@@ -170,7 +170,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 			}
 		}
 		bouton(rendu, font);
-		statistique(rendu, tab);
+		statistique(rendu, tab, cpt_return, nb_cote);
 		nb_coupes(rendu, font, cpt_return);
 		SDL_RenderPresent(rendu);
 	}

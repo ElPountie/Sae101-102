@@ -5,8 +5,20 @@
 #include "Stats_struct.h"
 using namespace std;
 
-float moy_bambou(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby, int max_size, int& recordtaille, int& to_cutx, int& to_cuty) {
-	float vitesse_max = 0;
+
+float moy_bambou(Bambou tabbambou[][sqrt_nb_bambou], int taillex, int tailley) {
+	int moy = 0;
+	for (int i =0; i < taillex; i++) {
+		for (int j = 0; j < tailley; j++)
+		{
+			moy += tabbambou[i][j].taille;
+		}
+	}
+	return moy / taillex*tailley;
+}
+
+int to_cut_reduce_fastest(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby, int max_size, int& recordtaille, int& to_cutx, int& to_cuty) {
+	int vitesse_max = 0;
 	for (int i1 = 0; i1 < tabx; i1++) {
 		for (int i2 = 0; i2 < taby; i2++) {
 			if (tabbambou[i1][i2].taille > max_size and tabbambou[i1][i2].vitesse > vitesse_max) {
@@ -34,7 +46,7 @@ int print_bambou(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby){
 	return 0;
 }
 
-float min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
+int min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	float min = tab[0][0].taille;
 	for (int i1 = 0; i1 < tabx; i1++) {
 		for (int i2 = 0; i2 < taby; i2++) {
@@ -46,7 +58,7 @@ float min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	return min;
 }
 
-float max_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
+int max_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	float max = tab[0][0].taille;
 	for (int i1 = 0; i1 < tabx; i1++) {
 		for (int i2 = 0; i2 < taby; i2++) {
@@ -58,12 +70,10 @@ float max_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	return max;
 }
 
-void calcul_stats(Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int taby, int taille) {
-	for (int i = 0; i < taille; i++) {
-		tabs[i].max = max_bambou(tabb, tabx, taby);
-		tabs[i].min = min_bambou(tabb, tabx, taby);
-		tabs[i].moy = moy_bambou(tabb, tabx, taby);
-	}
+void calcul_stats(Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int taby, int ind) {
+		tabs[ind].max = max_bambou(tabb, tabx, taby);
+		tabs[ind].min = min_bambou(tabb, tabx, taby);
+		tabs[ind].moy = moy_bambou(tabb, tabx, taby);
 }
 
 
@@ -75,10 +85,4 @@ int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 		}
 	}
 	return sm;
-}
-
-void init_tab(Stats T[100],Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
-	for (int i = 0; i < 100; i++){
-		T[i].min = min_bambou(tab, sqrt_nb_bambou, sqrt_nb_bambou);
-	}
 }

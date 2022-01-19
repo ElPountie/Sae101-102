@@ -111,38 +111,48 @@ void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int posx, int posy) {
     tab[posy][posx].taille = tab[posy][posx].vitesse;
 }
 
-void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou]){
+void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou], int nb_coupe, int nb_cote){
     Stats T[100];
-    int i;
-    for (i = 0; i < 100; i++){
-        T[i].min = 0;
-    }
+    int pos_x = LARGEUR - 550;
+    int height_square = 200;
+    int width_square = 500;
+    
     SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
     SDL_Rect stat;
-    stat.x = LARGEUR - 550;
+    stat.x = pos_x;
     stat.y = HAUTEUR - 500;
-    stat.h = 200;
-    stat.w = 500;
+    stat.h = height_square;
+    stat.w = width_square;
     SDL_RenderDrawRect(rendu, &stat);
-
-    stat.x = LARGEUR - 550;
+    stat.x = pos_x;
     stat.y = HAUTEUR - 400;
-    stat.h = 200;
-    stat.w = 500;
+    stat.h = height_square;
+    stat.w = width_square;
     SDL_RenderDrawRect(rendu, &stat);
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-    init_tab(T, tab);
-    i = 0;
-    while (i<100){
-        if (i == 0){
-            SDL_RenderDrawLine(rendu, LARGEUR - 550, 2*((T[i].min) * (HAUTEUR - 500)), LARGEUR - 540, 2*((T[i].min) * (HAUTEUR - 500)));
-        }
-        else {
-            SDL_RenderDrawLine(rendu, LARGEUR - 550, (T[i-1].min) * (HAUTEUR - 500), LARGEUR - 540, (T[i].min) * (HAUTEUR - 500));
-        }
-        i++;
+
+    calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe);
+
+    if (nb_coupe != 0) {
+        affiche_stats(rendu, T, pos_x, nb_coupe);
     }
+
     SDL_RenderPresent(rendu);
+}
+
+void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_coupe) {
+
+    int min_y = 1;
+    int max_y =1 ;
+    int moy_y =1 ;
+    if (nb_coupe < 10) {
+        for (int i = 1; i < nb_coupe; i++) {
+            SDL_RenderDrawLine(rendu, pos_x, min_y + 2 * stats_tab[i].min , pos_x + 10, min_y + 2 * stats_tab[i].min);
+            }    
+        }
+    else {
+
+    }
 }
 
 void batterire(SDL_Renderer* rendu, int charge) {
@@ -618,7 +628,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     croissance_bambouseraie(tab, nb_cote);
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
-                    statistique(rendu, tab);
+                    statistique(rendu, tab, cpt_return, nb_cote);
 
                     //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     recharge(rendu);
@@ -685,13 +695,12 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
     background(rendu);
-    statistique(rendu, tab);
     place_img(monImage, posImg, rendu);
     carre(rendu, nb_cote);
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
     batterire(rendu, panda.batterie);
-    statistique(rendu, tab);
+    statistique(rendu, tab, cpt_return, nb_cote);
     recharge(rendu);
 
 }
