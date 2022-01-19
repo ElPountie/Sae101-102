@@ -465,7 +465,6 @@ int menue() {
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT) {
-                    cout << event.button.x << endl << event.button.y << endl;
                     if ((event.button.x > 300 && event.button.x < 700 && (event.button.y > 400 && event.button.y < 450))) {
                         SDL_DestroyRenderer(rendu);
 
