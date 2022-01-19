@@ -10,7 +10,6 @@ int to_cut_reduce_fastest(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby
 int print_bambou(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby);
 int min_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby);
 int max_bambou(Bambou tab[][sqrt_nb_bambou], int tabx, int taby);
-void calcul_stats(Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int taby, int taille);
 int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby);
-void init_tab(Stats T[100], Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]);
+void init_tab(Stats T[100], Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int i,int nb_cote);
 #endif
