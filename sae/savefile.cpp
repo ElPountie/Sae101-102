@@ -121,8 +121,8 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 					loadfile(tabbanbou, nomf, nb_cote);
 				}
 				else {
-					tabbanbou[i1][i2].vitesse = 1;
-					tabbanbou[i1][i2].taille = 1;
+					tabbanbou[i1][i2].vitesse = (rand() % 10) / 10 + 1;
+					tabbanbou[i1][i2].taille = (rand() % 10) / 10 + 1;
 				}
 			}
 		}

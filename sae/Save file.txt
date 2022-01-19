@@ -1,266 +1,57 @@
 
 Largeur carre nombre bambou : 5
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
+Vitesse: XXX
 
 Changement de ligne
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
+Vitesse: XXX
 
 Changement de ligne
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
+Vitesse: XXX
 
 Changement de ligne
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
+Vitesse: XXX
 
 Changement de ligne
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
+Vitesse: XXX
 
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Changement de ligne
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
-
-Vitesse: 2
+Vitesse: XXX
 
 Changement de ligne
