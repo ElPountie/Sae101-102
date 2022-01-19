@@ -31,7 +31,7 @@ int to_cut_reduce_fastest(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby
 			}
 		}
 	}
-	if (vitesse_max = 0) {
+	if (vitesse_max == 0) {
 		to_cutx = to_cuty = 100;
 	}
 	return 0;
