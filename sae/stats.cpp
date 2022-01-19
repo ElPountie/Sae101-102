@@ -82,6 +82,7 @@ void calcul_stats(Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int tab
 	}
 }
 
+
 int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	int sm = 0;
 	for (int i1 = 0; i1 < tabx; i1++) {
