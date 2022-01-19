@@ -116,9 +116,13 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 					tabbanbou[i1][i2].vitesse = speed;
 					tabbanbou[i1][i2].taille = speed;
 				}
-				else {
+				else if (nb_cote <= 3){
 					createTemplateSaveFile(nomf, nb_cote);
 					loadfile(tabbanbou, nomf, nb_cote);
+				}
+				else {
+					tabbanbou[i1][i2].vitesse = (rand() % 10) / 10 + 1;
+					tabbanbou[i1][i2].taille = (rand() % 10) / 10 + 1;
 				}
 			}
 		}
@@ -130,14 +134,25 @@ void createTemplateSaveFile(const char nomf[50], int nbbambou) {
 	ofstream f(nomf);
 	addline(f, "Largeur carre nombre bambou : ");
 	if(nbbambou == 10){
-		int nbbambou = rand() % 4 + 2;
+		int nbbambou = rand() % 3;
 	}
 	f << nbbambou;
-	for (int i1 = 0; i1 < nbbambou; i1++) {
-		for (int i2 = 0; i2 < nbbambou; i2++) {
-			int taille = rand() % 8 + 2;
-			addline(f, "Vitesse: ");
-			f << taille;
+	if (nbbambou < 4){
+		for (int i1 = 0; i1 < nbbambou; i1++) {
+			for (int i2 = 0; i2 < nbbambou; i2++) {
+				int taille = rand() % 5;
+				addline(f, "Vitesse: ");
+				f << taille;
+			}
+		}
+	}
+	else {
+		for (int i1 = 0; i1 < nbbambou; i1++) {
+			for (int i2 = 0; i2 < nbbambou; i2++) {
+				int taille = rand() % 3;
+				addline(f, "Vitesse: ");
+				f << taille;
+			}
 		}
 	}
 	f.close();
