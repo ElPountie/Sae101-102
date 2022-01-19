@@ -75,11 +75,6 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 	int smvitesse = Sommevitesse(tab, nb_cote, nb_cote);
 
 	SDL_EventState(SDL_MOUSEMOTION, false);
-	SDL_EventState(SDL_KEYDOWN, false);
-	SDL_EventState(SDL_KEYUP, false);
-	SDL_EventState(SDL_MOUSEMOTION, false);
-	SDL_EventState(SDL_MOUSEBUTTONDOWN, false);
-	SDL_EventState(SDL_MOUSEBUTTONUP, false);
 
 	while (running) {
 		if (!pause){
@@ -161,12 +156,14 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				running = false;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				if (event.button.x > 450 && event.button.x < 550 && event.button.y > 675 && event.button.y < 700) {
-					if (pause) {
-						pause = false;
-					}
-					else {
-						pause = true;
+				if(event.button.button == SDL_BUTTON_LEFT){
+					if (event.button.x > 600 && event.button.x < 790 && event.button.y > 670 && event.button.y < 690) {
+						if (pause) {
+							pause = false;
+						}
+						else {
+							pause = true;
+						}
 					}
 				}
 				break;

@@ -48,7 +48,7 @@ void recharge(SDL_Renderer* rendu) {
 }
 
 void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
-    ecrire_render(font, rendu, bleu, "nombres coupes : ", 50, 675);
+    ecrire_render(font, rendu, bleu, "Nombre de jours : ", 50, 675);
     char txt[1000];
     sprintf_s(txt, "%d", nb_coupe);
     ecrire_render(font, rendu, bleu, txt, 325, 675);
