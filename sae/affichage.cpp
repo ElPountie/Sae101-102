@@ -187,7 +187,7 @@ void batterire(SDL_Renderer* rendu, int charge) {
 
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
     SDL_RenderCopy(rendu, monImage, NULL, &posImg);
-
+    SDL_DestroyTexture(monImage);
     SDL_RenderPresent(rendu);
 
 }
@@ -211,7 +211,7 @@ void background(SDL_Renderer* rendu) {
 
     SDL_QueryTexture(monImage, NULL, NULL, &posImg.w, &posImg.h);
     SDL_RenderCopy(rendu, monImage, NULL, &posImg);
-
+    SDL_DestroyTexture(monImage);
     SDL_RenderPresent(rendu);
 }
 

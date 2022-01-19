@@ -113,7 +113,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 					croissance_bambouseraie(tab, nb_cote);														//Choisis le bambou à couper
 				}
 			}
-			else if (panda.posx == cutx && panda.posy == cuty) {								//Coupe s'il est en position
+			else if (panda.posx == cutx && panda.posy == cuty) {												//Coupe s'il est en position
 				SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
 				SDL_RenderClear(rendu);
 				background(rendu);
@@ -127,7 +127,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				panda.batterie -= 1;
 				batterire(rendu, panda.batterie);
 			}
-			else if (panda.posx > cutx) {														//Se dirige vers le bambou
+			else if (panda.posx > cutx) {																		//Se dirige vers le bambou
 				update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
 				panda.batterie -= 1;
 			}
@@ -144,7 +144,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				panda.batterie -= 1;
 			}
 		}
-		if (SDL_WaitEventTimeout(&event, 100)) {
+		if (SDL_WaitEventTimeout(&event, 1)) {
 			switch (event.type) {
 			case SDL_QUIT:
 				running = false;

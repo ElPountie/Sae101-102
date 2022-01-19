@@ -12,13 +12,13 @@ int main(int argn, char* argv[]) {
     Bambou tabbanbou[sqrt_nb_bambou][sqrt_nb_bambou];
     init_f("Save file.txt", tabbanbou);
     int a;
-    cout << "enter valeurs .txt" << endl;
+    cout << "enter valeurs dans le Save file.txt" << endl;
     cin >> a;
     int nb_cote;
     loadfile(tabbanbou, "Save file.txt", nb_cote);
     int y = menue();
     if (y == 0) {
-        start_automatic(nb_cote,tabbanbou);
+        start_automatic(nb_cote, tabbanbou);
     }
     else if (y == 1){
         while (!fin) {
