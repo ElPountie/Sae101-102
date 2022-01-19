@@ -18,5 +18,6 @@ void coupe(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou], int posx, int posy);
 void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const char texte[100], int posx, int posy);
 void batterire(SDL_Renderer* rendu, int charge);
 int menue();
-
+void statistique(SDL_Renderer* rendu);
+void background(SDL_Renderer* rendu);
 #endif
