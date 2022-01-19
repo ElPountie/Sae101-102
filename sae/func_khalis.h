@@ -19,7 +19,7 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
 void batterire(SDL_Renderer* rendu, int charge);
 void statistique(SDL_Renderer* rendu);
 int menue();
-void statistique(SDL_Renderer* rendu);
 void background(SDL_Renderer* rendu);
 void nb_coupes(SDL_Renderer* rendu, TTF_Font* font, int nb_coupe);
+void courbe(SDL_Renderer* rendu, Bambou tabb[][sqrt_nb_bambou]);
 #endif

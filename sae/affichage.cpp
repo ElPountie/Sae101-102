@@ -12,7 +12,6 @@
 #include "func_khalis.h"
 #include "auto.h";
 #include "Stats struct.h"
-#include "stats.cpp"
 
 
 using namespace std;
@@ -117,7 +116,7 @@ void statistique(SDL_Renderer* rendu ) {
 
 }
 
-/*void courbe(SDL_Renderer* rendu, Bambou tabb[][sqrt_nb_bambou]) {
+void courbe(SDL_Renderer* rendu, Bambou tabb[][sqrt_nb_bambou]) {
     SDL_SetRenderDrawColor(rendu, 50, 255, 0, 255);
     SDL_Rect courbe1;
     int N = sqrt_nb_bambou;
@@ -134,13 +133,13 @@ void statistique(SDL_Renderer* rendu ) {
             tmp = tabb[i][j].taille / tabb[i][j].vitesse;
             do
             {
-                SDL_RenderDrawLine(rendu, courbe1.x - 5, courbe1.y - (k * tabb[i][j].vitesse) * 1.5, courbe1.x + 10, courbe1.y - (k * tabb[i][j].vitesse) * 1.5);
+                SDL_RenderDrawLine(rendu, courbe1.x - 5, courbe1.y - (k * tabb[i][j].taille) * 1.5, courbe1.x + 10, courbe1.y - (k * tabb[i][j].taille) * 1.5);
                 k++;
             } while (k < tmp);
         }
     }
     SDL_RenderPresent(rendu);
-}*/
+}
 
 
 void batterire(SDL_Renderer* rendu, int charge) {
@@ -384,6 +383,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     TTF_Init();
     TTF_Font* font = TTF_OpenFont("04B_30__.ttf", 15);
+    TTF_Font* font2 = TTF_OpenFont("04B_30__.ttf", 25);
+
 
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -469,6 +470,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 if (panda.batterie > 0) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1,cpt_return);
                     panda.batterie-= 1;
+                    nb_coupes(rendu, font2, cpt_return);
+
                 }
                 else {
                     panda.batterie = 100;
@@ -479,6 +482,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 if (panda.batterie > 0) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
                     panda.batterie -= 1;
+                    nb_coupes(rendu, font2, cpt_return);
+
                 }
                 else {
                     panda.batterie = 100;
@@ -489,6 +494,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 if (panda.batterie > 0) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4,cpt_return);
                     panda.batterie -= 1;
+                    nb_coupes(rendu, font2, cpt_return);
+
                 }
                 else {
                     panda.batterie = 100;
@@ -499,6 +506,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 if (panda.batterie > 0) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2,cpt_return);
                     panda.batterie -= 1;
+                    nb_coupes(rendu, font2, cpt_return);
+
                 }
                 else {
                     panda.batterie = 100;
@@ -508,6 +517,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
             case SDLK_RETURN:
                 if (panda.batterie >= 0) {
                     cpt_return++;
+                    panda.batterie -= 1;
                     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
                     SDL_RenderClear(rendu);
                     background(rendu);
@@ -520,7 +530,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);
                     batterire(rendu, panda.batterie);
-                    nb_coupes(rendu, font, cpt_return);
+                    nb_coupes(rendu, font2, cpt_return);
                 }
                 else {
                     panda.batterie = 100;
@@ -592,5 +602,4 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
     batterire(rendu, panda.batterie);
-    nb_coupes(rendu, font, cpt_return);
 }

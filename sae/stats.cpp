@@ -5,20 +5,16 @@
 #include "Stats struct.h"
 using namespace std;
 
-int tab_moy_line(Bambou tabbambou[sqrt_nb_bambou], int tailley) {
-	int moy = 0;
-	for (int i = 0; i < tailley; i++) {
-		moy += tabbambou[i].taille;
-	;}
-	return moy / tailley;
-}
 
 int tab_moy_column_line(Bambou tabbambou[][sqrt_nb_bambou], int taillex, int tailley) {
 	int moy = 0;
-	for (int i = 0; i < taillex; i++) {
-		moy += tab_moy_line(tabbambou[i], tailley);
+	for (int i =0; i < taillex; i++) {
+		for (int j = 0; j < tailley; j++)
+		{
+			moy += tabbambou[i][j].taille;
+		}
 	}
-	return moy / tailley;
+	return moy / taillex*tailley;
 }
 
 int to_cut_reduce_fastest(Bambou tabbambou[][sqrt_nb_bambou], int tabx, int taby, int max_size, int& recordtaille, int& to_cutx, int& to_cuty) {
@@ -86,7 +82,7 @@ void calcul_stats(Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int tab
 int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
 	int sm = 0;
 	for (int i1 = 0; i1 < tabx; i1++) {
-		for (int i2 = 0; i2 < tabx; i2++) {
+		for (int i2 = 0; i2 < taby; i2++) {
 			sm += tab[i1][i2].vitesse;
 		}
 	}
