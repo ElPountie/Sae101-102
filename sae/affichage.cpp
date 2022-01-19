@@ -131,7 +131,7 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou],Stats T[], in
     SDL_RenderDrawRect(rendu, &stat);
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
 
-    calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe % 10);
+    calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe % 100);
 
     if (nb_coupe != 0) {
         affiche_stats(rendu, T, pos_x, nb_coupe);
@@ -142,18 +142,22 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou],Stats T[], in
 
 void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_coupe) {
 
-    int min_y = HAUTEUR - 410;
+    int min_y = HAUTEUR - 420;
     int max_y = HAUTEUR - 310;
-    int moy_y = HAUTEUR - 210;
-    if (nb_coupe < 10) {
-        for (int i = 1; i < (nb_coupe%11)+1; i++) {
-            SDL_RenderDrawLine(rendu, pos_x+(i-1)*10, min_y + 2 * stats_tab[i-1].min , (pos_x + i*10), min_y + 2 * stats_tab[i].min);
+    int moy_y = HAUTEUR - 175;
+    if (nb_coupe < 100) {
+        for (int i = 1; i < (nb_coupe%100); i++) {
+            SDL_RenderDrawLine(rendu, pos_x+(i-1)*5, min_y + 2 * stats_tab[i-1].min , (pos_x + i*5), min_y + 2 * stats_tab[i].min);
             SDL_RenderDrawLine(rendu, pos_x+(i-1)*5, max_y - 0.5 * stats_tab[i-1].max, (pos_x +i*5), max_y - 0.5 * stats_tab[i].max);
             SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y - 2 * stats_tab[i - 1].moy, (pos_x + i * 5), moy_y - 2 * stats_tab[i].moy);
         }
     }
     else {
-
+        for (int i = 1; i < 100; i++) {
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, min_y + 2 * stats_tab[(i - 1+nb_coupe) % 100].min, (pos_x + i * 5), min_y + 2 * stats_tab[(i+nb_coupe)%100].min);
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, max_y - 0.5 * stats_tab[(i - 1 + nb_coupe) % 100].max, (pos_x + i * 5), max_y - 0.5 * stats_tab[(i+nb_coupe)%100].max);
+            SDL_RenderDrawLine(rendu, pos_x + (i - 1) * 5, moy_y - 2 * stats_tab[(i - 1 + nb_coupe) % 100].moy, (pos_x + i * 5), moy_y - 2 * stats_tab[(i+nb_coupe)%100].moy);
+        }
     }
 }
 
