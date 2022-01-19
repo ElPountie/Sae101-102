@@ -294,8 +294,8 @@ void bouton(SDL_Renderer* rendu, TTF_Font* font) {
     SDL_Texture* texture = loadText(rendu, "START/STOP", noir, font);
     SDL_QueryTexture(texture, NULL, NULL, &bouton.w, &bouton.h);
     SDL_RenderCopy(rendu, texture, NULL, &bouton);
-    SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
+    SDL_RenderPresent(rendu);
 }
 
 
