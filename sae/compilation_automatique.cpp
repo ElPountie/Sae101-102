@@ -115,6 +115,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				}
 				else {
 					panda.batterie = 100;
+					pause = true;
 					croissance_bambouseraie(tab, nb_cote);														//Choisis le bambou à couper
 				}
 			}
