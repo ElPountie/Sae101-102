@@ -20,4 +20,5 @@ void batterire(SDL_Renderer* rendu, int charge);
 int menue();
 void statistique(SDL_Renderer* rendu);
 void background(SDL_Renderer* rendu);
+void nb_coupes(SDL_Renderer* rendu, TTF_Font* font, int nb_coupe);
 #endif

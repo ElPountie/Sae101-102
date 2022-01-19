@@ -33,14 +33,15 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
 }
 
 void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
-    ecrire_render(font, rendu, bleu, "nb coupes", 50, 675);
+    ecrire_render(font, rendu, bleu, "nombres coupes", 50, 675);
     SDL_SetRenderDrawColor(rendu, 233, 170, 240, 255);
     SDL_Rect stat;
-    stat.x = 60;
+    stat.x = 350;
     stat.y = 675;
     stat.h = 25;
-    stat.w = nb_coupe;
+    stat.w = nb_coupe*2;
     SDL_RenderFillRect(rendu, &stat);
+    SDL_RenderPresent(rendu);
 }
 
 void carre(SDL_Renderer* rendu,int nb_cote) {
@@ -428,7 +429,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     //CREATION BOUCLE EVENT 
     bool continuer = true;
     SDL_Event event;
-    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
 
     while (continuer)
     {
@@ -532,7 +533,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 }
 
 
-void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction,int& cpt_return) {
+void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction,int cpt_return) {
     if (direction == 1) {
         if (posImg.x != 100 + 125 * (nb_cote - 1)) {
             posImg.x += 125;
