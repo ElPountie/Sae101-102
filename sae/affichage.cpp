@@ -1,6 +1,7 @@
 #include<SDL.h> 
 #include<SDL_ttf.h> 
 #include <iostream>
+#include <fstream>;
 #include "constante_khalis.h"
 #include "config_sdl.h"
 #include "Constante_Thibault.h"
@@ -33,15 +34,11 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
 }
 
 void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
-    ecrire_render(font, rendu, bleu, "nombres coupes", 50, 675);
-    SDL_SetRenderDrawColor(rendu, 233, 170, 240, 255);
-    SDL_Rect stat;
-    stat.x = 350;
-    stat.y = 675;
-    stat.h = 25;
-    stat.w = nb_coupe*2;
-    SDL_RenderFillRect(rendu, &stat);
-    SDL_RenderPresent(rendu);
+    ecrire_render(font, rendu, bleu, "nombres coupes : ", 50, 675);
+    char txt[1000];
+    sprintf_s(txt, "%d", nb_coupe);
+    ecrire_render(font, rendu, bleu, txt, 400, 675);
+
 }
 
 void carre(SDL_Renderer* rendu,int nb_cote) {
