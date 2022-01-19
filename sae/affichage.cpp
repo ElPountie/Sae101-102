@@ -51,7 +51,7 @@ void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
     ecrire_render(font, rendu, bleu, "nombres coupes : ", 50, 675);
     char txt[1000];
     sprintf_s(txt, "%d", nb_coupe);
-    ecrire_render(font, rendu, bleu, txt, 400, 675);
+    ecrire_render(font, rendu, bleu, txt, 325, 675);
 }
 
 void carre(SDL_Renderer* rendu,int nb_cote) {
@@ -288,16 +288,8 @@ void controle(SDL_Renderer* rendu, TTF_Font* font) {
 }
 
 void bouton(SDL_Renderer* rendu, TTF_Font* font) {
-    SDL_Rect bouton;
-    bouton.x = 450;
-    bouton.y = 675;
-    SDL_Texture* texture = loadText(rendu, "START/STOP", noir, font);
-    SDL_QueryTexture(texture, NULL, NULL, &bouton.w, &bouton.h);
-    SDL_RenderCopy(rendu, texture, NULL, &bouton);
-    SDL_DestroyTexture(texture);
-    SDL_RenderPresent(rendu);
+    ecrire_render(font, rendu, noir, "START/STOP ", 600, 675);
 }
-
 
 // Creation Menue
 
@@ -460,7 +452,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
         return 1;
     }
 
-    SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
+    SDL_Window* win = SDL_CreateWindow("Mon beau bambou",
         SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
         SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
         LARGEUR,                         //largeur en pixels                        
@@ -630,7 +622,6 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
                     //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     recharge(rendu);
-                    bouton(rendu, font);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);
@@ -702,6 +693,5 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     batterire(rendu, panda.batterie);
     statistique(rendu, tab);
     recharge(rendu);
-    bouton(rendu, font);
 
 }

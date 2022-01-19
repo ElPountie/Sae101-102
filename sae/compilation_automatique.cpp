@@ -1,14 +1,18 @@
 #include<SDL.h> 
 #include<SDL_ttf.h> 
 #include <iostream>
-#include "func_khalis.h"
-#include "savefile.h"
-#include "Bambou.h"
-#include "Constante_Thibault.h"
+#include <fstream>;
 #include "constante_khalis.h"
+#include "config_sdl.h"
+#include "Constante_Thibault.h"
+#include "Panda.h"
+#include "Bambou.h"
+#include "savefile.h"
+#include"fonct_thibault.h"
 #include "func_khalis.h"
+#include "auto.h";
+#include "Stats_struct.h"
 #include "fonct_stats.h"
-#include "fonct_thibault.h"
 
 using namespace std;
 
@@ -19,7 +23,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 		return 1;
 	}
 
-	SDL_Window* win = SDL_CreateWindow("Titre de la fenetre",
+	SDL_Window* win = SDL_CreateWindow("Mon beau bambou",
 		SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
 		SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
 		LARGEUR,                         //largeur en pixels                        
@@ -34,7 +38,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 		SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
 
 	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("calibri.ttf", 25);
+	TTF_Font* font = TTF_OpenFont("04B_30__.ttf", 20);
 
 	SDL_Surface* image = IMG_Load("panda.png");
 	if (!image)
@@ -84,6 +88,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 			if (cutx == 100 || cuty == 100) {
 				croissance_bambouseraie(tab, nb_cote);
 				affiche_bambou(rendu, tab, nb_cote);
+				
 			}
 			else if (panda.batterie <= (panda.posx + panda.posy + 1)) {																				//Plus de batterie
 				if (panda.posx > 0) {
@@ -102,6 +107,8 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 					coupe(tab, panda.posx, panda.posy);
 					place_img(monImage, posImg, rendu);
 					statistique(rendu, tab);
+					bouton(rendu, font);
+					nb_coupes(rendu, font, cpt_return);
 					carre(rendu, nb_cote);
 					ecrit(rendu, font);
 					affiche_bambou(rendu, tab, nb_cote);
@@ -122,6 +129,8 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				coupe(tab, panda.posx, panda.posy);
 				place_img(monImage, posImg, rendu);
 				statistique(rendu, tab); 
+				bouton(rendu, font);
+				nb_coupes(rendu, font, cpt_return);
 				carre(rendu, nb_cote);
 				ecrit(rendu, font);
 				affiche_bambou(rendu, tab, nb_cote);
