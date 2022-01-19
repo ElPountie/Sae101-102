@@ -11,6 +11,8 @@
 #include"fonct_thibault.h"
 #include "func_khalis.h"
 #include "auto.h";
+#include "Stats struct.h"
+#include "stats.cpp"
 
 
 using namespace std;
@@ -113,8 +115,33 @@ void statistique(SDL_Renderer* rendu ) {
     stat.w = 500;
     SDL_RenderDrawRect(rendu, &stat);
 
-
 }
+
+void courbe(SDL_Renderer* rendu, Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int taby, int taille) {
+    SDL_SetRenderDrawColor(rendu, 50, 255, 0, 255);
+    SDL_Rect courbe1;
+    int N = sqrt_nb_bambou;
+    int k = 0;
+    int tmp = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            k = 0;
+            courbe1.x = 50 + j * 125 + 25;
+            courbe1.y = 50 + i * 125 + 125;
+            courbe1.w = 5;
+            courbe1.h = -tabb[i][j].taille * 1.5;
+            SDL_RenderFillRect(rendu, &courbe1);
+            tmp = tabb[i][j].taille / tabb[i][j].vitesse;
+            do
+            {
+                SDL_RenderDrawLine(rendu, courbe1.x - 5, courbe1.y - (k * tabb[i][j].vitesse) * 1.5, courbe1.x + 10, courbe1.y - (k * tabb[i][j].vitesse) * 1.5);
+                k++;
+            } while (k < tmp);
+        }
+    }
+    SDL_RenderPresent(rendu);
+}
+
 
 void batterire(SDL_Renderer* rendu, int charge) {
 
@@ -356,7 +383,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
         SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
 
     TTF_Init();
-    TTF_Font* font = TTF_OpenFont("04B_30__.ttf", 25);
+    TTF_Font* font = TTF_OpenFont("04B_30__.ttf", 15);
 
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -488,6 +515,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
                     statistique(rendu);
+                    courbe(rendu, tabs[], tabb, tabx, taby, taille)
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);

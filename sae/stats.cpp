@@ -81,3 +81,13 @@ void calcul_stats(Stats tabs[], Bambou tabb[][sqrt_nb_bambou], int tabx, int tab
 		tabs[i].moy = tab_moy_column_line(tabb, tabx, taby);
 	}
 }
+
+int Sommevitesse(Bambou tab[][sqrt_nb_bambou], int tabx, int taby) {
+	int sm = 0;
+	for (int i1 = 0; i1 < tabx; i1++) {
+		for (int i2 = 0; i2 < tabx; i2++) {
+			sm += tab[i1][i2].vitesse;
+		}
+	}
+	return sm;
+}
