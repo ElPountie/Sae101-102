@@ -63,7 +63,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 	update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
 	SDL_RenderPresent(rendu);
 	int cutx, cuty = 100;
-
+	int smvitesse = Sommevitesse(tab, nb_cote, nb_cote);
 	while (running) {
 		SDL_Delay(500);
 		SDL_WaitEvent(&event);
@@ -72,7 +72,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 			running = false;
 			break;
 		}
-		to_cut_reduce_fastest(tab, nb_cote, nb_cote, 30, record_taille, cutx, cuty);
+		to_cut_reduce_fastest(tab, nb_cote, nb_cote, Sommevitesse(tab, nb_cote, nb_cote), record_taille, cutx, cuty);
 		if (cutx == 100 || cuty == 100) {
 			croissance_bambouseraie(tab, nb_cote);
 			affiche_bambou(rendu, tab, nb_cote);
