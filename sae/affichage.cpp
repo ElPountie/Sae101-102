@@ -141,7 +141,6 @@ void courbe(SDL_Renderer* rendu, Bambou tabb[][sqrt_nb_bambou]) {
     SDL_RenderPresent(rendu);
 }
 
-
 void batterire(SDL_Renderer* rendu, int charge) {
 
     SDL_Rect batterie;    
@@ -205,6 +204,27 @@ void background(SDL_Renderer* rendu) {
     SDL_RenderPresent(rendu);
 }
 
+void message_batterie(SDL_Renderer* rendu, TTF_Font* font) {
+    SDL_Rect mess_batterie;
+    mess_batterie.x = 50;
+    mess_batterie.y = HAUTEUR/2;
+    SDL_Texture* texture = loadText(rendu, "VOUS N'AVEZ PLUS DE BATTERIE", rouge, font);
+    SDL_QueryTexture(texture, NULL, NULL, &mess_batterie.w, &mess_batterie.h);
+    SDL_RenderCopy(rendu, texture, NULL, &mess_batterie);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
+}
+
+void controle(SDL_Renderer* rendu, TTF_Font* font) {
+    SDL_Rect direction;
+    direction.x = 50;
+    direction.y = HAUTEUR / 2;
+    SDL_Texture* texture = loadText(rendu, "VOUS N'AVEZ PLUS DE BATTERIE", rouge, font);
+    SDL_QueryTexture(texture, NULL, NULL, &direction.w, &direction.h);
+    SDL_RenderCopy(rendu, texture, NULL, &direction);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
+}
 
 // Creation Menue
 
@@ -384,6 +404,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     TTF_Init();
     TTF_Font* font = TTF_OpenFont("04B_30__.ttf", 15);
     TTF_Font* font2 = TTF_OpenFont("04B_30__.ttf", 25);
+    TTF_Font* font3 = TTF_OpenFont("04B_30__.ttf", 50);
 
 
 
@@ -458,6 +479,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     while (continuer)
     {
+        nb_coupes(rendu, font2, cpt_return);
+
         SDL_WaitEvent(&event);//update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 5);
         switch (event.type)
         {
@@ -475,6 +498,10 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 else {
                     panda.batterie = 100;
+                    posImg.x = 100;
+                    posImg.y = 100;
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    message_batterie(rendu, font3);
                 }
                 break;
 
@@ -487,6 +514,12 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 else {
                     panda.batterie = 100;
+                    posImg.x = 100;
+                    posImg.y = 100;
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    nb_coupes(rendu, font2, cpt_return);
+                    message_batterie(rendu, font3);
+
                 }
                 break;
 
@@ -495,10 +528,18 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4,cpt_return);
                     panda.batterie -= 1;
                     nb_coupes(rendu, font2, cpt_return);
+                    nb_coupes(rendu, font2, cpt_return);
+
 
                 }
                 else {
                     panda.batterie = 100;
+                    posImg.x = 100;
+                    posImg.y = 100;
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    nb_coupes(rendu, font2, cpt_return);
+                    message_batterie(rendu, font3);
+
                 }
                 break;
 
@@ -508,9 +549,16 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     panda.batterie -= 1;
                     nb_coupes(rendu, font2, cpt_return);
 
+
                 }
                 else {
                     panda.batterie = 100;
+                    posImg.x = 100;
+                    posImg.y = 100;
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3, cpt_return);
+                    nb_coupes(rendu, font2, cpt_return);
+                    message_batterie(rendu, font3);
+
                 }
                 break;
 
@@ -534,6 +582,9 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 else {
                     panda.batterie = 100;
+                    posImg.x = 100;
+                    posImg.y = 100;
+                    message_batterie(rendu, font3);
                 }
                 break;
 
