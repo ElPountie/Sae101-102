@@ -37,6 +37,16 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
     SDL_DestroyTexture(texture);
 }
 
+void recharge(SDL_Renderer* rendu) {
+    SDL_Rect batterie;
+    batterie.x = 150;
+    batterie.y = 50;
+    batterie.w = 25;
+    batterie.h = 25;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+    SDL_RenderDrawRect(rendu, &batterie);
+}
+
 void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
     ecrire_render(font, rendu, bleu, "nombres coupes : ", 50, 675);
     char txt[1000];
@@ -619,6 +629,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     statistique(rendu, tab);
 
                     //courbe(rendu, tabs[], tabb, tabx, taby, taille);
+                    recharge(rendu);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);
@@ -689,5 +700,6 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     affiche_bambou(rendu, tab, nb_cote);
     batterire(rendu, panda.batterie);
     statistique(rendu, tab);
+    recharge(rendu);
 
 }
