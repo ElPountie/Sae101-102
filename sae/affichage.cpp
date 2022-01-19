@@ -66,9 +66,9 @@ void place_img(SDL_Texture* monImage, SDL_Rect posImg, SDL_Renderer* rendu) {
 }
 
 void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
-    ecrire_render(font, rendu, blanc, "Legende", LARGEUR - 200, 50);
-    ecrire_render(font, rendu, vert, "haut.max", LARGEUR - 200, 100);
-    ecrire_render(font, rendu, violet, "haut.moy", LARGEUR - 200, 150);
+    ecrire_render(font, rendu, blanc, "Legende", LARGEUR - 670, HAUTEUR-475);
+    ecrire_render(font, rendu, vert, "haut.max", LARGEUR - 670, HAUTEUR - 375);
+    ecrire_render(font, rendu, violet, "haut.moy", LARGEUR - 670, HAUTEUR - 275);
 }
 
 void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
@@ -515,7 +515,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
                     statistique(rendu);
-                    courbe(rendu, tabs[], tabb, tabx, taby, taille)
+                    //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);
