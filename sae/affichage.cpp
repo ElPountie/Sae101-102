@@ -510,7 +510,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
     update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
 
     while (continuer)
-    {courb
+    {
+        courbe(rendu, tab);
         nb_coupes(rendu, font2, cpt_return);
         controle(rendu, font2);
         SDL_WaitEvent(&event);//update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 5);
