@@ -136,14 +136,23 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou],Stats T[], in
     stat.y = HAUTEUR - 500;
     stat.h = height_square;
     stat.w = width_square;
+
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+    SDL_RenderFillRect(rendu, &stat);
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderDrawRect(rendu, &stat);
 
     stat.x = pos_x;
     stat.y = HAUTEUR - 400;
     stat.h = height_square;
     stat.w = width_square;
-    SDL_RenderDrawRect(rendu, &stat);
+
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+    SDL_RenderFillRect(rendu, &stat);
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+    SDL_RenderDrawRect(rendu, &stat);
+    SDL_RenderDrawLine(rendu, pos_x,HAUTEUR-300,pos_x+500,HAUTEUR-300);
+
 
     calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe % 100);
 
