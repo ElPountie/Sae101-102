@@ -1,3 +1,6 @@
 
-Largeur carre nombre bambou : 1
+Largeur carre nombre bambou : 2
+Vitesse: 5
+Vitesse: 2
 Vitesse: 3
+Vitesse: 4
