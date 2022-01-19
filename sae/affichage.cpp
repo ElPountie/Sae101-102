@@ -131,7 +131,7 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou], int nb_coupe
     SDL_RenderDrawRect(rendu, &stat);
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
 
-    calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe);
+    calcul_stats(T, tab, nb_cote, nb_cote, nb_coupe % 10);
 
     if (nb_coupe != 0) {
         affiche_stats(rendu, T, pos_x, nb_coupe);
@@ -142,12 +142,14 @@ void statistique(SDL_Renderer* rendu, Bambou tab[][sqrt_nb_bambou], int nb_coupe
 
 void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_coupe) {
 
-    int min_y = 1;
-    int max_y =1 ;
-    int moy_y =1 ;
+    int min_y = HAUTEUR - 500;
+    int max_y = HAUTEUR - 400;
+    int moy_y = HAUTEUR - 300;
     if (nb_coupe < 10) {
         for (int i = 1; i < nb_coupe; i++) {
             SDL_RenderDrawLine(rendu, pos_x, min_y + 2 * stats_tab[i].min , pos_x + 10, min_y + 2 * stats_tab[i].min);
+            SDL_RenderDrawLine(rendu, pos_x, max_y + 2 * stats_tab[i].max, pos_x + 10, max_y + 2 * stats_tab[i].max);
+            SDL_RenderDrawLine(rendu, pos_x, moy_y + 2 * stats_tab[i].moy, pos_x + 10, moy_y + 2 * stats_tab[i].moy);
             }    
         }
     else {

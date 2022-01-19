@@ -86,7 +86,7 @@ void init_f(const char nomf[50], Bambou tabbanbou[][sqrt_nb_bambou]) {
 		}
 		else {
 			int nb_cote = 0;
-			loadfile(tabbanbou, nomf,nb_cote);
+			loadfile(tabbanbou, nomf, nb_cote);
 		}
 	}
 }
@@ -112,7 +112,7 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 				f.getline(na, 30);
 				f.getline(na, 30, ':');
 				f >> speed;
-				if (speed >0 && speed < 100){
+				if (speed >= 0 && speed <= 100){
 					tabbanbou[i1][i2].vitesse = speed;
 					tabbanbou[i1][i2].taille = speed;
 				}
@@ -121,8 +121,8 @@ void loadfile(Bambou tabbanbou[][sqrt_nb_bambou], const char nomf[50],int& nb_co
 					loadfile(tabbanbou, nomf, nb_cote);
 				}
 				else {
-					tabbanbou[i1][i2].vitesse = (rand() % 10) / 10 + 1;
-					tabbanbou[i1][i2].taille = (rand() % 10) / 10 + 1;
+					tabbanbou[i1][i2].vitesse = rand() % 10;
+					tabbanbou[i1][i2].taille = rand() % 10;
 				}
 			}
 		}
@@ -134,7 +134,7 @@ void createTemplateSaveFile(const char nomf[50], int nbbambou) {
 	ofstream f(nomf);
 	addline(f, "Largeur carre nombre bambou : ");
 	if(nbbambou == 10){
-		int nbbambou = rand() % 3;
+		int nbbambou = rand() % 2 + 1;
 	}
 	f << nbbambou;
 	if (nbbambou < 4){
