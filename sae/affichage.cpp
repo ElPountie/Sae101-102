@@ -462,40 +462,8 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderClear(rendu);
-   /*SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+   SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 
-    SDL_Rect rect; //on définit le rectangle à tracer
-
-                                //SDL_Rect est un type struct        
-
-    rect.x = LARGEUR - 100;  //coin en haut à gauche
-
-    rect.y = HAUTEUR - 75;  //coin en haut à gauche
-
-    rect.w = 80;                //largeur
-
-    rect.h = 20;                //hauteur
-
-    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255); //pinceau blanc
-
-    SDL_RenderDrawRect(rendu, &rect); //on trace un rectangle vide
-
-
-    SDL_Rect positionTexte;
-
-    positionTexte.x = LARGEUR - 98;
-
-    positionTexte.y = HAUTEUR - 75;
-
-    SDL_Texture* texture = loadText(rendu, "Start/Stop", blanc, font);
-
-    SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-
-    SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-
-    SDL_DestroyTexture(texture);
-
-    SDL_RenderPresent(rendu);*/
     //IMPORTATION IMG PANDA
 
     SDL_Surface* image = IMG_Load("panda.png");
@@ -653,23 +621,6 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                 }
                 break;
 
-            /*case SDL_MOUSEBUTTONUP://appui souris
-
-                if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
-
-                    if (event.button.x > rect.x && event.button.x<rect.x + rect.w && event.button.y>rect.y && event.button.y < rect.y + rect.h) {                                                                                                                                                                                                                                    //on retrace le rectangle avec une couleur aléatoire
-
-                        SDL_SetRenderDrawColor(rendu, rand() % 256, rand() % 256, rand() % 256, 255); //on définit une clouleur aleatoire
-
-                        SDL_RenderDrawRect(rendu, &rect); //on trace un rectangle video
-
-
-                    }
-
-                    SDL_RenderPresent(rendu);//on rafraichit
-                }
-
-                break;*/
             }
         }
     }
@@ -718,4 +669,5 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
     batterire(rendu, panda.batterie);
+    bouton(rendu, font);
 }
