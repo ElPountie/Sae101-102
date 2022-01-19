@@ -45,6 +45,15 @@ void recharge(SDL_Renderer* rendu) {
     batterie.h = 25;
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderDrawRect(rendu, &batterie);
+    SDL_Surface* chargeur = IMG_Load("Recharge.png");
+    if (!chargeur)
+    {
+        cout << "erreur";
+        return;
+    }
+
+    SDL_Texture* monchargeur = SDL_CreateTextureFromSurface(rendu, chargeur);
+    SDL_FreeSurface(chargeur);
 }
 
 void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
