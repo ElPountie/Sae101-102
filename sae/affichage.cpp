@@ -630,6 +630,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
                     //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     recharge(rendu);
+                    bouton(rendu, font);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);
@@ -701,5 +702,6 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     batterire(rendu, panda.batterie);
     statistique(rendu, tab);
     recharge(rendu);
+    bouton(rendu, font);
 
 }
