@@ -116,6 +116,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				else {
 					panda.batterie = 100;
 					pause = true;
+					recharge(rendu);
 					croissance_bambouseraie(tab, nb_cote);														//Choisis le bambou à couper
 				}
 			}
@@ -134,6 +135,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				affiche_bambou(rendu, tab, nb_cote);
 				panda.batterie -= 1;
 				batterire(rendu, panda.batterie);
+				recharge(rendu);
 				cpt_return++;
 			}
 			else if (panda.posx > cutx) {																		//Se dirige vers le bambou
@@ -159,7 +161,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 				running = false;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				if(event.button.button == SDL_BUTTON_LEFT){
+				if (event.button.button == SDL_BUTTON_LEFT) {
 					if (event.button.x > 600 && event.button.x < 790 && event.button.y > 670 && event.button.y < 690) {
 						if (pause) {
 							pause = false;
