@@ -46,7 +46,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 	SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
 	SDL_FreeSurface(image);
 
-
+	int cpt_return = 0;
 
 	SDL_Rect posImg;
 	posImg.x = 100;
@@ -65,7 +65,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 
 	SDL_Event event;
 	int record_taille = 0;
-	update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+	update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
 	SDL_RenderPresent(rendu);
 	int cutx, cuty = 100;
 	int smvitesse = Sommevitesse(tab, nb_cote, nb_cote);
