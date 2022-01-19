@@ -32,9 +32,15 @@ void ecrire_render(TTF_Font* font, SDL_Renderer* rendu, SDL_Color color, const c
     SDL_DestroyTexture(texture);
 }
 
-void nb_coupes(SDL_Renderer* rendu,TTF_Font* font) {
-    ecrire_render(font, rendu, bleu, "nb coupes", LARGEUR - 200, 250);
-    
+void nb_coupes(SDL_Renderer* rendu,TTF_Font* font,int nb_coupe) {
+    ecrire_render(font, rendu, bleu, "nb coupes", 50, 675);
+    SDL_SetRenderDrawColor(rendu, 233, 170, 240, 255);
+    SDL_Rect stat;
+    stat.x = 60;
+    stat.y = 675;
+    stat.h = 25;
+    stat.w = nb_coupe;
+    SDL_RenderFillRect(rendu, &stat);
 }
 
 void carre(SDL_Renderer* rendu,int nb_cote) {
@@ -63,7 +69,6 @@ void ecrit(SDL_Renderer* rendu, TTF_Font* font) {
     ecrire_render(font, rendu, blanc, "Legende", LARGEUR - 200, 50);
     ecrire_render(font, rendu, vert, "haut.max", LARGEUR - 200, 100);
     ecrire_render(font, rendu, violet, "haut.moy", LARGEUR - 200, 150);
-    ecrire_render(font, rendu, rouge, "haut_min", LARGEUR - 200, 200);
 }
 
 void affiche_bambou(SDL_Renderer* rendu ,Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
@@ -175,7 +180,10 @@ void background(SDL_Renderer* rendu) {
 
     SDL_RenderPresent(rendu);
 }
+
+
 // Creation Menue
+
 
 int menue() {
 
@@ -434,7 +442,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
             switch (event.key.keysym.sym) {
             case SDLK_RIGHT:
                 if (panda.batterie > 0) {
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 1,cpt_return);
                     panda.batterie-= 1;
                 }
                 else {
@@ -444,7 +452,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
             case SDLK_LEFT:
                 if (panda.batterie > 0) {
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 3,cpt_return);
                     panda.batterie -= 1;
                 }
                 else {
@@ -454,7 +462,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
             case SDLK_UP:
                 if (panda.batterie > 0) {
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 4,cpt_return);
                     panda.batterie -= 1;
                 }
                 else {
@@ -464,7 +472,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 
             case SDLK_DOWN:
                 if (panda.batterie > 0) {
-                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2);
+                    update_movment(posImg, panda, rendu, font, tab, monImage, nb_cote, 2,cpt_return);
                     panda.batterie -= 1;
                 }
                 else {
@@ -486,6 +494,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     ecrit(rendu, font);
                     affiche_bambou(rendu,tab,nb_cote);
                     batterire(rendu, panda.batterie);
+                    nb_coupes(rendu, font, cpt_return);
                 }
                 else {
                     panda.batterie = 100;
@@ -523,7 +532,7 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
 }
 
 
-void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction) {
+void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Font* font, Bambou tab[][sqrt_nb_bambou], SDL_Texture* monImage, int& nb_cote, int direction,int& cpt_return) {
     if (direction == 1) {
         if (posImg.x != 100 + 125 * (nb_cote - 1)) {
             posImg.x += 125;
@@ -557,4 +566,5 @@ void update_movment(SDL_Rect &posImg, Panda &panda, SDL_Renderer* rendu, TTF_Fon
     ecrit(rendu, font);
     affiche_bambou(rendu, tab, nb_cote);
     batterire(rendu, panda.batterie);
+    nb_coupes(rendu, font, cpt_return);
 }

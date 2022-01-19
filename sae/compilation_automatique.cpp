@@ -46,7 +46,7 @@ int start_automatic(int nb_cote, Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou]) {
 	SDL_Texture* monImage = SDL_CreateTextureFromSurface(rendu, image);
 	SDL_FreeSurface(image);
 
-
+	int cpt_return = 0;
 
 	SDL_Rect posImg;
 	posImg.x = 100;
