@@ -167,7 +167,7 @@ void affiche_stats(SDL_Renderer* rendu, Stats stats_tab[], int pos_x, int nb_cou
 
     int min_y = HAUTEUR - 420;
     int max_y = HAUTEUR - 310;
-    int moy_y = HAUTEUR - 250;
+    int moy_y = HAUTEUR - 275;
     if (nb_coupe < 100) {
         for (int i = 1; i < (nb_coupe%100); i++) {
             SDL_SetRenderDrawColor(rendu, 232, 40, 40, 255);
