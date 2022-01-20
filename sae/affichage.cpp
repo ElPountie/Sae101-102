@@ -670,8 +670,6 @@ int init(Bambou tab[sqrt_nb_bambou][sqrt_nb_bambou],int nb_cote) {
                     coupe(tab, panda.posx, panda.posy);
                     place_img(monImage, posImg, rendu);
                     statistique(rendu, tab,T, cpt_return, nb_cote);
-
-                    //courbe(rendu, tabs[], tabb, tabx, taby, taille);
                     recharge(rendu);
                     carre(rendu,nb_cote);
                     ecrit(rendu, font);
